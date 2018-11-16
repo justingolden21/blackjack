@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Blackjack Simulator</title>
+
+<meta charset="utf-8">
+<meta name="title=" content="Blackjack Simulator">
+<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Test your knowledge of what to do with different blackjack hands">
+<meta name="keywords" content="blackjack, simulator, blackjack siimulator, blackjack sim, sim, blackjack online, blackjack free, blackjack online free, blackjack free online, 21 simulator, 21 sim">
+<meta name="theme-color" content="hsl(160, 75%, 30%)">
+<meta name="msapplication-navbutton-color" content="hsl(160, 75%, 30%)">
+<meta name="apple-mobile-web-app-status-bar-style" content="hsl(160, 75%, 30%)">
+<link rel="shortcut icon" href="chip.png">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+	#playerHandDiv, #dealerHandDiv {
+		font-size: 1000%; /*larger card unicode*/
+	}
+	body, html {
+		background-color: hsl(160, 75%, 30%);
+		overflow-x: hidden; /*remove scrollbar for x-axis*/
+	}
+	br, #playerHandDiv, #dealerHandDiv, button {
+		-webkit-user-select: none; /* Safari */        
+		-moz-user-select: none; /* Firefox */
+		-ms-user-select: none; /* IE10+/Edge */
+		user-select: none; /* Standard */
+	}
+	::-moz-selection {
+		background: hsl(0, 0%, 90%) !important;
+	}
+	::selection {
+		background: hsl(0, 0%, 90%) !important;
+	}
+
+	p, h3 {
+		color: #fff;
+	}
+	h3 {
+		padding: 24px;
+		display: inline;
+	}
+	#chip {
+		width: 96px;
+	}
+	#tableDiv {
+		background-color: hsl(160, 50%, 90%);
+		color: hsl(0, 0%, 10%);
+	}
+	#optionButtons, #newHandDiv {
+		background-color: hsl(20, 75%, 30%);
+		padding: 20px;
+	}
+	body, html, button, .alert, b {
+		color: hsl(0, 0%, 10%);
+	}
+	.redcard {
+		color: hsl(0, 75%, 30%);
+	}
+
+	button {
+		background-color: hsl(0, 0%, 90%);	
+	}
+	button:focus {
+		border: 3px solid  #fff;
+		background-color: hsl(160, 75%, 30%);
+		color: #fff;
+		outline: none !important;
+		box-shadow: none !important;
+	}
+	button:disabled {
+		background-color: hsl(0, 0%, 60%);
+		color: #fff;
+		opacity: 1 !important;
+	}
+	
+	.alert {
+		border-radius: 0;
+		color: #fff;
+		border: 0px;
+	}
+	.alert-info {
+		background-color: hsl(240, 50%, 30%);
+	}
+	.alert-success {
+		background-color: hsl(160, 50%, 30%);
+	}
+	.alert-danger {
+		background-color: hsl(0, 50%, 30%);
+	}
+
+</style>
+
+</head>
+<script>
+
+//todo: tab key for navigate buttons
+
+//todo: info modal to describe table rules assumed here
+//later: cheatcard
+//later: basic rules of blackjack explained
+//later: highlight part of cheatcard for your hand
+//later edit house rule settings
+//later: show stats on percentage correct and streak
+//later: share that i stood on hard 13 against dealer 6 and got it right and only 23.7% of people did. check out blackjack sim HERE
+
+//https://www.lolblackjack.com/blackjack/probability-odds/
+//https://wizardofodds.com/games/blackjack/
+
+
+//https://en.wikipedia.org/wiki/Playing_cards_in_Unicode
+
+let deck, currentCards;
+
+let valDict = {'1':'Ace', '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', 'a':'10', 'b': 'Jack', 'd':'Queen', 'e':'King'};
+let suitDict = {'a':'Spades', 'b': 'Hearts', 'c': 'Diamonds', 'd':'Clubs'};
+
+let numCorrect = 0;
+let numWrong = 0;
+
+class Card {
+	constructor(val, char) {
+		this.char = char;
+		this.name = valDict[val[1] ] + ' of ' + suitDict[val[0] ] ;
+		this.value = parseInt(val[1]); //a through e is 10
+		if(isNaN(this.value) ) {
+			this.value = 10;
+		}
+		this.type = this.value == 1 ? 'Ace' : this.value;
+	}
+}
+
+window.onload = function() {
+	$('#hitButton').on('click', function() {handleInput('Hit') } );
+	$('#standButton').on('click', function() {handleInput('Stand') } );
+	$('#doubleButton').on('click', function() {handleInput('Double') } );
+	$('#splitButton').on('click', function() {handleInput('Split') } );
+
+	$('#newHandButton').on('click', function() {
+		$(this).css('display', 'none');
+		newHand();
+	});
+
+	$('#newHandButton').click();
+}
+
+function buildDeck() { //create deck
+	deck = [];
+	let vals = '123456789abde'.split('');
+	let suits = 'abcd'.split('');
+	for(let i=0;i<vals.length;i++) {
+		for(let j=0;j<suits.length;j++) {
+			deck.push(new Card(suits[j]+vals[i],'&#x1f0' + suits[j] + vals[i] + ';') );
+		}
+	}
+}
+
+// graphics
+function drawCardImage(card, isPlayer) {
+	let isRed = card.name.indexOf('Hearts') != -1 || card.name.indexOf('Diamonds') != -1;
+	if(isPlayer) {
+		$('#playerHandDiv').html($('#playerHandDiv').html() + '<span' + (isRed?' class="redcard"':'') +  '>' + card.char + '</span>');
+	} else {
+		$('#dealerHandDiv').html($('#dealerHandDiv').html() + '<span' + (isRed?' class="redcard"':'') +  '>' + card.char + '</span>');
+	}
+
+}
+function drawCardbackImage() {
+	$('#dealerHandDiv').html($('#dealerHandDiv').html() + '<span class="redcard">&#x1f0a0;</span>');
+}
+function clearCards() {
+	$('#playerHandDiv').html('');
+	$('#dealerHandDiv').html('');
+}
+
+function newHand() {
+	$('#optionButtons').css('display', '');
+	$('#hitButton').focus();
+
+	$('#resultAlert').addClass('alert-info');
+	$('#resultAlert').removeClass('alert-success');
+	$('#resultAlert').removeClass('alert-danger');
+	$('#resultAlert').html('Click a button to test your knowledge');
+
+	clearCards();
+	buildDeck();	
+	currentCards = [getRandomCard(deck), getRandomCard(deck), getRandomCard(deck)]; //draw 3 unique cards
+
+	drawCardImage(currentCards[0], true);
+	drawCardImage(currentCards[1], true);
+	drawCardImage(currentCards[2], false);
+	drawCardbackImage();
+
+	$('#splitButton').prop('disabled', !isSplit(currentCards) );
+
+}
+
+function isSoft(cards) {
+	return cards[0].value==1 || cards[1].value==1;
+}
+function isSplit(cards) {
+	return cards[0].value == cards[1].value;
+}
+
+function getRandomCard(deck) { //remove card and return it
+	let idx = Math.floor(Math.random()*deck.length);
+	let randCard = deck[idx];
+	deck.splice(idx, 1); //remove card
+	return randCard;
+}
+
+function handleInput(selectedOption) {
+	let correctOption = getCorrectOption(currentCards[0].value+currentCards[1].value, currentCards[2].value, isSoft(currentCards), isSplit(currentCards) );
+
+	$('#optionButtons').css('display', 'none');
+
+	let playerHandName = isSplit(currentCards) ? 'Pair of ' + currentCards[0].type + 's' : (isSoft(currentCards) ? 'Soft ' + (currentCards[0].value+currentCards[1].value+10) : 'Hard ' + (currentCards[0].value+currentCards[1].value) );
+	if(playerHandName == 'Soft 21') {
+		playerHandName = 'Blackjack';
+	}
+
+	if(correctOption == selectedOption) {
+		$('#resultAlert').html('Correct! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type);
+		$('#resultAlert').removeClass('alert-info');
+		$('#resultAlert').removeClass('alert-danger');
+		$('#resultAlert').addClass('alert-success');
+		numCorrect++;
+	} else {
+		$('#resultAlert').html('Wrong! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type + '. Not <strong>' + selectedOption + '</strong>');
+		$('#resultAlert').removeClass('alert-info');
+		$('#resultAlert').removeClass('alert-success');
+		$('#resultAlert').addClass('alert-danger');
+		numWrong++;
+		if(playerHandName=='Blackjack') {
+			window.alert('Seriously... You didn\'t stand on blackjack...');
+		}
+	}
+
+	$('#newHandButton').css('display', '');
+	$('#newHandButton').focus();
+	$('#statP').html(numCorrect + ' / ' + (numCorrect+numWrong) );
+}
+
+function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
+	if(!isSoft && !isSplit) { //normal
+		if(playerValue<=8 || (playerValue==9 && (dealerValue<=2 || dealerValue>=7) ) || (playerValue==10 && (dealerValue==1 || dealerValue==10) ) || (playerValue==11 && dealerValue==1) || (playerValue==12 && (dealerValue<=3 || dealerValue>=7) ) || (playerValue>=13 && playerValue<=16 && (dealerValue>= 7 || dealerValue==1) ) ) {
+			return 'Hit';
+		}
+		if( (playerValue==9 && dealerValue>=3 && dealerValue<=6) || (playerValue==10 && dealerValue!=10 && dealerValue!=1) || (playerValue==11 && dealerValue!=1) ) {
+			return 'Double';
+		}
+		else {
+			return 'Stand';
+		}
+
+	}
+	else if(isSplit) { //split, includes pair of aces
+		if( ( (playerValue==4 || playerValue==6 || playerValue==14) && dealerValue>=2 && dealerValue<=7 ) || (playerValue==8 && (dealerValue==5 || dealerValue==6) ) || (playerValue==12 && (dealerValue>=2 && dealerValue<=6) ) || playerValue==16 || playerValue==2 || (playerValue==18 && dealerValue!=7 && dealerValue!=10 && dealerValue!=1) ) {
+			return 'Split';			
+		}
+		if(playerValue==10 && dealerValue!=10 && dealerValue!=1) {
+			return 'Double';
+		}
+		if(playerValue==20 || (playerValue==18 && (dealerValue==7 || dealerValue==10 || dealerValue==1) ) ) {
+			return 'Stand';
+		}
+		else {
+			return 'Hit';
+		}
+
+	}
+	else { //soft, doesn't include pair of aces
+		//aces handled as 1 not 11
+		if(playerValue==11 || playerValue==9 || playerValue==10 || (playerValue==8 && (dealerValue==2 || dealerValue==7 || dealerValue==8) ) ) {
+			return 'Stand';
+		}
+		if(dealerValue==5 || dealerValue==6 || (dealerValue==4 && playerValue>=5) || (dealerValue==3 && playerValue>=7) ) {
+			return 'Double';
+		}
+		return 'Hit';
+	}
+}
+
+</script>
+<body>
+<div class="text-center">
+
+<br><img id="chip" src="chip.svg"> <h3>Blackjack Simulator</h3>
+<br><br>
+
+<div id="tableDiv" class="row">
+<div class="col-sm-6">
+	<br>
+	<b>Your Hand</b>
+	<div id="playerHandDiv"></div>
+</div>
+<div class="col-sm-6">
+	<br>
+	<b>Dealer's Hand</b>
+	<div id="dealerHandDiv"></div>
+</div>
+</div>
+
+<div id="optionButtons">
+<button class="btn btn-default" id="hitButton">Hit</button>
+<button class="btn btn-default" id="standButton">Stand</button>
+<button class="btn btn-default" id="doubleButton">Double</button>
+<button class="btn btn-default" id="splitButton">Split</button>
+</div>
+
+<div id="newHandDiv">
+<button class="btn btn-default" id="newHandButton">New Hand</button>
+</div>
+
+<div id="resultAlert" class="alert" role="alert"></div>
+
+<p id="statP">0/0</p>
+
+</div>
+</body>
+</html>
