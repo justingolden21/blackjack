@@ -21,11 +21,14 @@
 
 <style type="text/css">
 	#playerHandDiv, #dealerHandDiv {
-		font-size: 900%; /*larger card unicode*/
+		font-size: 1200%; /*larger card unicode*/
 	}
 	body, html {
-		background-color: hsl(160, 75%, 30%);
+		background-color: hsl(160, 75%, 30%) !important;
 		overflow-x: hidden; /*remove scrollbar for x-axis*/
+	}
+	#headerDiv {
+		background-color: hsl(160, 75%, 30%) !important;
 	}
 	br, #playerHandDiv, #dealerHandDiv, button {
 		-webkit-user-select: none; /* Safari */        
@@ -39,6 +42,10 @@
 	::selection {
 		background: hsl(0, 0%, 90%) !important;
 	}
+/*	.col-sm-6, .row, div {
+		margin: 0 !important;
+		padding: 0 !important;
+	}*/
 
 	p, h3 {
 		color: #fff;
@@ -47,8 +54,11 @@
 		padding: 24px;
 		display: inline;
 	}
-	#chip {
-		width: 96px;
+	b, h3 {
+		font-size: 140%;
+	}
+	.chip {
+		width: 72px;
 	}
 	#tableDiv {
 		background-color: hsl(160, 50%, 90%);
@@ -66,9 +76,17 @@
 	}
 
 	button {
-		background-color: hsl(0, 0%, 90%);	
+		background-color: hsl(0, 0%, 90%);
+		border-radius: 0 !important;
+		margin: 5px;
 	}
-	button:focus {
+	summary, #history {
+		color: #fff;
+	}
+	.correct-history, .wrong-history {
+		padding: 6px;
+	}
+	button:focus, summary:focus {
 		border: 3px solid  #fff;
 		background-color: hsl(160, 75%, 30%);
 		color: #fff;
@@ -89,11 +107,23 @@
 	.alert-info {
 		background-color: hsl(240, 50%, 30%);
 	}
-	.alert-success {
+	.alert-success, .correct-history {
 		background-color: hsl(160, 50%, 30%);
 	}
-	.alert-danger {
+	.alert-danger, .wrong-history {
 		background-color: hsl(0, 50%, 30%);
+	}
+
+	@media (max-width: 768px) {
+		#playerHandDiv, #dealerHandDiv {
+			font-size: 800%;
+		}
+		.chip {
+			width: 48px;
+		}
+		b, h3 {
+			font-size: 120%;
+		}
 	}
 
 </style>
@@ -101,8 +131,9 @@
 </head>
 <script>
 
-//todo: tab key for navigate buttons
-
+//say you can navigate with arrows
+//todo: console/history of correctly and incorrectly guessed hands
+//later: surrender? optional/checkbox?
 //todo: info modal to describe table rules assumed here
 //later: cheatcard
 //later: basic rules of blackjack explained
@@ -144,11 +175,24 @@ window.onload = function() {
 	$('#splitButton').on('click', function() {handleInput('Split') } );
 
 	$('#newHandButton').on('click', function() {
-		$(this).css('display', 'none');
+		$('#newHandDiv').css('display', 'none');
 		newHand();
 	});
 
 	$('#newHandButton').click();
+}
+
+window.onkeyup = function(e) {
+	let key = e.keyCode ? e.keyCode : e.which;
+	if(key == 37) { //left
+		if($(':focus').is('.btn') ) {
+			$(':focus').prev('.btn').focus();
+		}
+	} else if(key == 39) { //right
+		if($(':focus').is('.btn') ) {
+			$(':focus').next('.btn').focus();
+		}
+	}
 }
 
 function buildDeck() { //create deck
@@ -227,13 +271,17 @@ function handleInput(selectedOption) {
 	}
 
 	if(correctOption == selectedOption) {
-		$('#resultAlert').html('Correct! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type);
+		let infoStr = 'Correct! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type;
+		$('#history').html('<br><span class="correct-history">' + infoStr + '</span><br>' + $('#history').html() );
+		$('#resultAlert').html(infoStr);
 		$('#resultAlert').removeClass('alert-info');
 		$('#resultAlert').removeClass('alert-danger');
 		$('#resultAlert').addClass('alert-success');
 		numCorrect++;
 	} else {
-		$('#resultAlert').html('Wrong! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type + '. Not <strong>' + selectedOption + '</strong>');
+		let infoStr = 'Wrong! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type + '. Not <strong>' + selectedOption + '</strong>';
+		$('#history').html('<br><span class="wrong-history">' + infoStr + '</span><br>' + $('#history').html() );
+		$('#resultAlert').html(infoStr);
 		$('#resultAlert').removeClass('alert-info');
 		$('#resultAlert').removeClass('alert-success');
 		$('#resultAlert').addClass('alert-danger');
@@ -243,7 +291,7 @@ function handleInput(selectedOption) {
 		}
 	}
 
-	$('#newHandButton').css('display', '');
+	$('#newHandDiv').css('display', '');
 	$('#newHandButton').focus();
 	$('#statP').html(numCorrect + ' / ' + (numCorrect+numWrong) );
 }
@@ -292,8 +340,10 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 <body>
 <div class="text-center">
 
-<br><img id="chip" src="chip.svg"> <h3>Blackjack Simulator</h3>
+<div id="headerDiv">
+<br><img class="chip" src="chip.svg"> <h3>Blackjack Simulator</h3><img class="chip" src="chip.svg">
 <br><br>
+</div>
 
 <div id="tableDiv" class="row">
 <div class="col-sm-6">
@@ -309,10 +359,10 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 </div>
 
 <div id="optionButtons">
-<button class="btn btn-default" id="hitButton">Hit</button>
-<button class="btn btn-default" id="standButton">Stand</button>
-<button class="btn btn-default" id="doubleButton">Double</button>
-<button class="btn btn-default" id="splitButton">Split</button>
+<button class="btn btn-lg" id="hitButton">Hit</button>
+<button class="btn btn-lg" id="standButton">Stand</button>
+<button class="btn btn-lg" id="doubleButton">Double</button>
+<button class="btn btn-lg" id="splitButton">Split</button>
 </div>
 
 <div id="newHandDiv">
@@ -322,6 +372,14 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 <div id="resultAlert" class="alert" role="alert"></div>
 
 <p id="statP">0/0</p>
+
+<details>
+<summary>History</summary>
+<span id="history">
+</span>
+</details>
+
+<br>
 
 </div>
 </body>
