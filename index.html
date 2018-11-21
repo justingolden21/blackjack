@@ -77,14 +77,13 @@
 		border-radius: 0 !important;
 		margin: 5px;
 	}
-	summary, #history {
+	#history {
 		color: #fff;
-
 	}
 	.correct-history, .wrong-history {
 		padding: 6px;
 	}
-	button:focus:not(.close), summary:focus {
+	button:focus:not(.close) {
 		border: 3px solid  #fff;
 		background-color: hsl(160, 75%, 30%);
 		color: #fff;
@@ -438,18 +437,15 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 </div>
 
 <div class="modal fade" id="historyModal">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title"><i class="fas fa-history"></i> History</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-		<details>
-		<summary>History</summary>
 		<span id="history">
 		</span>
-		</details>
       </div>
     </div>
   </div>
