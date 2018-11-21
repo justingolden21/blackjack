@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Blackjack Simulator</title>
+<title>Blackjack Strategy Practice</title>
 
 <meta charset="utf-8">
-<meta name="title=" content="Blackjack Simulator">
+<meta name="title=" content="Blackjack Strategy Practice">
 <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Test your knowledge of what to do with different blackjack hands">
-<meta name="keywords" content="blackjack, simulator, blackjack siimulator, blackjack sim, sim, blackjack online, blackjack free, blackjack online free, blackjack free online, 21 simulator, 21 sim">
+<meta name="keywords" content="blackjack, strategy, simulator, practice, blackjack siimulator, blackjack strategy, blackjack practice, blackjack sim, sim, blackjack strategy practice, blackjack online, blackjack free, blackjack online free, blackjack free online, 21 simulator, 21 sim">
 <meta name="theme-color" content="hsl(160, 75%, 30%)">
 <meta name="msapplication-navbutton-color" content="hsl(160, 75%, 30%)">
 <meta name="apple-mobile-web-app-status-bar-style" content="hsl(160, 75%, 30%)">
 <link rel="shortcut icon" href="chip.png">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
@@ -42,10 +42,6 @@
 	::selection {
 		background: hsl(0, 0%, 90%) !important;
 	}
-/*	.col-sm-6, .row, div {
-		margin: 0 !important;
-		padding: 0 !important;
-	}*/
 
 	p, h3 {
 		color: #fff;
@@ -83,11 +79,12 @@
 	}
 	summary, #history {
 		color: #fff;
+
 	}
 	.correct-history, .wrong-history {
 		padding: 6px;
 	}
-	button:focus, summary:focus {
+	button:focus:not(.close), summary:focus {
 		border: 3px solid  #fff;
 		background-color: hsl(160, 75%, 30%);
 		color: #fff;
@@ -115,6 +112,10 @@
 		background-color: hsl(0, 50%, 30%);
 	}
 
+	.modal-body p {
+		color: hsl(0, 0%, 10%) !important;
+	}
+
 	@media (max-width: 768px) {
 		#playerHandDiv, #dealerHandDiv {
 			font-size: 800%;
@@ -132,22 +133,25 @@
 </head>
 <script>
 
-//say you can navigate with arrows
-//todo: console/history of correctly and incorrectly guessed hands
-//later: surrender? optional/checkbox?
-//todo: info modal to describe table rules assumed here
-//later: cheatcard
-//later: basic rules of blackjack explained
-//later: highlight part of cheatcard for your hand
-//later edit house rule settings
-//later: show stats on percentage correct and streak
-//later: share that i stood on hard 13 against dealer 6 and got it right and only 23.7% of people did. check out blackjack sim HERE
+//later: basic rules of blackjack explained modal. like wiki
+//later: cheatcard modal. highlight your hand in cheatcard. like bottom of this: https://wizardofodds.com/games/blackjack/appendix/1/
+//later: odds on each hand modal. highlight hand in table. like this: https://wizardofodds.com/games/blackjack/appendix/1/
+//later: enter your hand and dealer's and show odds modal. like this: https://wizardofodds.com/games/blackjack/hand-calculator/
 
-//https://www.lolblackjack.com/blackjack/probability-odds/
-//https://wizardofodds.com/games/blackjack/
+//import and export stats to .txt
+
+//test modals on mobile ui
+
+//maybe edit house rule settings, show stats on percentage corrct and streak
+//maybe: share that i stood on hard 13 against dealer 6 and got it right and only 23.7% of people did. check out blackjack sim HERE
+
 
 
 //https://en.wikipedia.org/wiki/Playing_cards_in_Unicode
+//https://wizardofodds.com/games/blackjack/
+//https://wizardofodds.com/games/blackjack/appendix/1/
+//https://www.lolblackjack.com/blackjack/probability-odds/
+//https://github.com/RochesterinNYC/BlackjackStrategyTester
 
 let deck, currentCards;
 
@@ -156,6 +160,7 @@ let suitDict = {'a':'Spades', 'b': 'Hearts', 'c': 'Diamonds', 'd':'Clubs'};
 
 let numCorrect = 0;
 let numWrong = 0;
+let numStreak = 0;
 
 class Card {
 	constructor(val, char) {
@@ -279,6 +284,7 @@ function handleInput(selectedOption) {
 		$('#resultAlert').removeClass('alert-danger');
 		$('#resultAlert').addClass('alert-success');
 		numCorrect++;
+		numStreak++;
 	} else {
 		let infoStr = 'Wrong! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type + '. Not <strong>' + selectedOption + '</strong>';
 		$('#history').html('<br><span class="wrong-history">' + infoStr + '</span><br>' + $('#history').html() );
@@ -287,6 +293,7 @@ function handleInput(selectedOption) {
 		$('#resultAlert').removeClass('alert-success');
 		$('#resultAlert').addClass('alert-danger');
 		numWrong++;
+		numStreak = 0;
 		if(playerHandName=='Blackjack') {
 			window.alert('Seriously... You didn\'t stand on blackjack...');
 		}
@@ -294,7 +301,7 @@ function handleInput(selectedOption) {
 
 	$('#newHandDiv').css('display', '');
 	$('#newHandButton').focus();
-	$('#statP').html(numCorrect + ' / ' + (numCorrect+numWrong) );
+	$('#statP').html(numStreak + '<br>' + numCorrect + ' / ' + (numCorrect+numWrong) );
 }
 
 function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
@@ -342,7 +349,7 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 <div class="text-center">
 
 <div id="headerDiv">
-<br><img class="chip" src="chip.svg"> <h3>Blackjack Simulator</h3>
+<br><img class="chip" src="chip.svg"> <h3>Blackjack Strategy Practice</h3>
 <br><br>
 </div>
 
@@ -372,15 +379,81 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 
 <div id="resultAlert" class="alert" role="alert"></div>
 
-<p id="statP">0/0</p>
+<button type="button" class="btn btn" data-toggle="modal" data-target="#infoModal" title="About this website"><i class="fas fa-info-circle"></i> About</button>
+<button type="button" class="btn btn" data-toggle="modal" data-target="#rulesModal" title="Table rules"><i class="fas fa-info-circle"></i> Table Rules</button>
+<button type="button" class="btn btn" data-toggle="modal" data-target="#historyModal" title="Your hand history"><i class="fas fa-history"></i> History</button>
 
-<details>
-<summary>History</summary>
-<span id="history">
-</span>
-</details>
+
+<p id="statP">0<br>0/0</p>
 
 <br>
+
+
+<div class="modal fade" id="infoModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fas fa-info-circle"></i> About</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <b>Using the website</b>
+        <p>Select the best available option and we will tell you if your choice was statistically correct.</p>
+        <p>Your streak and totals are shown below.</p>
+        <p>You can use the left <kbd><i class="fas fa-caret-left"></i></kbd> and right <kbd><i class="fas fa-caret-right"></i></kbd> arrow keys to change buttons and the <kbd>Enter</kbd> key to submit.</p>
+      	<b>About</b>
+      	<p>V.1.0.1</p>
+      	<p>Made by <a href="https://justingolden21.github.io" target="_blank">Justin Golden</a></p>
+      	<p> Contact me at <a href="mailto:justingolden@rgbstudios.org" target="_blank"><i class="fas fa-envelope"></i> justingolden@rgbstudios.org</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="rulesModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fas fa-info-circle"></i> Table Rules</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <b>Table Rules</b>
+        <p>This website assumes the following table rules: 
+        	<ul>
+        	<li>dealer stands on a soft 17</li>
+        	<li>infinite size deck</li>
+        	<li>double after a split allowed</li>
+        	<li>split up to three times except aces</li>
+        	<li>draw only one card per split ace</li>
+        	</ul>
+        Based on these rules, the player's expected value is -0.511734%.</p>
+        <p>This website does not feature a surrender option, however if one is allowed, you should surender only on hard 16 against 9, 10, or ace, or hard 15 against 10.</p>
+        <p>Data is from <a href="https://wizardofodds.com/games/blackjack/appendix/1/" target="_blank">wizardofodds.com</a>.</p>
+        <p>For how to play blackjack, feel free to read <a href="https://en.wikipedia.org/wiki/Blackjack" target="_blank">Blackjack on Wikipedia</a>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="historyModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fas fa-history"></i> History</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+		<details>
+		<summary>History</summary>
+		<span id="history">
+		</span>
+		</details>
+      </div>
+    </div>
+  </div>
+</div>
 
 </div>
 </body>
