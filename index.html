@@ -65,7 +65,7 @@
 		background-color: hsl(20, 75%, 30%);
 		padding: 20px;
 	}
-	body, html, button, .alert, b {
+	body, html, button, .alert, b, #noHistory {
 		color: hsl(0, 0%, 10%);
 	}
 	.redcard {
@@ -125,6 +125,9 @@
 		b, h3 {
 			font-size: 120%;
 		}
+		.correct-history, .wrong-history {
+			font-size: 90%;
+		}
 	}
 
 </style>
@@ -139,7 +142,6 @@
 
 //import and export stats to .txt
 
-//test modals on mobile ui
 
 //maybe edit house rule settings, show stats on percentage corrct and streak
 //maybe: share that i stood on hard 13 against dealer 6 and got it right and only 23.7% of people did. check out blackjack sim HERE
@@ -275,6 +277,7 @@ function handleInput(selectedOption) {
 		playerHandName = 'Blackjack';
 	}
 
+	$('#noHistory').css('display','none');
 	if(correctOption == selectedOption) {
 		let infoStr = 'Correct! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type;
 		$('#history').html('<br><span class="correct-history">' + infoStr + '</span><br>' + $('#history').html() );
@@ -300,7 +303,7 @@ function handleInput(selectedOption) {
 
 	$('#newHandDiv').css('display', '');
 	$('#newHandButton').focus();
-	$('#statP').html(numStreak + '<br>' + numCorrect + ' / ' + (numCorrect+numWrong) );
+	$('#statP').html('streak: ' + numStreak + '<br>' + numCorrect + ' / ' + (numCorrect+numWrong) );
 }
 
 function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
@@ -382,11 +385,9 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 <button type="button" class="btn btn" data-toggle="modal" data-target="#rulesModal" title="Table rules"><i class="fas fa-info-circle"></i> Table Rules</button>
 <button type="button" class="btn btn" data-toggle="modal" data-target="#historyModal" title="Your hand history"><i class="fas fa-history"></i> History</button>
 
-
-<p id="statP">0<br>0/0</p>
+<p id="statP">streak: 0<br>0 / 0</p>
 
 <br>
-
 
 <div class="modal fade" id="infoModal">
   <div class="modal-dialog">
@@ -400,7 +401,7 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
         <p>Select the best available option and we will tell you if your choice was statistically correct.</p>
         <p>Your streak and totals are shown below.</p>
         <p>You can use the left <kbd><i class="fas fa-caret-left"></i></kbd> and right <kbd><i class="fas fa-caret-right"></i></kbd> arrow keys to change buttons and the <kbd>Enter</kbd> key to submit.</p>
-      	<b>About</b>
+      	<hr>
       	<p>V.1.0.1</p>
       	<p>Made by <a href="https://justingolden21.github.io" target="_blank">Justin Golden</a></p>
       	<p> Contact me at <a href="mailto:justingolden@rgbstudios.org" target="_blank"><i class="fas fa-envelope"></i> justingolden@rgbstudios.org</a></p>
@@ -409,9 +410,8 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
   </div>
 </div>
 
-
 <div class="modal fade" id="rulesModal">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title"><i class="fas fa-info-circle"></i> Table Rules</h4>
@@ -421,14 +421,15 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
         <b>Table Rules</b>
         <p>This website assumes the following table rules: 
         	<ul>
-        	<li>dealer stands on a soft 17</li>
-        	<li>infinite size deck</li>
-        	<li>double after a split allowed</li>
-        	<li>split up to three times except aces</li>
-        	<li>draw only one card per split ace</li>
+        	<li>Dealer stands on a soft 17</li>
+        	<li>Infinite size deck</li>
+        	<li>Double after a split allowed</li>
+        	<li>Split up to three times except aces</li>
+        	<li>Draw only one card per split ace</li>
         	</ul>
         Based on these rules, the player's expected value is -0.511734%.</p>
         <p>This website does not feature a surrender option, however if one is allowed, you should surender only on hard 16 against 9, 10, or ace, or hard 15 against 10.</p>
+        <hr>
         <p>Data is from <a href="https://wizardofodds.com/games/blackjack/appendix/1/" target="_blank">wizardofodds.com</a>.</p>
         <p>For how to play blackjack, feel free to read <a href="https://en.wikipedia.org/wiki/Blackjack" target="_blank">Blackjack on Wikipedia</a>.</p>
       </div>
@@ -445,6 +446,11 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
       </div>
       <div class="modal-body">
 		<span id="history">
+			<span id="noHistory">
+				<strong>There is no history. </strong> 
+				<br>
+				<i class="fas fa-info-circle"></i><i> Click "Hit", "Stand", "Double", or "Split" to get started.</i>
+			</span>
 		</span>
       </div>
     </div>
