@@ -140,6 +140,8 @@
 
 //todo: button doesnt focus on page load?
 //todo: checkbox not ugly
+//todo: bargraph for odds?
+//todo: display only difficult cases
 
 //later: basic rules of blackjack explained modal. like wiki
 //later: cheatcard modal. highlight your hand in cheatcard. like bottom of this: https://wizardofodds.com/games/blackjack/appendix/1/
@@ -313,6 +315,9 @@ function handleInput(selectedOption) {
 	if(handIsSoft) {
 		playerValue += 10;
 	}
+	if(dealerValue == 1) {
+		dealerValue = 'ace';
+	}
 
 	if($('#drawOddsCheckbox').is(':checked') ) {
 		drawOdds(playerValue, dealerValue, handIsSoft, handIsSplit);
@@ -356,9 +361,6 @@ function handleInput(selectedOption) {
 }
 
 function drawOdds(playerValue, dealerValue, isSoft, isSplit) {
-	if(dealerValue == 1) {
-		dealerValue = 'ace';
-	}
 
 	$('#oddsInfo').html('');
 	$('#oddsInfo').append('<br>Double: ' + getDoubleOdds(playerValue, dealerValue, isSoft) );
@@ -383,7 +385,32 @@ function getStandOdds(playerValue, dealerValue) {
 	return standData[playerValue.toString()][dealerValue.toString()];
 }
 
+//todo: test
 function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
+	let doubleOdds = getDoubleOdds(playerValue, dealerValue, isSoft);
+	let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
+	let splitOdds = -2; //default so we never pick split as best option if hand isn't split
+	if(isSplit) {
+		splitOdds= getSplitOdds(playerValue, dealerValue);		
+	}
+	let standOdds = getStandOdds(playerValue,dealerValue);
+
+	let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
+	if(bestOdds==doubleOdds) {
+		return 'Double';
+	}
+	if(bestOdds==hitOdds) {
+		return 'Hit';
+	}
+	if(bestOdds==standOdds) {
+		return 'Stand';
+	}
+	if(bestOdds==splitOdds) {
+		return 'Split';
+	}
+}
+
+function oldGetCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 
 	if(!isSoft && !isSplit) { //normal
 		if(playerValue<=8 || (playerValue==9 && (dealerValue<=2 || dealerValue>=7) ) || (playerValue==10 && (dealerValue==1 || dealerValue==10) ) || (playerValue==11 && dealerValue==1) || (playerValue==12 && (dealerValue<=3 || dealerValue>=7) ) || (playerValue>=13 && playerValue<=16 && (dealerValue>= 7 || dealerValue==1) ) ) {
