@@ -15,6 +15,7 @@
 <link rel="shortcut icon" href="chip.png">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
@@ -163,6 +164,11 @@ let numCorrect = 0;
 let numWrong = 0;
 let numStreak = 0;
 
+let doubleData, hitData, splitData, standData;
+
+//double with hard 4 against dealer 2
+//doubleData['hard 4']['2'];
+
 class Card {
 	constructor(val, char) {
 		this.char = char;
@@ -175,7 +181,23 @@ class Card {
 	}
 }
 
+
 window.onload = function() {
+
+	$.getJSON('data/double.json', function(data) {
+		doubleData = data;
+	});
+	$.getJSON('data/hit.json', function(data) {
+		hitData = data;
+	});
+	$.getJSON('data/split.json', function(data) {
+		splitData = data;
+	});
+	$.getJSON('data/stand.json', function(data) {
+		standData = data;
+	});
+
+
 	$('#hitButton').on('click', function() {handleInput('Hit') } );
 	$('#standButton').on('click', function() {handleInput('Stand') } );
 	$('#doubleButton').on('click', function() {handleInput('Double') } );
