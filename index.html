@@ -78,7 +78,7 @@
 		border-radius: 0 !important;
 		margin: 5px;
 	}
-	#history {
+	#history, #oddsInfo {
 		color: #fff;
 	}
 	.correct-history, .wrong-history {
@@ -135,6 +135,11 @@
 
 </head>
 <script>
+
+//todo
+
+//todo: button doesnt focus on page load?
+//todo: checkbox not ugly
 
 //later: basic rules of blackjack explained modal. like wiki
 //later: cheatcard modal. highlight your hand in cheatcard. like bottom of this: https://wizardofodds.com/games/blackjack/appendix/1/
@@ -202,6 +207,13 @@ window.onload = function() {
 	$('#standButton').on('click', function() {handleInput('Stand') } );
 	$('#doubleButton').on('click', function() {handleInput('Double') } );
 	$('#splitButton').on('click', function() {handleInput('Split') } );
+
+	$('#drawOddsCheckbox').on('change', function() {
+		if(! $(this).is(':checked') ) {
+			//clear oddsInfo, otherwise if it used to be checked previous odds will still display
+			$('#oddsInfo').html('');
+		}
+	});
 
 	$('#newHandButton').on('click', function() {
 		$('#newHandDiv').css('display', 'none');
@@ -271,6 +283,9 @@ function newHand() {
 	drawCardImage(currentCards[2], false);
 	drawCardbackImage();
 
+	//todo: if checkbox, have dropdown for odds when hand dealt, not just after
+	//drawOdds(currentCards[0].value+currentCards[1].value, currentCards[2].value, isSoft(currentCards), isSplit(currentCards) );
+
 	$('#splitButton').prop('disabled', !isSplit(currentCards) );
 
 }
@@ -290,7 +305,19 @@ function getRandomCard(deck) { //remove card and return it
 }
 
 function handleInput(selectedOption) {
-	let correctOption = getCorrectOption(currentCards[0].value+currentCards[1].value, currentCards[2].value, isSoft(currentCards), isSplit(currentCards) );
+
+	let playerValue = currentCards[0].value+currentCards[1].value;
+	let dealerValue = currentCards[2].value;
+	let handIsSoft = isSoft(currentCards);
+	let handIsSplit = isSplit(currentCards);
+	if(handIsSoft) {
+		playerValue += 10;
+	}
+
+	if($('#drawOddsCheckbox').is(':checked') ) {
+		drawOdds(playerValue, dealerValue, handIsSoft, handIsSplit);
+	}
+	let correctOption = getCorrectOption(playerValue, dealerValue, handIsSoft, handIsSplit);
 
 	$('#optionButtons').css('display', 'none');
 
@@ -328,7 +355,36 @@ function handleInput(selectedOption) {
 	$('#statP').html('streak: ' + numStreak + '<br>' + numCorrect + ' / ' + (numCorrect+numWrong) );
 }
 
+function drawOdds(playerValue, dealerValue, isSoft, isSplit) {
+	if(dealerValue == 1) {
+		dealerValue = 'ace';
+	}
+
+	$('#oddsInfo').html('');
+	$('#oddsInfo').append('<br>Double: ' + getDoubleOdds(playerValue, dealerValue, isSoft) );
+	$('#oddsInfo').append('<br>Hit: ' + getHitOdds(playerValue, dealerValue, isSoft) );
+	if(isSplit) {
+		$('#oddsInfo').append('<br>Split: ' + getSplitOdds(playerValue, dealerValue) );
+	}
+	$('#oddsInfo').append('<br>Stand: ' + getStandOdds(playerValue, dealerValue) );
+}
+
+// return the players expecte value if they take that action given those hands
+function getDoubleOdds(playerValue, dealerValue, isSoft) {
+	return doubleData[(isSoft?'soft ':'hard ') + playerValue][dealerValue.toString()];
+}
+function getHitOdds(playerValue, dealerValue, isSoft) {
+	return hitData[(isSoft?'soft ':'hard ') + playerValue][dealerValue.toString()];	
+}
+function getSplitOdds(playerValue, dealerValue) {
+	return splitData['pair ' + playerValue/2][dealerValue.toString()];	
+}
+function getStandOdds(playerValue, dealerValue) {
+	return standData[playerValue.toString()][dealerValue.toString()];
+}
+
 function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
+
 	if(!isSoft && !isSplit) { //normal
 		if(playerValue<=8 || (playerValue==9 && (dealerValue<=2 || dealerValue>=7) ) || (playerValue==10 && (dealerValue==1 || dealerValue==10) ) || (playerValue==11 && dealerValue==1) || (playerValue==12 && (dealerValue<=3 || dealerValue>=7) ) || (playerValue>=13 && playerValue<=16 && (dealerValue>= 7 || dealerValue==1) ) ) {
 			return 'Hit';
@@ -357,11 +413,11 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 
 	}
 	else { //soft, doesn't include pair of aces
-		//aces handled as 1 not 11
-		if(playerValue==11 || playerValue==9 || playerValue==10 || (playerValue==8 && (dealerValue==2 || dealerValue==7 || dealerValue==8) ) ) {
+		//aces handled as 11
+		if(playerValue==21 || playerValue==19 || playerValue==20 || (playerValue==18 && (dealerValue==2 || dealerValue==7 || dealerValue==8) ) ) {
 			return 'Stand';
 		}
-		if(dealerValue==5 || dealerValue==6 || (dealerValue==4 && playerValue>=5) || (dealerValue==3 && playerValue>=7) ) {
+		if(dealerValue==5 || dealerValue==6 || (dealerValue==4 && playerValue>=15) || (dealerValue==3 && playerValue>=17) ) {
 			return 'Double';
 		}
 		return 'Hit';
@@ -399,6 +455,7 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 
 <div id="newHandDiv">
 <button class="btn btn-default" id="newHandButton">New Hand</button>
+<span id="oddsInfo"></span>
 </div>
 
 <div id="resultAlert" class="alert" role="alert"></div>
@@ -406,6 +463,7 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 <button type="button" class="btn btn" data-toggle="modal" data-target="#infoModal" title="About this website"><i class="fas fa-info-circle"></i> About</button>
 <button type="button" class="btn btn" data-toggle="modal" data-target="#rulesModal" title="Table rules"><i class="fas fa-info-circle"></i> Table Rules</button>
 <button type="button" class="btn btn" data-toggle="modal" data-target="#historyModal" title="Your hand history"><i class="fas fa-history"></i> History</button>
+<button type="button" class="btn btn" data-toggle="modal" data-target="#optionsModal" title="Website options and settings"><i class="fas fa-cog"></i> Options</button>
 
 <p id="statP">streak: 0<br>0 / 0</p>
 
@@ -474,6 +532,21 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 				<i class="fas fa-info-circle"></i><i> Click "Hit", "Stand", "Double", or "Split" to get started.</i>
 			</span>
 		</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="optionsModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fas fa-cog"></i> Options</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      	<input id="drawOddsCheckbox" type="checkbox">
+      	<label for="drawOddsCheckbox">Display Hand Odds</label>
       </div>
     </div>
   </div>
