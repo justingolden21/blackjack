@@ -1,14 +1,20 @@
-# <img src="chip.svg" width="128px"> Blackjack Simulator
+### Factorio
 
 ### About
 
-Test your knowledge of what to do with different blackjack hands with this fun and simple simulator.
+Enter your input and output belt numbers and find an image and copy code for that balancer.
+
+Select your belt color, suggest edits, and read about the basics of balancers.
+
+### Todo
+
+Everything
 
 ### Links
 
-- Live website: https://justingolden21.github.io/blackjack/
+- Live website: https://justingolden21.github.io/factorio/
 
-- This repo: https://github.com/justingolden21/blackjack
+- This repo: https://github.com/justingolden21/factorio
 
 <hr>
 
