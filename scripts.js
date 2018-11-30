@@ -1,6 +1,5 @@
 //todo
 
-//todo: move script and css to different files
 //todo: checkbox not ugly, like songsearcher using fontawesome
 //todo: bargraph for odds?
 //todo: display only difficult cases
@@ -85,6 +84,85 @@ window.onload = function() {
 	});
 
 	$('#newHandButton').click();
+
+	// drag and drop
+	$('#clearDragButton').on('click', function() {
+		$('#dealerHandDrag').html('Dealer\'s Hand<br>');
+		$('#playerHandDrag').html('Player\'s Hand<br>');
+		$('#calculateInfoP').html('');
+	});
+
+	$('#calculateHandButton').on('click', function() {
+		let dealerHandCards = document.getElementById('dealerHandDrag').children;
+		if(dealerHandCards[1] == undefined) {
+			$('#calculateInfoP').html('Please enter dealer hand.');
+			return;
+		}
+		let dealerVal = parseInt(dealerHandCards[1].id.replace('card', '') );
+
+		let playerHandCards = document.getElementById('playerHandDrag').children;
+
+		if(playerHandCards[1] == undefined) {
+			$('#calculateInfoP').html('Please enter player hand.');
+			return;
+		}
+
+		let playerVals = [];
+		for(let i=1; i<playerHandCards.length; i++) { //start at 1 because they have p elements in front
+			playerVals.push(parseInt(playerHandCards[i].id.replace('card', '') ) );
+		}
+
+		let numAces = 0;
+		let playerValue = 0;
+		let isSplit = playerVals.length == 2 && playerVals[0] == playerVals[1]; //exactly 2 cards and they're the same
+		for(let i=0; i<playerVals.length; i++) {
+			if(playerVals[i] != 1) {
+				playerValue += playerVals[i];
+			} else { //aces
+				playerValue += 11;
+				numAces++;
+			}
+		}
+		for(;numAces>0 && playerValue>21; numAces--) {
+			//'use' ace
+			playerValue -= 10;
+		}
+		let isSoft = numAces > 0; //if any 'unused' aces
+
+		let dealerValue = dealerVal;
+
+		if(playerValue < 4) { //for get odds
+			playerValue = 4;
+		}
+
+		if(playerValue > 21) {
+			$('#calculateInfoP').html('Hand over 21. Bust.');
+		} else {
+			let infoStr = '';
+
+			let doubleOdds = getDoubleOdds(playerValue, dealerValue, isSoft);
+			let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
+			let splitOdds = -2; //default so we never pick split as best option if hand isn't split
+			if(isSplit) {
+				splitOdds = getSplitOdds(playerValue, dealerValue);		
+			}
+			let standOdds = getStandOdds(playerValue,dealerValue);
+
+			let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
+
+			infoStr += '<br><span class="odds-option ' + (doubleOdds == bestOdds ? 'best-pick' : '') + '">Double: ' + doubleOdds + '</span><br>';
+			infoStr += '<br><span class="odds-option ' + (hitOdds == bestOdds ? 'best-pick' : '') + '">Hit: ' + hitOdds + '</span><br>';
+			if(isSplit) {
+				infoStr += '<br><span class="odds-option ' + (splitOdds == bestOdds ? 'best-pick' : '') + '">Split: ' + splitOdds + '</span><br>';
+			}
+			infoStr += '<br><span class="odds-option ' + (standOdds == bestOdds ? 'best-pick' : '') + '">Stand: ' + standOdds + '</span><br>';
+
+			$('#calculateInfoP').html(infoStr);
+		}
+
+	});
+
+
 }
 
 window.onkeyup = function(e) {
@@ -180,6 +258,9 @@ function handleInput(selectedOption) {
 	if(dealerValue == 1) {
 		dealerValue = 'ace';
 	}
+	if(playerValue < 4) { //for get odds
+		playerValue = 4;
+	}
 
 	if($('#drawOddsCheckbox').is(':checked') ) {
 		drawOdds(playerValue, dealerValue, handIsSoft, handIsSplit);
@@ -247,13 +328,12 @@ function getStandOdds(playerValue, dealerValue) {
 	return standData[playerValue.toString()][dealerValue.toString()];
 }
 
-//todo: test
 function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 	let doubleOdds = getDoubleOdds(playerValue, dealerValue, isSoft);
 	let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
 	let splitOdds = -2; //default so we never pick split as best option if hand isn't split
 	if(isSplit) {
-		splitOdds= getSplitOdds(playerValue, dealerValue);		
+		splitOdds = getSplitOdds(playerValue, dealerValue);		
 	}
 	let standOdds = getStandOdds(playerValue,dealerValue);
 
@@ -272,43 +352,27 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 	}
 }
 
-function oldGetCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
+// drag and drop, w3schools
+//todo: when drag onto child of drop area, put inside drop area. make easier to drop
+function allowDrop(ev) {
+	ev.preventDefault();
+}
+function drag(ev) {
+	ev.dataTransfer.setData('text', ev.target.id);
+}
+function drop(ev) {
+	ev.preventDefault();
+	let data = ev.dataTransfer.getData('text');
 
-	if(!isSoft && !isSplit) { //normal
-		if(playerValue<=8 || (playerValue==9 && (dealerValue<=2 || dealerValue>=7) ) || (playerValue==10 && (dealerValue==1 || dealerValue==10) ) || (playerValue==11 && dealerValue==1) || (playerValue==12 && (dealerValue<=3 || dealerValue>=7) ) || (playerValue>=13 && playerValue<=16 && (dealerValue>= 7 || dealerValue==1) ) ) {
-			return 'Hit';
-		}
-		if( (playerValue==9 && dealerValue>=3 && dealerValue<=6) || (playerValue==10 && dealerValue!=10 && dealerValue!=1) || (playerValue==11 && dealerValue!=1) ) {
-			return 'Double';
-		}
-		else {
-			return 'Stand';
-		}
+	if(ev.target.className.indexOf('drag-area') == -1 || ev.target.children.length > 8) { //max 8 cards per div
+		return;
+	}
+	if(ev.target.id=='dealerHandDrag' && ev.target.children.length > 1) { //max 1 card in dealer drag div
+		return;
+	}
 
-	}
-	else if(isSplit) { //split, includes pair of aces
-		if( ( (playerValue==4 || playerValue==6 || playerValue==14) && dealerValue>=2 && dealerValue<=7 ) || (playerValue==8 && (dealerValue==5 || dealerValue==6) ) || (playerValue==12 && (dealerValue>=2 && dealerValue<=6) ) || playerValue==16 || playerValue==2 || (playerValue==18 && dealerValue!=7 && dealerValue!=10 && dealerValue!=1) ) {
-			return 'Split';			
-		}
-		if(playerValue==10 && dealerValue!=10 && dealerValue!=1) {
-			return 'Double';
-		}
-		if(playerValue==20 || (playerValue==18 && (dealerValue==7 || dealerValue==10 || dealerValue==1) ) ) {
-			return 'Stand';
-		}
-		else {
-			return 'Hit';
-		}
+	let clone = document.getElementById(data).cloneNode(true);
+	ev.target.appendChild(clone);
 
-	}
-	else { //soft, doesn't include pair of aces
-		//aces handled as 11
-		if(playerValue==21 || playerValue==19 || playerValue==20 || (playerValue==18 && (dealerValue==2 || dealerValue==7 || dealerValue==8) ) ) {
-			return 'Stand';
-		}
-		if(dealerValue==5 || dealerValue==6 || (dealerValue==4 && playerValue>=15) || (dealerValue==3 && playerValue>=17) ) {
-			return 'Double';
-		}
-		return 'Hit';
-	}
+	$('#calculateHandButton').click();
 }

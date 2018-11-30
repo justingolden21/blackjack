@@ -65,6 +65,7 @@
 <button type="button" class="btn btn" data-toggle="modal" data-target="#historyModal" title="Your hand history"><i class="fas fa-history"></i> History</button>
 <button type="button" class="btn btn" data-toggle="modal" data-target="#optionsModal" title="Website options and settings"><i class="fas fa-cog"></i> Options</button>
 <button type="button" class="btn btn" data-toggle="modal" data-target="#cheatcardModal" title="Display blackjack strategy card"><i class="fas fa-table"></i> Strategy Card</button>
+<button type="button" class="btn btn" data-toggle="modal" data-target="#oddsModal" title="Manually enter your hand and dealer's to display your odds"><i class="fas fa-calculator"></i> Hand Calculator</button>
 <!-- stragety card/reference card -->
 
 <p id="statP">streak: 0<br>0 / 0</p>
@@ -150,6 +151,53 @@
       <div class="modal-body">
       	<input id="drawOddsCheckbox" type="checkbox">
       	<label for="drawOddsCheckbox">Display Hand Odds</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="oddsModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fas fa-calculator"></i> Hand Calculator</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+      	<p>Drag the cards into your and the dealer's hand</p>
+
+		<div id="card1" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a1;</div>
+		<div id="card2" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a2;</div>
+		<div id="card3" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a3;</div>
+		<div id="card4" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a4;</div>
+		<div id="card5" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a5;</div>
+		<div id="card6" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a6;</div>
+		<div id="card7" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a7;</div>
+		<div id="card8" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a8;</div>
+		<div id="card9" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a9;</div>
+		<div id="card10" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0aa;</div>
+
+		<br>
+<!-- todo maybe: delete a card option? drag to trash area? -->
+
+		<div class="row">
+			<div class="col-sm-8">
+				<div id="playerHandDrag" class="drag-area" ondrop="drop(event)" ondragover="allowDrop(event)">Player's Hand<br></div>
+			</div>
+			<div class="col-sm-4">
+				<div id="dealerHandDrag" class="drag-area" ondrop="drop(event)" ondragover="allowDrop(event)">Dealer's Hand<br></div>
+			</div>
+		</div>
+		<br>
+
+		<div id="modalButtons">
+		<button id="clearDragButton" class="btn btn-lg">Clear</button>
+		<button id="calculateHandButton" class="btn btn-lg">Calculate</button>
+		</div>
+
+		<p id="calculateInfoP"></p>
+
       </div>
     </div>
   </div>
