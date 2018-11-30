@@ -2,7 +2,23 @@
 
 ### About
 
-Test your knowledge of what to do with different blackjack hands with this fun and simple simulator.
+**Test your knowledge of what to do with different blackjack hands with this fun and simple simulator.**
+
+### Features
+
+- Get dealt a random hand against a random dealer hand
+
+- Determine if you should Hit, Stand, Double, or Split if applicable
+
+- See if you were right or not, and view the correct option
+
+- View how many you've gotten right or wrong and your current streak
+
+- View your decision history
+
+- View a strategy card, and many more cool tables
+
+- Enter your hand and the dealer's and get your return percentage for each option
 
 ### Links
 
@@ -15,3 +31,15 @@ Test your knowledge of what to do with different blackjack hands with this fun a
 - My website: https://justingolden21.github.io
 
 - My repos: https://github.com/justingolden21
+
+- Contact me: justingolden21@gmail.com
+
+### Sources
+
+- Data from https://wizardofodds.com/games/blackjack/appendix/1/
+
+- Read about the rules of Blackjack on https://en.wikipedia.org/wiki/Blackjack
+
+- Tables from https://www.lolblackjack.com/blackjack/probability-odds/
+
+<hr>
