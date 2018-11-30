@@ -131,7 +131,7 @@ button.close {
 	color: #fff !important;
 	/*opacity: 1;*/
 }
-.modal-body p {
+.modal-body p, .modal-body h3 {
 	color: hsl(0, 0%, 10%) !important;
 }
 

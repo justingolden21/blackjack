@@ -322,7 +322,10 @@ function getHitOdds(playerValue, dealerValue, isSoft) {
 	return hitData[(isSoft?'soft ':'hard ') + playerValue][dealerValue.toString()];	
 }
 function getSplitOdds(playerValue, dealerValue) {
-	return splitData['pair ' + playerValue/2][dealerValue.toString()];	
+	if(playerValue==2) {
+		return splitData['pair ace'][dealerValue.toString()];		
+	}
+	return splitData['pair ' + playerValue/2][dealerValue.toString()];
 }
 function getStandOdds(playerValue, dealerValue) {
 	return standData[playerValue.toString()][dealerValue.toString()];
