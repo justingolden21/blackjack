@@ -1,3 +1,4 @@
 update readme
 make checkboxes less ugly
 max streak?
+let them actually draw the cards and play through the round?
