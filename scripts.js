@@ -218,6 +218,7 @@ function newHand() {
 
 	clearCards();
 	buildDeck();	
+
 	currentCards = [getRandomCard(deck), getRandomCard(deck), getRandomCard(deck)]; //draw 3 unique cards
 
 	drawCardImage(currentCards[0], true);
@@ -322,7 +323,7 @@ function getHitOdds(playerValue, dealerValue, isSoft) {
 	return hitData[(isSoft?'soft ':'hard ') + playerValue][dealerValue.toString()];	
 }
 function getSplitOdds(playerValue, dealerValue) {
-	if(playerValue==2) {
+	if(playerValue==12) { //aces
 		return splitData['pair ace'][dealerValue.toString()];		
 	}
 	return splitData['pair ' + playerValue/2][dealerValue.toString()];
