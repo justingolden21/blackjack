@@ -130,6 +130,9 @@ window.onload = function() {
 		let isSoft = numAces > 0; //if any 'unused' aces
 
 		let dealerValue = dealerVal;
+		if(dealerValue==1) {
+			dealerValue = 'ace';
+		}
 
 		if(playerValue < 4) { //for get odds
 			playerValue = 4;
