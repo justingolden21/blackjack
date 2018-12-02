@@ -351,7 +351,6 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 }
 
 // drag and drop, w3schools
-//todo: when drag onto child of drop area, put inside drop area. make easier to drop
 function allowDrop(ev) {
 	ev.preventDefault();
 }
@@ -364,11 +363,9 @@ function drop(ev) {
 
 	let dragTarget = ev.target;
 
-	if(dragTarget.className.indexOf('clickable-card') != -1) { //if dragged onto another card (child of drop zone)
+	if(dragTarget.parentNode.className.indexOf('drag-area') != -1) { //if dragged onto child of drag area
 		dragTarget = ev.target.parentNode;
-		console.log('hi');
 	}
-
 	if(dragTarget.className.indexOf('drag-area') == -1 || dragTarget.children.length > 8) { //max 8 cards per div
 		return;
 	}
