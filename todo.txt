@@ -2,7 +2,10 @@ bugs:
 unicode doesnt show up on some devices
 
 todo:
-make checkboxes less ugly
-max streak?
-let them actually draw the cards and play through the round?
+easy:
 split into multiple js files?
+make checkboxes less ugly
+
+harder:
+let them actually draw the cards and play through the round?
+

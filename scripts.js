@@ -31,6 +31,7 @@ let suitDict = {'a':'Spades', 'b': 'Hearts', 'c': 'Diamonds', 'd':'Clubs'};
 let numCorrect = 0;
 let numWrong = 0;
 let numStreak = 0;
+let maxStreak = 0;
 
 let doubleData, hitData, splitData, standData;
 
@@ -287,6 +288,9 @@ function handleInput(selectedOption) {
 		$('#resultAlert').addClass('alert-success');
 		numCorrect++;
 		numStreak++;
+		if(numStreak>maxStreak) {
+			maxStreak = numStreak;
+		}
 	} else {
 		let infoStr = 'Wrong! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type + '. Not <strong>' + selectedOption + '</strong>';
 		$('#history').html('<br><span class="wrong-history">' + infoStr + '</span><br>' + $('#history').html() );
@@ -303,7 +307,7 @@ function handleInput(selectedOption) {
 
 	$('#newHandDiv').css('display', '');
 	$('#newHandButton').focus();
-	$('#statP').html('streak: ' + numStreak + '<br>' + numCorrect + ' / ' + (numCorrect+numWrong) );
+	$('#statP').html('Streak: ' + numStreak + '<br>' + 'Max streak: ' + maxStreak + '<br>' + numCorrect + ' / ' + (numCorrect+numWrong) );
 }
 
 function drawOdds(playerValue, dealerValue, isSoft, isSplit) {
