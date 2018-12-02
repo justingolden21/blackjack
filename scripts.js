@@ -251,7 +251,6 @@ function getRandomCard(deck) { //remove card and return it
 }
 
 function handleInput(selectedOption) {
-
 	let playerValue = currentCards[0].value+currentCards[1].value;
 	let dealerValue = currentCards[2].value;
 	let handIsSoft = isSoft(currentCards);
@@ -345,18 +344,10 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 	let standOdds = getStandOdds(playerValue,dealerValue);
 
 	let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
-	if(bestOdds==doubleOdds) {
-		return 'Double';
-	}
-	if(bestOdds==hitOdds) {
-		return 'Hit';
-	}
-	if(bestOdds==standOdds) {
-		return 'Stand';
-	}
-	if(bestOdds==splitOdds) {
-		return 'Split';
-	}
+	if(bestOdds==doubleOdds) { return 'Double'; }
+	if(bestOdds==hitOdds) { return 'Hit'; }
+	if(bestOdds==standOdds) { return 'Stand'; }
+	if(bestOdds==splitOdds) { return 'Split'; }
 }
 
 // drag and drop, w3schools
@@ -371,15 +362,22 @@ function drop(ev) {
 	ev.preventDefault();
 	let data = ev.dataTransfer.getData('text');
 
-	if(ev.target.className.indexOf('drag-area') == -1 || ev.target.children.length > 8) { //max 8 cards per div
+	let dragTarget = ev.target;
+
+	if(dragTarget.className.indexOf('clickable-card') != -1) { //if dragged onto another card (child of drop zone)
+		dragTarget = ev.target.parentNode;
+		console.log('hi');
+	}
+
+	if(dragTarget.className.indexOf('drag-area') == -1 || dragTarget.children.length > 8) { //max 8 cards per div
 		return;
 	}
-	if(ev.target.id=='dealerHandDrag' && ev.target.children.length > 1) { //max 1 card in dealer drag div
+	if(dragTarget.id=='dealerHandDrag' && dragTarget.children.length > 1) { //max 1 card in dealer drag div
 		return;
 	}
 
 	let clone = document.getElementById(data).cloneNode(true);
-	ev.target.appendChild(clone);
+	dragTarget.appendChild(clone);
 
 	$('#calculateHandButton').click();
 }
