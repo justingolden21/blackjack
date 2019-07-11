@@ -1,11 +1,14 @@
 bugs:
 unicode doesnt show up on some devices
 hand calculator hard to use/doesn't work on mobile
+dragging a card on top of itself (or other cards in any zone) copies the card, not cuts it
+
+note:
+test locally on edge to get around CORS policy requirements
 
 todo:
 easy:
 split into multiple js files?
-make checkboxes less ugly
 drag card off of hand calc to remove it
 
 harder:

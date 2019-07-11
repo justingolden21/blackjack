@@ -363,15 +363,26 @@ function drag(ev) {
 	ev.dataTransfer.setData('text', ev.target.id);
 }
 function drop(ev) {
+
+	// console.log('droppin ', ev.target);
+
 	ev.preventDefault();
 	let data = ev.dataTransfer.getData('text');
 
 	let dragTarget = ev.target;
 
-	if(dragTarget.parentNode.className.indexOf('drag-area') != -1) { //if dragged onto child of drag area
+	if(dragTarget.parentNode.className.indexOf('drag-area') != -1) { //if dragged onto child of drag area (another card)
+		// console.log('dragged onto card, moving to parent');
 		dragTarget = ev.target.parentNode;
 	}
-	if(dragTarget.className.indexOf('drag-area') == -1 || dragTarget.children.length > 8) { //max 8 cards per div
+	else if(dragTarget.className.indexOf('drag-area') == -1 ) { // if dragging to invalid location
+		// console.log('moved to invalid locaiton, removing');
+		dragTarget.remove(); // delete it
+		$('#calculateHandButton').click();
+		return;
+	}
+
+	if( dragTarget.children.length > 8) { //max 8 cards per div
 		return;
 	}
 	if(dragTarget.id=='dealerHandDrag' && dragTarget.children.length > 1) { //max 1 card in dealer drag div
