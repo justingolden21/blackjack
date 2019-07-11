@@ -53,6 +53,8 @@ class Card {
 
 window.onload = function() {
 
+	setupCheckboxes();
+
 	$.getJSON('data/double.json', function(data) {
 		doubleData = data;
 	});
@@ -165,9 +167,6 @@ window.onload = function() {
 		}
 
 	});
-
-	setupCheckboxes();
-
 
 }
 
