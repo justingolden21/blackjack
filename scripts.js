@@ -166,6 +166,8 @@ window.onload = function() {
 
 	});
 
+	setupCheckboxes();
+
 
 }
 

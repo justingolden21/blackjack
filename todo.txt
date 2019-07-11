@@ -1,11 +1,20 @@
 bugs:
 unicode doesnt show up on some devices
+hand calculator hard to use/doesn't work on mobile
 
 todo:
 easy:
 split into multiple js files?
 make checkboxes less ugly
+drag card off of hand calc to remove it
 
 harder:
 let them actually draw the cards and play through the round?
+
+
+
+icon on next hand button with hand of cards
+remove keyboard shortcut info on mobile (css display none @media)
+graphical representation of bar filled left or right red or green for odds if checkbox is shown
+
 
