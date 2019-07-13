@@ -110,7 +110,8 @@ button:disabled {
 	border: 0px;
 }
 .alert-info {
-	background-color: hsl(240, 50%, 30%);
+	/*background-color: hsl(240, 50%, 30%);*/
+	background-color: hsl(20, 75%, 30%);
 }
 .alert-success, .correct-history {
 	background-color: hsl(160, 50%, 30%);
