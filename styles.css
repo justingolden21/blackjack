@@ -91,11 +91,11 @@ button {
 .correct-history, .wrong-history {
 	padding: 6px;
 }
-button:focus:not(.close) {
-	border: 3px solid  #fff;
+button:focus:not(.close), button:hover:not(.close) {
+	outline: 3px solid  #fff;
 	background-color: hsl(160, 75%, 30%);
 	color: #fff;
-	outline: none !important;
+	/*outline: none !important;*/
 	box-shadow: none !important;
 }
 button:disabled {
