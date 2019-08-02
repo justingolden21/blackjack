@@ -123,10 +123,12 @@ button:disabled {
 
 .modal-content {
 	background-color: hsl(160, 50%, 90%);
+	border-radius: 0px;
 }
 .modal-header {
 	background-color: hsl(160, 75%, 30%);
 	color: #fff;
+	border-radius: 0px;
 }
 button.close {
 	color: #fff !important;
@@ -157,6 +159,25 @@ th, td {
 }
 .table-surrender {
 	background-color: #fff;
+}
+
+.odds-bar-container {
+	width: 200px;
+	margin: auto;
+}
+.odds-bar {
+	height: 20px;
+	width: 100%;
+	border: 2px solid #fff;
+}
+.odds-bar.green {
+	background-color: hsl(160, 50%, 30%);
+}
+.odds-bar.red {
+	background-color: hsl(0, 50%, 30%);
+
+	float: right !important;
+	text-align: right !important;
 }
 
 @media (max-width: 768px) {

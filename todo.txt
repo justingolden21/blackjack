@@ -17,6 +17,7 @@ let them actually draw the cards and play through the round?
 
 
 icon on next hand button with hand of cards
+icons next to hit, stand, etc buttons
 remove keyboard shortcut info on mobile (css display none @media)
 graphical representation of bar filled left or right red or green for odds if checkbox is shown
 

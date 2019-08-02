@@ -312,14 +312,37 @@ function handleInput(selectedOption) {
 }
 
 function drawOdds(playerValue, dealerValue, isSoft, isSplit) {
-
 	$('#oddsInfo').html('');
-	$('#oddsInfo').append('<br>Double: ' + getDoubleOdds(playerValue, dealerValue, isSoft) );
-	$('#oddsInfo').append('<br>Hit: ' + getHitOdds(playerValue, dealerValue, isSoft) );
+
+	// $('#oddsInfo').append('<br>Double: ' + getDoubleOdds(playerValue, dealerValue, isSoft) );
+	let doubleOdds = getDoubleOdds(playerValue, dealerValue, isSoft);
+	$('#oddsInfo').append('<br>Double: ' + doubleOdds +
+		'<div class="odds-bar-container"><div class="odds-bar ' +
+		(doubleOdds>0 ? 'green' : 'red') + '" style="width:' +
+		Math.abs(doubleOdds*100) + '%;"></div></div>');
+
+	// $('#oddsInfo').append('<br>Hit: ' + getHitOdds(playerValue, dealerValue, isSoft) );
+	let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
+	$('#oddsInfo').append('<br>Hit: ' + hitOdds +
+		'<div class="odds-bar-container"><div class="odds-bar ' +
+		(hitOdds>0 ? 'green' : 'red') + '" style="width:' +
+		Math.abs(hitOdds*100) + '%;"></div></div>');
+
 	if(isSplit) {
-		$('#oddsInfo').append('<br>Split: ' + getSplitOdds(playerValue, dealerValue) );
+		// $('#oddsInfo').append('<br>Split: ' + getSplitOdds(playerValue, dealerValue) );
+		let splitOdds = getSplitOdds(playerValue, dealerValue);
+		$('#oddsInfo').append('<br>Split: ' + splitOdds +
+			'<div class="odds-bar-container"><div class="odds-bar ' +
+			(splitOdds>0 ? 'green' : 'red flip-horizontal') + '" style="width:' +
+			Math.abs(splitOdds*100) + '%;"></div></div>');
 	}
-	$('#oddsInfo').append('<br>Stand: ' + getStandOdds(playerValue, dealerValue) );
+
+	// $('#oddsInfo').append('<br>Stand: ' + getStandOdds(playerValue, dealerValue) );
+	let standOdds = getStandOdds(playerValue, dealerValue);
+	$('#oddsInfo').append('<br>Stand: ' + standOdds +
+		'<div class="odds-bar-container"><div class="odds-bar ' +
+		(standOdds>0 ? 'green' : 'red flip-horizontal') + '" style="width:' +
+		Math.abs(standOdds*100) + '%;"></div></div>');
 }
 
 // return the players expecte value if they take that action given those hands
