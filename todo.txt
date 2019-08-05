@@ -65,6 +65,39 @@ maybe: share that i stood on hard 13 against dealer 6 and got it right and only 
 
 
 
+modals:
+how to play:
+	basic rules. get to 21 without bust, etc
+
+how to count:
+	simple hi-lo counting
+	2-6 is +1, 7-9 is 0, 10,j,q,k and ace is -1
+	higher numbers are better for you
+	this is running count
+	true count is running count divided by decks remaining
+
+advantage:
+	with only basic strategy table, you are at -0.5%
+	with never bust, you are -4%
+	for each true count, you gain about +0.5%
+
+betting units:
+	a betting unit is the minimum or normal amount you would bet
+	a good betting unit is 1/1000 of your bankroll, to minimize the odds of running out
+	your maximum bet is suggested to be about 4-6 times your minimum
+	the higher the maximum, the mroe you can make, but the more risk
+	never bet over 1/4 of your money available so you can split and double
+	for each +1 true count over 0, bet +1 betting unit.
+	in other words, subtract 1 from your true count and multiply by your betting unit to determine what to bet
+	also, link to advantage calculator
+	also add link to https://www.instructables.com/id/Card-Counting-and-Ranging-Bet-Sizes/
+
+
+add disclaimer to info modal that we are not responsible if you lose money, blackjack is inherintly random
+
+links:
+	link to youtube videos by blackjack apprenticeship
+
 ========
 INFO
 ========
