@@ -1,8 +1,8 @@
 
 let deck, currentCards;
 
-let valDict = {'1':'Ace', '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', 'a':'10', 'b': 'Jack', 'd':'Queen', 'e':'King'};
-let suitDict = {'a':'Spades', 'b': 'Hearts', 'c': 'Diamonds', 'd':'Clubs'};
+// let valDict = {'1':'Ace', '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', 'a':'10', 'b': 'Jack', 'd':'Queen', 'e':'King'};
+// let suitDict = {'a':'Spades', 'b': 'Hearts', 'c': 'Diamonds', 'd':'Clubs'};
 
 let numCorrect = numWrong = numStreak = maxStreak = 0;
 
@@ -15,7 +15,8 @@ let doubleData, hitData, splitData, standData;
 class Card {
 	constructor(val, char) {
 		this.char = char;
-		this.name = valDict[val[1] ] + ' of ' + suitDict[val[0] ] ;
+		// this.name = valDict[val[1] ] + ' of ' + suitDict[val[0] ] ;
+		this.isRed = val[0] == 'b' || val[0] == 'c'; // heart or diamond
 		this.value = parseInt(val[1]); //a through e is 10
 		if(isNaN(this.value) )
 			this.value = 10;
@@ -25,7 +26,7 @@ class Card {
 
 
 $(function() {
-
+	// Setup Checkboxes and Data
 	setupCheckboxes();
 
 	$.getJSON('data/double.json', (data) => doubleData = data );
@@ -33,6 +34,7 @@ $(function() {
 	$.getJSON('data/split.json', (data) => splitData = data );
 	$.getJSON('data/stand.json', (data) => standData = data );
 
+	// Listeners
 	$('#hitButton').on('click', ()=> handleInput('Hit') );
 	$('#standButton').on('click', ()=> handleInput('Stand') );
 	$('#doubleButton').on('click', ()=> handleInput('Double') );
@@ -54,81 +56,10 @@ $(function() {
 		$('#calculateInfoP').html('');
 	});
 
-	$('#calculateHandButton').on('click', function() {
-		let dealerHandCards = document.getElementById('dealerHandDrag').children;
-		if(dealerHandCards[1] == undefined) {
-			$('#calculateInfoP').html('Please enter dealer hand.');
-			return;
-		}
-		let dealerVal = parseInt(dealerHandCards[1].id.replace('card', '') );
-
-		let playerHandCards = document.getElementById('playerHandDrag').children;
-
-		if(playerHandCards[1] == undefined) {
-			$('#calculateInfoP').html('Please enter player hand.');
-			return;
-		}
-
-		let playerVals = [];
-		for(let i=1; i<playerHandCards.length; i++) { //start at 1 because they have p elements in front
-			playerVals.push(parseInt(playerHandCards[i].id.replace('card', '') ) );
-		}
-
-		let numAces = 0;
-		let playerValue = 0;
-		let isSplit = playerVals.length == 2 && playerVals[0] == playerVals[1]; //exactly 2 cards and they're the same
-		for(let i=0; i<playerVals.length; i++) {
-			if(playerVals[i] != 1) {
-				playerValue += playerVals[i];
-			} else { //aces
-				playerValue += 11;
-				numAces++;
-			}
-		}
-		for(;numAces>0 && playerValue>21; numAces--) {
-			//'use' ace
-			playerValue -= 10;
-		}
-		let isSoft = numAces > 0; // if any 'unused' aces
-
-		let dealerValue = dealerVal;
-		if(dealerValue==1) {
-			dealerValue = 'ace';
-		}
-
-		if(playerValue < 4) { // for get odds
-			playerValue = 4;
-		}
-
-		if(playerValue > 21) {
-			$('#calculateInfoP').html('Hand over 21. Bust.');
-		} else {
-			let infoStr = '';
-
-			let doubleOdds = getDoubleOdds(playerValue, dealerValue, isSoft);
-			let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
-			let splitOdds = -2; // default so we never pick split as best option if hand isn't split
-			if(isSplit) {
-				splitOdds = getSplitOdds(playerValue, dealerValue);		
-			}
-			let standOdds = getStandOdds(playerValue,dealerValue);
-
-			let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
-
-			infoStr += '<br><span class="odds-option ' + (doubleOdds == bestOdds ? 'best-pick' : '') + '">Double: ' + doubleOdds + '</span><br>';
-			infoStr += '<br><span class="odds-option ' + (hitOdds == bestOdds ? 'best-pick' : '') + '">Hit: ' + hitOdds + '</span><br>';
-			if(isSplit) {
-				infoStr += '<br><span class="odds-option ' + (splitOdds == bestOdds ? 'best-pick' : '') + '">Split: ' + splitOdds + '</span><br>';
-			}
-			infoStr += '<br><span class="odds-option ' + (standOdds == bestOdds ? 'best-pick' : '') + '">Stand: ' + standOdds + '</span><br>';
-
-			$('#calculateInfoP').html(infoStr);
-		}
-
-	});
-
+	$('#calculateHandButton').on('click', calcHand);
 });
 
+// focus button to the left or right with arrow keys for easy navigation
 window.onkeyup = function(e) {
 	let key = e.keyCode ? e.keyCode : e.which;
 	if(key == 37) { //left
@@ -153,7 +84,8 @@ function buildDeck() { // creates deck of 52
 
 // graphics
 function drawCardImage(card, isPlayer) {
-	let isRed = card.name.indexOf('Hearts') != -1 || card.name.indexOf('Diamonds') != -1;
+	// let isRed = card.name.indexOf('Hearts') != -1 || card.name.indexOf('Diamonds') != -1;
+	let isRed = card.isRed;
 	if(isPlayer)
 		$('#playerHandDiv').html($('#playerHandDiv').html() + '<span' + (isRed?' class="redcard"':'') +  '>' + card.char + '</span>');
 	else
@@ -214,27 +146,22 @@ function handleInput(selectedOption) {
 	let dealerValue = currentCards[2].value;
 	let handIsSoft = isSoft(currentCards);
 	let handIsSplit = isSplit(currentCards);
-	if(handIsSoft) {
+	if(handIsSoft)
 		playerValue += 10;
-	}
-	if(dealerValue == 1) {
+	if(dealerValue == 1)
 		dealerValue = 'ace';
-	}
-	if(playerValue < 4) { //for get odds
+	if(playerValue < 4) //for get odds
 		playerValue = 4;
-	}
 
-	if($('#drawOddsCheckbox').is(':checked') ) {
+	if($('#drawOddsCheckbox').is(':checked') )
 		drawOdds(playerValue, dealerValue, handIsSoft, handIsSplit);
-	}
 	let correctOption = getCorrectOption(playerValue, dealerValue, handIsSoft, handIsSplit);
 
 	$('#optionButtons').css('display', 'none');
 
 	let playerHandName = isSplit(currentCards) ? 'Pair of ' + currentCards[0].type + 's' : (isSoft(currentCards) ? 'Soft ' + (currentCards[0].value+currentCards[1].value+10) : 'Hard ' + (currentCards[0].value+currentCards[1].value) );
-	if(playerHandName == 'Soft 21') {
+	if(playerHandName == 'Soft 21')
 		playerHandName = 'Blackjack';
-	}
 
 	$('#noHistory').css('display','none');
 	if(correctOption == selectedOption) {
@@ -246,9 +173,8 @@ function handleInput(selectedOption) {
 		$('#resultAlert').addClass('alert-success');
 		numCorrect++;
 		numStreak++;
-		if(numStreak>maxStreak) {
+		if(numStreak>maxStreak)
 			maxStreak = numStreak;
-		}
 	} else {
 		let infoStr = 'Wrong! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type + '. Not <strong>' + selectedOption + '</strong>';
 		$('#history').html('<br><span class="wrong-history">' + infoStr + '</span><br>' + $('#history').html() );
@@ -258,9 +184,8 @@ function handleInput(selectedOption) {
 		$('#resultAlert').addClass('alert-danger');
 		numWrong++;
 		numStreak = 0;
-		if(playerHandName=='Blackjack') {
-			window.alert('Seriously... You didn\'t stand on blackjack...');
-		}
+		// if(playerHandName=='Blackjack')
+		// 	window.alert('Seriously... You didn\'t stand on blackjack...');
 	}
 
 	$('#newHandDiv').css('display', '');
@@ -332,41 +257,4 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 	if(bestOdds==hitOdds) { return 'Hit'; }
 	if(bestOdds==standOdds) { return 'Stand'; }
 	if(bestOdds==splitOdds) { return 'Split'; }
-}
-
-// drag and drop, w3schools
-function allowDrop(ev) {
-	ev.preventDefault();
-}
-function drag(ev) {
-	ev.dataTransfer.setData('text', ev.target.id);
-}
-function drop(ev) {
-	// console.log('droppin ', ev.target);
-
-	ev.preventDefault();
-	let data = ev.dataTransfer.getData('text');
-
-	let dragTarget = ev.target;
-
-	if(dragTarget.parentNode.className.indexOf('drag-area') != -1) { // if dragged onto child of drag area (another card)
-		// console.log('dragged onto card, moving to parent');
-		dragTarget = ev.target.parentNode;
-	}
-	else if(dragTarget.className.indexOf('drag-area') == -1 ) { // if dragging to invalid location
-		// console.log('moved to invalid locaiton, removing');
-		dragTarget.remove(); // delete it
-		$('#calculateHandButton').click();
-		return;
-	}
-
-	if(dragTarget.children.length > 8) // max 8 cards per div
-		return;
-	if(dragTarget.id=='dealerHandDrag' && dragTarget.children.length > 1) // max 1 card in dealer drag div
-		return;
-
-	let clone = document.getElementById(data).cloneNode(true);
-	dragTarget.appendChild(clone);
-
-	$('#calculateHandButton').click();
 }

@@ -38,6 +38,9 @@ possible redundant code in calc hand btn listener and getCorrectOption function
 split js into 2 or 3 files. possible new files include calcHand modal code and drag and drop stuff
 
 
+make calc hand modal work with touch screen and with keyboard
+
+
 todo
 
 todo: checkbox not ugly, like songsearcher using fontawesome
