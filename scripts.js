@@ -100,6 +100,14 @@ function clearCards() {
 }
 
 function newHand() {
+
+	// fade animations took way too much effort...
+	$('#playerHandDiv').css('opacity', '0');
+	$('#playerHandDiv').fadeOut(0).fadeIn(400, ()=>{$('#playerHandDiv').css('opacity', '1');});
+	$('#dealerHandDiv').css('opacity', '0');
+	$('#dealerHandDiv').fadeOut(0).fadeIn(400, ()=>{$('#dealerHandDiv').css('opacity', '1');});
+
+
 	$('#newHandDiv').css('display', 'none');
 
 	$('#optionButtons').css('display', '');
@@ -120,6 +128,7 @@ function newHand() {
 	drawCardImage(currentCards[1], true);
 	drawCardImage(currentCards[2], false);
 	drawCardbackImage();
+
 
 	//todo: if checkbox, have dropdown for odds when hand dealt, not just after
 	//drawOdds(currentCards[0].value+currentCards[1].value, currentCards[2].value, isSoft(currentCards), isSplit(currentCards) );
@@ -163,7 +172,7 @@ function handleInput(selectedOption) {
 	if(playerHandName == 'Soft 21')
 		playerHandName = 'Blackjack';
 
-	$('#noHistory').css('display','none');
+	$('#noHistory').css('display', 'none');
 	if(correctOption == selectedOption) {
 		let infoStr = 'Correct! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type;
 		$('#history').html('<br><span class="correct-history">' + infoStr + '</span><br>' + $('#history').html() );
@@ -190,7 +199,8 @@ function handleInput(selectedOption) {
 
 	$('#newHandDiv').css('display', '');
 	$('#newHandButton').focus();
-	$('#statP').html('Streak: ' + numStreak + '<br>' + 'Max streak: ' + maxStreak + '<br>' + numCorrect + ' / ' + (numCorrect+numWrong) );
+	$('#statP').html('Streak: ' + numStreak + ' &mdash;&mdash; ' + 'Max streak: ' + maxStreak
+		+ ' &mdash;&mdash; ' + numCorrect + ' / ' + (numCorrect+numWrong) );
 }
 
 function drawOdds(playerValue, dealerValue, isSoft, isSplit) {

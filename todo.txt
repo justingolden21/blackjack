@@ -14,7 +14,10 @@ drag card off of hand calc to remove it
 harder:
 let them actually draw the cards and play through the round?
 
+animate dealing cards to player and dealer?
 
+store cookies for streaks/stats option
+add sharethis?
 
 icon on next hand button with hand of cards
 icons next to hit, stand, etc buttons

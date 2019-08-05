@@ -2,6 +2,7 @@
 	font-size: 1200%; /*larger card unicode*/
 	letter-spacing: -2px;
 	margin-top: -30px;
+	transition: all 1s linear;
 }
 .clickable-card {
 	font-size: 600%;
@@ -55,6 +56,9 @@ br, #playerHandDiv, #dealerHandDiv, button {
 
 p, h3 {
 	color: #fff;
+}
+p, .alert {
+	font-size: 120%;
 }
 h3 {
 	font-size: 160% !important;
