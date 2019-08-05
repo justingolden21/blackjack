@@ -1,5 +1,7 @@
 #playerHandDiv, #dealerHandDiv {
 	font-size: 1200%; /*larger card unicode*/
+	letter-spacing: -2px;
+	margin-top: -30px;
 }
 .clickable-card {
 	font-size: 600%;
@@ -55,7 +57,7 @@ p, h3 {
 	color: #fff;
 }
 h3 {
-	font-size: 160%;
+	font-size: 160% !important;
 	padding: 24px;
 	display: inline;
 }
@@ -83,7 +85,10 @@ body, html, button, .alert, b, #noHistory {
 button {
 	background-color: hsl(0, 0%, 90%);
 	border-radius: 0 !important;
-	margin: 5px;
+	margin: 10px;
+}
+button:not(.close) {
+	box-shadow: 5px 5px hsl(0, 0%, 10%);	
 }
 #history, #oddsInfo {
 	color: #fff;
@@ -91,7 +96,7 @@ button {
 .correct-history, .wrong-history {
 	padding: 6px;
 }
-button:focus:not(.close), button:hover:not(.close) {
+button:focus:not(.close), button:hover:not(.close):not(:disabled) {
 	outline: 3px solid  #fff;
 	background-color: hsl(160, 75%, 30%);
 	color: #fff;
@@ -102,6 +107,10 @@ button:disabled {
 	background-color: hsl(0, 0%, 60%);
 	color: #fff;
 	opacity: 1 !important;
+}
+
+hr {
+	border: 1px solid hsl(0, 0%, 10%);
 }
 
 .alert {
@@ -119,6 +128,7 @@ button:disabled {
 .alert-danger, .wrong-history {
 	background-color: hsl(0, 50%, 30%);
 }
+
 
 .modal-content {
 	background-color: hsl(160, 50%, 90%);
@@ -181,10 +191,10 @@ th, td {
 
 @media (max-width: 768px) {
 	#playerHandDiv, #dealerHandDiv {
-		font-size: 800%;
+		font-size: 900%;
 	}
 	.clickable-card {
-		font-size: 400%;
+		font-size: 600%;
 	}
 	.chip {
 		width: 48px;
