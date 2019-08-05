@@ -11,6 +11,8 @@ easy:
 split into multiple js files?
 drag card off of hand calc to remove it
 
+organize css colors with comments or sass
+
 harder:
 let them actually draw the cards and play through the round?
 
