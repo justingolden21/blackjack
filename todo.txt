@@ -22,3 +22,53 @@ remove keyboard shortcut info on mobile (css display none @media)
 graphical representation of bar filled left or right red or green for odds if checkbox is shown
 
 
+3 checkboxes for which possible hands to display:
+hard, soft, pairs
+
+display close cases only
+
+maybe: fix ui for enter hand for dealer?
+
+option to play rest of hand (no chips)
+
+
+
+possible redundant code in calc hand btn listener and getCorrectOption function
+
+split js into 2 or 3 files. possible new files include calcHand modal code and drag and drop stuff
+
+
+todo
+
+todo: checkbox not ugly, like songsearcher using fontawesome
+todo: bargraph for odds?
+todo: display only difficult cases
+
+later: basic rules of blackjack explained modal. like wiki
+later: cheatcard modal. highlight your hand in cheatcard. like bottom of this: https://wizardofodds.com/games/blackjack/appendix/1/
+later: odds on each hand modal. highlight hand in table. like this: https://wizardofodds.com/games/blackjack/appendix/1/
+later: enter your hand and dealer's and show odds modal. like this: https://wizardofodds.com/games/blackjack/hand-calculator/
+
+import and export stats to .txt
+
+
+maybe edit house rule settings, show stats on percentage corrct and streak
+maybe: share that i stood on hard 13 against dealer 6 and got it right and only 23.7% of people did. check out blackjack sim HERE
+
+
+
+========
+INFO
+========
+
+data folder has original .csv files as well as converted .json files
+
+========
+LINKS
+========
+
+https://en.wikipedia.org/wiki/Playing_cards_in_Unicode
+https://wizardofodds.com/games/blackjack/
+https://wizardofodds.com/games/blackjack/appendix/1/
+https://www.lolblackjack.com/blackjack/probability-odds/
+https://github.com/RochesterinNYC/BlackjackStrategyTester
