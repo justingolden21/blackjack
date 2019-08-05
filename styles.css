@@ -86,6 +86,7 @@ button {
 	background-color: hsl(0, 0%, 90%);
 	border-radius: 0 !important;
 	margin: 10px;
+	/*font-weight: 600 !important;*/
 }
 button:not(.close) {
 	box-shadow: 5px 5px hsl(0, 0%, 10%);	
