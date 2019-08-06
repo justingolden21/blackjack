@@ -9,7 +9,7 @@
 	display: inline;
 	cursor: pointer;
 }
-.clickable-card:hover {
+.clickable-card:hover, .clickable-card.active {
 	color: hsl(20, 75%, 30%);
 }
 /*.drag-area .clickable-card {

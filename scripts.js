@@ -29,34 +29,35 @@ $(function() {
 	// Setup Checkboxes and Data
 	setupCheckboxes();
 
-	$.getJSON('data/double.json', (data) => doubleData = data );
-	$.getJSON('data/hit.json', (data) => hitData = data );
-	$.getJSON('data/split.json', (data) => splitData = data );
-	$.getJSON('data/stand.json', (data) => standData = data );
+	$.getJSON('data/double.json', (data) => doubleData = data);
+	$.getJSON('data/hit.json', (data) => hitData = data);
+	$.getJSON('data/split.json', (data) => splitData = data);
+	$.getJSON('data/stand.json', (data) => standData = data);
 
 	// Listeners
-	$('#hitButton').on('click', ()=> handleInput('Hit') );
-	$('#standButton').on('click', ()=> handleInput('Stand') );
-	$('#doubleButton').on('click', ()=> handleInput('Double') );
-	$('#splitButton').on('click', ()=> handleInput('Split') );
+	$('#hitButton').click( ()=> handleInput('Hit') );
+	$('#standButton').click( ()=> handleInput('Stand') );
+	$('#doubleButton').click( ()=> handleInput('Double') );
+	$('#splitButton').click( ()=> handleInput('Split') );
 
+	$('#oddsInfo').css('display', 'none');
 	$('#drawOddsCheckbox').change(function() {
-		// if it used to be checked, previous odds will still display
-		// so we must clear oddsInfo
-		if(! $(this).is(':checked') )
-			$('#oddsInfo').html('');
+		$('#oddsInfo').css('display', $(this).is(':checked') ? '' : 'none');
 	});
 
 	$('#newHandButton').click(newHand).click();
 
 	// drag and drop
-	$('#clearDragButton').on('click', function() {
+	$('#clearDragButton').click(function() {
 		$('#dealerHandDrag').html('Dealer\'s Hand<br>');
 		$('#playerHandDrag').html('Player\'s Hand<br>');
 		$('#calculateInfoP').html('');
 	});
 
-	$('#calculateHandButton').on('click', calcHand);
+	$('#calculateHandButton').click(calcHand);
+
+	$('.clickable-card').click(handleCardClick);
+	$('.drag-area').click(handleDragClick);
 });
 
 // focus button to the left or right with arrow keys for easy navigation
@@ -162,8 +163,7 @@ function handleInput(selectedOption) {
 	if(playerValue < 4) //for get odds
 		playerValue = 4;
 
-	if($('#drawOddsCheckbox').is(':checked') )
-		drawOdds(playerValue, dealerValue, handIsSoft, handIsSplit);
+	drawOdds(playerValue, dealerValue, handIsSoft, handIsSplit);
 	let correctOption = getCorrectOption(playerValue, dealerValue, handIsSoft, handIsSplit);
 
 	$('#optionButtons').css('display', 'none');

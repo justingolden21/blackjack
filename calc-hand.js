@@ -106,3 +106,30 @@ function drop(ev) {
 
 	$('#calculateHandButton').click();
 }
+
+// For clicking as opposed to dragging
+
+function handleCardClick() {
+	if($(this).hasClass('active') ) {
+		$(this).removeClass('active');
+	} else {
+		// remove from other cards first
+		$('.clickable-card').removeClass('active');
+		$(this).toggleClass('active');		
+	}
+}
+function handleDragClick() {
+	if($('.clickable-card.active').length == 0)
+		return;
+
+	if($(this).children().length > 8)
+		return
+	if(this.id=='dealerHandDrag' && $(this).children().length > 1)
+		return
+
+	$('.clickable-card.active').clone().appendTo($(this) );
+
+	$('.clickable-card').removeClass('active');
+
+	$('#calculateHandButton').click();
+}
