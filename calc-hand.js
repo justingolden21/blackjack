@@ -138,9 +138,11 @@ function handleDragClick() {
 
 	$('.clickable-card').removeClass('active');
 
-	$('#calculateHandButton').click();
+	$('#calculateHandButton').click(); // update display
 }
 function removeCard() {
 	// not an arrow function because in that scope/context, "this" refers to another element
 	$(this).remove();
+
+	$('#calculateHandButton').click(); // update display
 }
