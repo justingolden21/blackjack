@@ -21,9 +21,15 @@
 	margin: 10px;
 	height: 200px;
 	border: 3px solid hsl(20, 75%, 30%);
-	color: hsl(20, 75%, 30%);
-/*	background-color: hsl(160, 75%, 30%);
-	color: #fff;*/
+
+
+}
+.drag-area .clickable-card {
+	/*color: hsl(20, 75%, 30%);*/
+}
+.drag-area:hover {
+	background-color: hsl(160, 75%, 30%);
+	color: #fff;
 }
 
 .odds-option {

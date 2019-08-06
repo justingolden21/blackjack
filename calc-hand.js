@@ -48,6 +48,11 @@ function calcHand() {
 		return;
 	}
 
+	if(isNaN(playerValue) || isNaN(dealerValue) ) {
+		$('#calculateInfoP').html('Missing player or dealer hand value.');
+		return;	
+	}
+
 	// Part 2: Display the odds of each option and highlight the best option
 	let infoStr = '';
 
@@ -96,6 +101,7 @@ function drop(ev) {
 		return;
 	}
 
+	// using > 8 and 1 because there is already 1 child div that's not a card (doesn't count)
 	if(dragTarget.children.length > 8) // max 8 cards per div
 		return;
 	if(dragTarget.id=='dealerHandDrag' && dragTarget.children.length > 1) // max 1 card in dealer drag div
@@ -108,28 +114,33 @@ function drop(ev) {
 }
 
 // For clicking as opposed to dragging
-
+// Listeners set in main file
 function handleCardClick() {
 	if($(this).hasClass('active') ) {
 		$(this).removeClass('active');
 	} else {
 		// remove from other cards first
 		$('.clickable-card').removeClass('active');
-		$(this).toggleClass('active');		
+		$(this).toggleClass('active');
 	}
 }
 function handleDragClick() {
 	if($('.clickable-card.active').length == 0)
 		return;
 
+	console.log($(this).children().length);
 	if($(this).children().length > 8)
 		return
 	if(this.id=='dealerHandDrag' && $(this).children().length > 1)
 		return
 
-	$('.clickable-card.active').clone().appendTo($(this) );
+	$('.clickable-card.active').clone().click(removeCard).appendTo($(this) );
 
 	$('.clickable-card').removeClass('active');
 
 	$('#calculateHandButton').click();
+}
+function removeCard() {
+	// not an arrow function because in that scope/context, "this" refers to another element
+	$(this).remove();
 }
