@@ -95,6 +95,14 @@ betting units:
 
 add disclaimer to info modal that we are not responsible if you lose money, blackjack is inherintly random
 
+
+
+other things to make:
+make it an app
+make a seperate thing for just a table
+make a seperate thing for a full simulator, with no other features just playing
+make a seperate thing for card counting help and practice/sim
+
 links:
 	link to youtube videos by blackjack apprenticeship
 
