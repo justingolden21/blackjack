@@ -41,7 +41,7 @@ body, html {
 	/*background-color: hsl(160, 75%, 30%) !important;*/
 	overflow-x: hidden; /*remove scrollbar for x-axis*/
 }
-br, .cardHandDiv, button {
+br, .cardHandDiv, button, .chip {
 	-webkit-user-select: none; /* Safari */        
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+/Edge */
@@ -176,7 +176,7 @@ button:focus:not(.close), button:hover:not(.close):not(:disabled) {
 }
 button:disabled {
 	background-color: hsl(0, 0%, 60%) !important;
-	color: #fff;
+	color: #fff !important;
 	opacity: 1 !important;
 }
 
