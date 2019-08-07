@@ -44,6 +44,16 @@ optional/maybe:
 make calc hand modal work with keyboard
 change the hand calc UI to just 2 drop downs for player and dealer...
 
+split css into multiple files?
+
+fix file structure/organize
+
+get rid of calc hand btn (does it automatically, adds confusion). currently calcs by clicking btn, so need to change that first
+
+fix checkbox.js for focusing checkboxes...
+
+update cheatsheet img for download
+
 add progress bar display to hand calc
 
 

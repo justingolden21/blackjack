@@ -101,8 +101,8 @@ function drop(ev) {
 		return;
 	}
 
-	// using > 8 and 1 because there is already 1 child div that's not a card (doesn't count)
-	if(dragTarget.children.length > 8) // max 8 cards per div
+	// using > 6 and 1 because there is already 1 child div that's not a card (doesn't count)
+	if(dragTarget.children.length > 6) // max 6 cards per div
 		return;
 	if(dragTarget.id=='dealerHandDrag' && dragTarget.children.length > 1) // max 1 card in dealer drag div
 		return;
@@ -129,7 +129,7 @@ function handleDragClick() {
 		return;
 
 	console.log($(this).children().length);
-	if($(this).children().length > 8)
+	if($(this).children().length > 6)
 		return
 	if(this.id=='dealerHandDrag' && $(this).children().length > 1)
 		return

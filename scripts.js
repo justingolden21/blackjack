@@ -86,28 +86,24 @@ function buildDeck() { // creates deck of 52
 // graphics
 function drawCardImage(card, isPlayer) {
 	// let isRed = card.name.indexOf('Hearts') != -1 || card.name.indexOf('Diamonds') != -1;
-	let isRed = card.isRed;
+	let cardHTML = '<span class=" pokercard ' + (card.isRed ? 'redcard':'') + '">' + card.char + '</span>';
 	if(isPlayer)
-		$('#playerHandDiv').html($('#playerHandDiv').html() + '<span' + (isRed?' class="redcard"':'') +  '>' + card.char + '</span>');
+		$('#playerHandDiv').html($('#playerHandDiv').html() + cardHTML);
 	else
-		$('#dealerHandDiv').html($('#dealerHandDiv').html() + '<span' + (isRed?' class="redcard"':'') +  '>' + card.char + '</span>');
+		$('#dealerHandDiv').html($('#dealerHandDiv').html() + cardHTML);
 }
 function drawCardbackImage() {
-	$('#dealerHandDiv').html($('#dealerHandDiv').html() + '<span class="redcard">&#x1f0a0;</span>');
+	$('#dealerHandDiv').html($('#dealerHandDiv').html() + '<span class="pokercard redcard">&#x1f0a0;</span>');
 }
 function clearCards() {
-	$('#playerHandDiv').html('');
-	$('#dealerHandDiv').html('');
+	$('.cardHandDiv').html(''); //player and dealer hand divs
 }
 
 function newHand() {
 
 	// fade animations took way too much effort...
-	$('#playerHandDiv').css('opacity', '0');
-	$('#playerHandDiv').fadeOut(0).fadeIn(400, ()=>{$('#playerHandDiv').css('opacity', '1');});
-	$('#dealerHandDiv').css('opacity', '0');
-	$('#dealerHandDiv').fadeOut(0).fadeIn(400, ()=>{$('#dealerHandDiv').css('opacity', '1');});
-
+	$('.cardHandDiv').css('opacity', '0');
+	$('.cardHandDiv').fadeOut(0).fadeIn(400, ()=>{$('.cardHandDiv').css('opacity', '1');});
 
 	$('#newHandDiv').css('display', 'none');
 

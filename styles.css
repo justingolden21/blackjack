@@ -1,5 +1,5 @@
-#playerHandDiv, #dealerHandDiv {
-	font-size: 1200%; /*larger card unicode*/
+.cardHandDiv {
+	font-size: 1000%; /*larger card unicode*/
 	letter-spacing: -2px;
 	margin-top: -30px;
 	transition: all 0.5s ease-in-out;
@@ -20,12 +20,8 @@
 	padding: 10px;
 	margin: 10px;
 	height: 200px;
-	border: 3px solid hsl(20, 75%, 30%);
-
-
-}
-.drag-area .clickable-card {
-	/*color: hsl(20, 75%, 30%);*/
+	width: 100%;
+	border: 2px solid hsl(20, 75%, 30%);
 }
 .drag-area:hover {
 	background-color: hsl(160, 75%, 30%);
@@ -45,10 +41,7 @@ body, html {
 	/*background-color: hsl(160, 75%, 30%) !important;*/
 	overflow-x: hidden; /*remove scrollbar for x-axis*/
 }
-#headerDiv {
-	background-color: hsl(160, 75%, 30%) !important;
-}
-br, #playerHandDiv, #dealerHandDiv, button {
+br, .cardHandDiv, button {
 	-webkit-user-select: none; /* Safari */        
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+/Edge */
@@ -61,11 +54,18 @@ br, #playerHandDiv, #dealerHandDiv, button {
 	background: hsl(0, 0%, 90%) !important;
 }
 
-p, h3 {
+p, h2, h3 {
 	color: #fff;
 }
 p, .alert {
 	font-size: 120%;
+}
+h2 {
+	font-size: 160%;
+	font-weight: bold;
+	display: inline;
+	letter-spacing: 2px;
+	margin-left: 20px;
 }
 h3 {
 	font-size: 160% !important;
@@ -73,18 +73,62 @@ h3 {
 	display: inline;
 }
 b {
-	font-size: 140%;
+	font-size: 120%;
 }
 .chip {
-	width: 72px;
+	width: 48px;
+	box-shadow: 5px 5px 0px hsl(0, 0%, 20%);
+	border-radius: 100%;
 }
+#headerDiv {
+	background-color: hsl(160, 75%, 30%) !important;
+	/*background-color: hsl(160, 50%, 90%) !important;*/
+	/*padding-top: 20px;*/
+/*	border-bottom-right-radius: 100%;
+	border-bottom-left-radius: 100%;
+*/}
 #tableDiv {
-	background-color: hsl(160, 50%, 90%);
+	/*background-color: hsl(160, 50%, 90%);*/
+	background-color: hsl(160, 75%, 30%);
 	color: hsl(0, 0%, 10%);
+}
+
+.pokercard {
+	margin: -20px;
+	border-radius: 20px;
+	background-color: hsl(160, 50%, 90%);
+}
+.pokercard:first-child{
+	padding-left: 20px !important;
+}
+.pokercard:last-child {
+	/*background-color: orange;*/
+	padding-right: 20px;
+}
+
+/*#outerHeaderDiv {
+	background-color: hsl(0, 75%, 30%);
+}*/
+
+/* table curve */
+#tableDiv {
+	border-top: 30px solid hsl(10, 75%, 30%);
+
+	border-bottom-right-radius: 40%;
+	border-bottom-left-radius: 40%;
+}
+#optionButtons {
+	border-bottom-right-radius: 100%;
+	border-bottom-left-radius: 100%;
+	padding-bottom: 50px !important; 
+}
+
+#outerTableDiv {
+	background-color: hsl(0, 0%, 20%);
 }
 #optionButtons, #newHandDiv, #modalButtons {
 	/*background-color: hsl(20, 75%, 30%);*/
-	background-color: hsl(160, 75%, 30%);
+	background-color: hsl(0, 0%, 20%);
 	padding: 20px;
 }
 #bottomDiv {
@@ -97,14 +141,21 @@ body, html, button, .alert, b, #noHistory {
 	color: hsl(0, 75%, 30%);
 }
 
+.col-sm-6 {
+	margin-top: -20px;
+}
+
 button {
-	background-color: hsl(0, 0%, 90%);
+	background-color: hsl(0, 0%, 90%) !important;
 	border-radius: 0 !important;
 	margin: 10px;
 	/*font-weight: 600 !important;*/
 }
 button:not(.close) {
-	box-shadow: 5px 5px hsl(0, 0%, 10%);	
+	box-shadow: 5px 5px hsl(0, 0%, 10%);
+}
+label:hover {
+	color: hsl(160, 75%, 30%);
 }
 #history, #oddsInfo {
 	color: #fff;
@@ -114,13 +165,13 @@ button:not(.close) {
 }
 button:focus:not(.close), button:hover:not(.close):not(:disabled) {
 	outline: 3px solid  #fff;
-	background-color: hsl(160, 75%, 30%);
+	background-color: hsl(160, 75%, 30%) !important;
 	color: #fff;
 	/*outline: none !important;*/
 	box-shadow: none !important;
 }
 button:disabled {
-	background-color: hsl(0, 0%, 60%);
+	background-color: hsl(0, 0%, 60%) !important;
 	color: #fff;
 	opacity: 1 !important;
 }
@@ -145,10 +196,10 @@ hr {
 	background-color: hsl(0, 50%, 30%);
 }
 
-
 .modal-content {
 	background-color: hsl(160, 50%, 90%);
 	border-radius: 0px;
+	font-size: 100%;
 }
 .modal-header {
 	background-color: hsl(160, 75%, 30%);
@@ -156,8 +207,9 @@ hr {
 	border-radius: 0px;
 }
 button.close {
-	color: #fff !important;
+	background-color: #fff !important;
 	/*opacity: 1;*/
+	outline: none !important;
 }
 .modal-body p, .modal-body h3 {
 	color: hsl(0, 0%, 10%) !important;
@@ -206,19 +258,43 @@ th, td {
 }
 
 @media (max-width: 768px) {
-	#playerHandDiv, #dealerHandDiv {
-		font-size: 900%;
+	.cardHandDiv {
+		font-size: 800%;
 	}
 	.clickable-card {
-		font-size: 600%;
+		font-size: 400%;
+		margin: -2px;
+	}
+	.drag-area {
+		height: 150px;
 	}
 	.chip {
-		width: 48px;
+		width: 36px;
+	}
+	p, .alert {
+		font-size: 100%;
 	}
 	b, h3 {
+		font-size: 120%;
+	}
+	h2 {
 		font-size: 120%;
 	}
 	.correct-history, .wrong-history {
 		font-size: 90%;
 	}
+	button {
+		margin: 5px;
+	}
+	#optionButtons, #newHandDiv, #modalButtons {
+		padding: 10px;
+	}
+	.modal-content {
+		font-size: 80%;
+	}
+}
+@media (max-width: 640px) {
+	.cardHandDiv {
+		font-size: 600%;
+	}	
 }
