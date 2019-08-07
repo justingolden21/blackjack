@@ -79,6 +79,10 @@ b {
 	width: 48px;
 	box-shadow: 5px 5px 0px hsl(0, 0%, 20%);
 	border-radius: 100%;
+	transition: 0.2s ease-in-out;
+}
+.chip:hover {
+	transform: scale(1.25);
 }
 #headerDiv {
 	background-color: hsl(160, 75%, 30%) !important;
