@@ -31,854 +31,848 @@
 <div class="text-center">
 
 <div id="headerDiv">
-<br><img class="chip" src="chip.svg"> <h3>Blackjack Practice</h3>
-<br><br>
+	<br><img class="chip" src="chip.svg"> <h3>Blackjack Practice</h3><br><br>
 </div>
 
 <div id="tableDiv" class="row">
-<div class="col-sm-6">
-	<br>
-	<b>You</b>
-	<div id="playerHandDiv"></div>
-</div>
-<div class="col-sm-6">
-	<br>
-	<b>Dealer</b>
-	<div id="dealerHandDiv"></div>
-</div>
+	<div class="col-sm-6">
+		<br>
+		<b>You</b>
+		<div id="playerHandDiv"></div>
+	</div>
+	<div class="col-sm-6">
+		<br>
+		<b>Dealer</b>
+		<div id="dealerHandDiv"></div>
+	</div>
 </div>
 
 <div id="optionButtons">
-<button class="btn btn-lg" id="hitButton">Hit <i class="fas fa-hand-pointer"></i> </button>
-<button class="btn btn-lg" id="standButton">Stand <i class="fas fa-hand-paper"></i> </button>
-<button class="btn btn-lg" id="doubleButton">Double <i class="fas fa-hand-rock"></i> </button>
-<button class="btn btn-lg" id="splitButton">Split <i class="fas fa-hands"></i> </button>
+	<button class="btn btn-lg" id="hitButton">Hit <i class="fas fa-hand-pointer"></i> </button>
+	<button class="btn btn-lg" id="standButton">Stand <i class="fas fa-hand-paper"></i> </button>
+	<button class="btn btn-lg" id="doubleButton">Double <i class="fas fa-hand-rock"></i> </button>
+	<button class="btn btn-lg" id="splitButton">Split <i class="fas fa-hands"></i> </button>
 </div>
 
 <div id="newHandDiv">
-<button class="btn btn-default" id="newHandButton">New Hand <i class="fas fa-arrow-right"></i></button>
-<span id="oddsInfo"></span>
+	<button class="btn btn-default" id="newHandButton">
+		New Hand <i class="fas fa-arrow-right"></i>
+	</button>
+	<span id="oddsInfo"></span>
 </div>
 
 <div id="bottomDiv">
+	<div id="resultAlert" class="alert" role="alert"></div>
 
-<div id="resultAlert" class="alert" role="alert"></div>
+	<button class="btn btn" data-toggle="modal" data-target="#infoModal" title="About this website"><i class="fas fa-info-circle"></i> About</button>
+	<button class="btn btn" data-toggle="modal" data-target="#rulesModal" title="Table rules"><i class="fas fa-book-open"></i> Table Rules</button>
+	<button class="btn btn" data-toggle="modal" data-target="#historyModal" title="Your hand history"><i class="fas fa-history"></i> History</button>
+	<button class="btn btn" data-toggle="modal" data-target="#optionsModal" title="Website options and settings"><i class="fas fa-cog"></i> Options</button>
+	<button class="btn btn" data-toggle="modal" data-target="#cheatcardModal" title="Display blackjack strategy card"><i class="fas fa-table"></i> Strategy Card</button>
+	<button class="btn btn" data-toggle="modal" data-target="#tablesModal" title="Display more tables for nerds"><i class="fas fa-list"></i> More tables</button>
+	<button class="btn btn" data-toggle="modal" data-target="#oddsModal" title="Manually enter your hand and dealer's to display your odds"><i class="fas fa-calculator"></i> Hand Calculator</button>
 
-<button type="button" class="btn btn" data-toggle="modal" data-target="#infoModal" title="About this website"><i class="fas fa-info-circle"></i> About</button>
-<button type="button" class="btn btn" data-toggle="modal" data-target="#rulesModal" title="Table rules"><i class="fas fa-book-open"></i> Table Rules</button>
-<button type="button" class="btn btn" data-toggle="modal" data-target="#historyModal" title="Your hand history"><i class="fas fa-history"></i> History</button>
-<button type="button" class="btn btn" data-toggle="modal" data-target="#optionsModal" title="Website options and settings"><i class="fas fa-cog"></i> Options</button>
-<button type="button" class="btn btn" data-toggle="modal" data-target="#cheatcardModal" title="Display blackjack strategy card"><i class="fas fa-table"></i> Strategy Card</button>
-<button type="button" class="btn btn" data-toggle="modal" data-target="#tablesModal" title="Display more tables for nerds"><i class="fas fa-list"></i> More tables</button>
-<button type="button" class="btn btn" data-toggle="modal" data-target="#oddsModal" title="Manually enter your hand and dealer's to display your odds"><i class="fas fa-calculator"></i> Hand Calculator</button>
-<!-- stragety card/reference card -->
-
-<p id="statP">Streak: 0 &mdash;&mdash; Max streak: 0 &mdash;&mdash; 0 / 0</p>
-
-<br>
-
+	<p id="statP">Streak: 0 &mdash;&mdash; Max streak: 0 &mdash;&mdash; 0 / 0</p>
+	<br>
 </div>
 
+<!-- Modals -->
 <div class="modal fade" id="infoModal">
-  <div class="modal-dialog modal-lg">
-	<div class="modal-content">
-	  <div class="modal-header">
-		<h4 class="modal-title"><i class="fas fa-info-circle"></i> About</h4>
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	  </div>
-	  <div class="modal-body">
-		<b>Using the website</b>
-		<p>Select the best available option and we will tell you if your choice was statistically correct.</p>
-		<p>Your streak and totals are shown below.</p>
-		<p>Never take insurance (betting the dealer has blackjack).</p>
-		<p>You can use the left <kbd><i class="fas fa-caret-left"></i></kbd> and right <kbd><i class="fas fa-caret-right"></i></kbd> arrow keys to change buttons and the <kbd>Enter</kbd> key to submit.</p>
-	  	<hr>
-	  	<p>V.1.3.0</p>
-	  	<p>Made by <a href="https://justingolden21.github.io" target="_blank">Justin Golden</a></p>
-	  	<p><a href="https://github.com/justingolden21/blackjack" target="_blank"><i class="fab fa-github"></i> Github Repo</a></p>
-	  	<p> Contact me at <a href="mailto:justingolden@rgbstudios.org" target="_blank"><i class="fas fa-envelope"></i> justingolden@rgbstudios.org</a></p>
-	  </div>
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><i class="fas fa-info-circle"></i> About</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<b>Using the website</b>
+				<p>Select the best available option and we will tell you if your choice was statistically correct.</p>
+				<p>Your streak and totals are shown below.</p>
+				<p>Never take insurance (betting the dealer has blackjack).</p>
+				<p>You can use the left <kbd><i class="fas fa-caret-left"></i></kbd> and right <kbd><i class="fas fa-caret-right"></i></kbd> arrow keys to change buttons and the <kbd>Enter</kbd> key to submit.</p>
+				<hr>
+				<p>V.1.3.0</p>
+				<p>Made by <a href="https://justingolden21.github.io" target="_blank">Justin Golden</a></p>
+				<p><a href="https://github.com/justingolden21/blackjack" target="_blank"><i class="fab fa-github"></i> Github Repo</a></p>
+				<p>Contact me at <a href="mailto:justingolden@rgbstudios.org" target="_blank"><i class="fas fa-envelope"></i> justingolden@rgbstudios.org</a></p>
+			</div>
+		</div>
 	</div>
-  </div>
 </div>
 
 <div class="modal fade" id="rulesModal">
-  <div class="modal-dialog modal-lg">
-	<div class="modal-content">
-	  <div class="modal-header">
-		<h4 class="modal-title"><i class="fas fa-info-circle"></i> Table Rules</h4>
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	  </div>
-	  <div class="modal-body">
-		<b>Table Rules</b>
-		<p>This website assumes the following table rules: </p>
-			<ul>
-			<li>Blackjack pays 3:2</li>
-			<li>Dealer stands on a soft 17</li>
-			<li>Infinite size deck</li>
-			<li>Double after a split allowed</li>
-			<li>Split up to three times except aces</li>
-			<li>Draw only one card per split ace</li>
-			</ul>
-		<p>Based on these rules, the player's expected value is -0.511734%.</p>
-		<p>This website does not feature a surrender option, however if one is allowed, you should surender only on hard 16 against 9, 10, or ace, or hard 15 against 10.</p>
-		<hr>
-		<p>Data is from <a href="https://wizardofodds.com/games/blackjack/appendix/1/" target="_blank">wizardofodds.com</a>.</p>
-		<p>For how to play blackjack, feel free to read <a href="https://en.wikipedia.org/wiki/Blackjack" target="_blank">Blackjack on Wikipedia</a>.</p>
-	  </div>
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><i class="fas fa-info-circle"></i> Table Rules</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<b>Table Rules</b>
+				<p>This website assumes the following table rules: </p>
+				<ul>
+				<li>Blackjack pays 3:2</li>
+				<li>Dealer stands on a soft 17</li>
+				<li>Infinite size deck</li>
+				<li>Double after a split allowed</li>
+				<li>Split up to three times except aces</li>
+				<li>Draw only one card per split ace</li>
+				</ul>
+				<p>Based on these rules, the player's expected value is -0.511734%.</p>
+				<p>This website does not feature a surrender option, however if one is allowed, you should surender only on hard 16 against 9, 10, or ace, or hard 15 against 10.</p>
+				<hr>
+				<p>Data is from <a href="https://wizardofodds.com/games/blackjack/appendix/1/" target="_blank">wizardofodds.com</a>.</p>
+				<p>For how to play blackjack, feel free to read <a href="https://en.wikipedia.org/wiki/Blackjack" target="_blank">Blackjack on Wikipedia</a>.</p>
+			</div>
+		</div>
 	</div>
-  </div>
 </div>
 
 <div class="modal fade" id="historyModal">
-  <div class="modal-dialog modal-lg">
-	<div class="modal-content">
-	  <div class="modal-header">
-		<h4 class="modal-title"><i class="fas fa-history"></i> History</h4>
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	  </div>
-	  <div class="modal-body">
-		<span id="history">
-			<span id="noHistory">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><i class="fas fa-history"></i> History</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<span id="history">
+				<span id="noHistory">
 				<strong>There is no history. </strong> 
 				<br>
 				<i class="fas fa-info-circle"></i><i> Click "Hit", "Stand", "Double", or "Split" to get started.</i>
-			</span>
-		</span>
-	  </div>
+				</span>
+				</span>
+			</div>
+		</div>
 	</div>
-  </div>
 </div>
 
 <div class="modal fade" id="optionsModal">
-  <div class="modal-dialog">
-	<div class="modal-content">
-	  <div class="modal-header">
-		<h4 class="modal-title"><i class="fas fa-cog"></i> Options</h4>
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	  </div>
-	  <div class="modal-body">
-	  	<input id="drawOddsCheckbox" type="checkbox">
-	  	<label for="drawOddsCheckbox">Display Hand Odds</label>
-	  </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><i class="fas fa-cog"></i> Options</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<input id="drawOddsCheckbox" type="checkbox">
+				<label for="drawOddsCheckbox">Display Hand Odds</label>
+			</div>
+		</div>
 	</div>
-  </div>
 </div>
 
 <div class="modal fade" id="tablesModal">
-  <div class="modal-dialog modal-lg">
-	<div class="modal-content">
-	  <div class="modal-header">
-		<h4 class="modal-title"><i class="fas fa-table"></i> More tables</h4>
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	  </div>
-	  <div class="modal-body">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><i class="fas fa-table"></i> More tables</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
 
-	  	<div class="row">
-		<div class="col-lg-6">
+				<div class="col-lg-6">
 
-		<h3>Odds vs. Dealer Up Card</h3>
-		<table class="table table-sm table-bordered table-hover">
-		<tr>
-		<th>Dealer's Up Card</th>
-		<th>Odds Dealer Busts</th>
-		<th>Player Advantage</th>
-		</tr><tr>
-		<td>2</td>
-		<td>35.30%</td>
-		<td>9.8%</td>
-		</tr><tr>
-		<td>3</td>
-		<td>37.56%</td>
-		<td>13.4%</td>
-		</tr><tr>
-		<td>4</td>
-		<td>40.28%</td>
-		<td>18.0%</td>
-		</tr><tr>
-		<td>5</td>
-		<td>42.89%</td>
-		<td>23.2%</td>
-		</tr><tr>
-		<td>6</td>
-		<td>42.08%</td>
-		<td>23.9%</td>
-		</tr><tr>
-		<td>7</td>
-		<td>25.99%</td>
-		<td>14.3%</td>
-		</tr><tr>
-		<td>8</td>
-		<td>23.86%</td>
-		<td>5.4%</td>
-		</tr><tr>
-		<td>9</td>
-		<td>23.34%</td>
-		<td>-4.3%</td>
-		</tr><tr>
-		<td>10</td>
-		<td>21.43%</td>
-		<td>-16.9%</td>
-		</tr><tr>
-		<td>A</td>
-		<td>11.65%</td>
-		<td>-16.0%</td>
-		</tr>
-		</table><br>
-		
-		<h3>Odds of Busting While Taking a Hit</h3>
-		<table class="table table-sm table-bordered table-hover">		
-		<tr>
-		<th>Total Hand Value</th>
-		<th>Probability of Busting</th>
-		</tr><tr>
-		<td>21</td>
-		<td>100%</td>
-		</tr><tr>
-		<td>20</td>
-		<td>92%</td>
-		</tr><tr>
-		<td>19</td>
-		<td>85%</td>
-		</tr><tr>
-		<td>18</td>
-		<td>77%</td>
-		</tr><tr>
-		<td>17</td>
-		<td>69%</td>
-		</tr><tr>
-		<td>16</td>
-		<td>62%</td>
-		</tr><tr>
-		<td>15</td>
-		<td>58%</td>
-		</tr><tr>
-		<td>14</td>
-		<td>56%</td>
-		</tr><tr>
-		<td>13</td>
-		<td>39%</td>
-		</tr><tr>
-		<td>12</td>
-		<td>31%</td>
-		</tr><tr>
-		<td>&le; 11</td>
-		<td>0%</td>
-		</tr>
-		</table><br>
-		
-		<h3>House Advantage with Multiple Number of Decks</h3>
-		<table class="table table-sm table-bordered table-hover">
-		<tr>
-		<th>Number of Decks</th>
-		<th>House Odds Advantage</th>
-		</tr><tr>
-		<td>1</td>
-		<td>0.04%</td>
-		</tr><tr>
-		<td>2</td>
-		<td>0.42%</td>
-		</tr><tr>
-		<td>4</td>
-		<td>0.61%</td>
-		</tr><tr>
-		<td>6</td>
-		<td>0.67%</td>
-		</tr><tr>
-		<td>8</td>
-		<td>0.70%</td>
-		</tr>
-		</table><br>
+				<h3>Odds vs. Dealer Up Card</h3>
+				<table class="table table-sm table-bordered table-hover">
+				<tr>
+				<th>Dealer's Up Card</th>
+				<th>Odds Dealer Busts</th>
+				<th>Player Advantage</th>
+				</tr><tr>
+				<td>2</td>
+				<td>35.30%</td>
+				<td>9.8%</td>
+				</tr><tr>
+				<td>3</td>
+				<td>37.56%</td>
+				<td>13.4%</td>
+				</tr><tr>
+				<td>4</td>
+				<td>40.28%</td>
+				<td>18.0%</td>
+				</tr><tr>
+				<td>5</td>
+				<td>42.89%</td>
+				<td>23.2%</td>
+				</tr><tr>
+				<td>6</td>
+				<td>42.08%</td>
+				<td>23.9%</td>
+				</tr><tr>
+				<td>7</td>
+				<td>25.99%</td>
+				<td>14.3%</td>
+				</tr><tr>
+				<td>8</td>
+				<td>23.86%</td>
+				<td>5.4%</td>
+				</tr><tr>
+				<td>9</td>
+				<td>23.34%</td>
+				<td>-4.3%</td>
+				</tr><tr>
+				<td>10</td>
+				<td>21.43%</td>
+				<td>-16.9%</td>
+				</tr><tr>
+				<td>A</td>
+				<td>11.65%</td>
+				<td>-16.0%</td>
+				</tr>
+				</table><br>
 
+				<h3>Odds of Busting While Taking a Hit</h3>
+				<table class="table table-sm table-bordered table-hover">		
+				<tr>
+				<th>Total Hand Value</th>
+				<th>Probability of Busting</th>
+				</tr><tr>
+				<td>21</td>
+				<td>100%</td>
+				</tr><tr>
+				<td>20</td>
+				<td>92%</td>
+				</tr><tr>
+				<td>19</td>
+				<td>85%</td>
+				</tr><tr>
+				<td>18</td>
+				<td>77%</td>
+				</tr><tr>
+				<td>17</td>
+				<td>69%</td>
+				</tr><tr>
+				<td>16</td>
+				<td>62%</td>
+				</tr><tr>
+				<td>15</td>
+				<td>58%</td>
+				</tr><tr>
+				<td>14</td>
+				<td>56%</td>
+				</tr><tr>
+				<td>13</td>
+				<td>39%</td>
+				</tr><tr>
+				<td>12</td>
+				<td>31%</td>
+				</tr><tr>
+				<td>&le; 11</td>
+				<td>0%</td>
+				</tr>
+				</table><br>
+
+				<h3>House Advantage with Multiple Number of Decks</h3>
+				<table class="table table-sm table-bordered table-hover">
+				<tr>
+				<th>Number of Decks</th>
+				<th>House Odds Advantage</th>
+				</tr><tr>
+				<td>1</td>
+				<td>0.04%</td>
+				</tr><tr>
+				<td>2</td>
+				<td>0.42%</td>
+				</tr><tr>
+				<td>4</td>
+				<td>0.61%</td>
+				</tr><tr>
+				<td>6</td>
+				<td>0.67%</td>
+				</tr><tr>
+				<td>8</td>
+				<td>0.70%</td>
+				</tr>
+				</table><br>
+
+				</div>
+				<div class="col-lg-6">
+
+				<h3>Two Card Frequency Odds</h3>
+				<table class="table table-sm table-bordered table-hover">
+				<tr>
+				<th>Two Card Combination</th>
+				<th>Frequency Percentage</th>
+				</tr><tr>
+				<td>Natural 21 Blackjack</td>
+				<td>4.8%</td>
+				</tr><tr>
+				<td>Hard Stand (17-20)</td>
+				<td>30.0%</td>
+				</tr><tr>
+				<td>Decision Hands (12-16)</td>
+				<td>38.7%</td>
+				</tr><tr>
+				<td>No Bust (&le;11)</td>
+				<td>26.5%</td>
+				</tr>
+				</table><br>
+
+				<h3>Probability Edge for Each Card Removed from Deck</h3>
+				<table class="table table-sm table-bordered table-hover">
+				<tr>
+				<th>Removed Card</th>
+				<th>Effect on Odds</th>
+				</tr><tr>
+				<td>2</td>
+				<td>0.40%</td>
+				</tr><tr>
+				<td>3</td>
+				<td>0.43%</td>
+				</tr><tr>
+				<td>4</td>
+				<td>0.52%</td>
+				</tr><tr>
+				<td>5</td>
+				<td>0.67%</td>
+				</tr><tr>
+				<td>6</td>
+				<td>0.45%</td>
+				</tr><tr>
+				<td>7</td>
+				<td>0.30%</td>
+				</tr><tr>
+				<td>8</td>
+				<td>0.01%</td>
+				</tr><tr>
+				<td>9</td>
+				<td>-0.15%</td>
+				</tr><tr>
+				<td>10</td>
+				<td>-0.51%</td>
+				</tr><tr>
+				<td>Ace</td>
+				<td>-0.59%</td>
+				</tr>
+				</table><br>
+
+				<h3>Dealer Final Hand Probability Odds</h3>
+				<table class="table table-sm table-bordered table-hover">
+				<tr>
+				<th>Dealer Final Hand</th>
+				<th>Probability</th>
+				</tr>
+				<tr>
+				<td>Natural Blackjack</td>
+				<td>4.82%</td>
+				</tr><tr>
+				<td>21 (more than 2 cards)</td>
+				<td>7.36%</td>
+				</tr><tr>
+				<td>20</td>
+				<td>17.58%</td>
+				</tr><tr>
+				<td>19</td>
+				<td>13.48%</td>
+				</tr><tr>
+				<td>18</td>
+				<td>13.81%</td>
+				</tr><tr>
+				<td>17</td>
+				<td>14.58%</td>
+				</tr><tr>
+				<td>Non-Bust (less than 21)</td>
+				<td>71.63%</td>
+				</tr><tr>
+				<td>Bust (more than 21)</td>
+				<td>28.37%</td>
+				</tr>
+				</table><br>
+
+				</div>
+				</div>
+
+				<p>Data from <a href="https://www.lolblackjack.com/blackjack/probability-odds/" target="_blank">lolblackjack.com</a></p>
+			</div>
 		</div>
-		<div class="col-lg-6">
-
-		<h3>Two Card Frequency Odds</h3>
-		<table class="table table-sm table-bordered table-hover">
-		<tr>
-		<th>Two Card Combination</th>
-		<th>Frequency Percentage</th>
-		</tr><tr>
-		<td>Natural 21 Blackjack</td>
-		<td>4.8%</td>
-		</tr><tr>
-		<td>Hard Stand (17-20)</td>
-		<td>30.0%</td>
-		</tr><tr>
-		<td>Decision Hands (12-16)</td>
-		<td>38.7%</td>
-		</tr><tr>
-		<td>No Bust (&le;11)</td>
-		<td>26.5%</td>
-		</tr>
-		</table><br>
-
-		<h3>Probability Edge for Each Card Removed from Deck</h3>
-		<table class="table table-sm table-bordered table-hover">
-		<tr>
-		<th>Removed Card</th>
-		<th>Effect on Odds</th>
-		</tr><tr>
-		<td>2</td>
-		<td>0.40%</td>
-		</tr><tr>
-		<td>3</td>
-		<td>0.43%</td>
-		</tr><tr>
-		<td>4</td>
-		<td>0.52%</td>
-		</tr><tr>
-		<td>5</td>
-		<td>0.67%</td>
-		</tr><tr>
-		<td>6</td>
-		<td>0.45%</td>
-		</tr><tr>
-		<td>7</td>
-		<td>0.30%</td>
-		</tr><tr>
-		<td>8</td>
-		<td>0.01%</td>
-		</tr><tr>
-		<td>9</td>
-		<td>-0.15%</td>
-		</tr><tr>
-		<td>10</td>
-		<td>-0.51%</td>
-		</tr><tr>
-		<td>Ace</td>
-		<td>-0.59%</td>
-		</tr>
-		</table><br>
-		
-		<h3>Dealer Final Hand Probability Odds</h3>
-		<table class="table table-sm table-bordered table-hover">
-		<tr>
-		<th>Dealer Final Hand</th>
-		<th>Probability</th>
-		</tr>
-		<tr>
-		<td>Natural Blackjack</td>
-		<td>4.82%</td>
-		</tr><tr>
-		<td>21 (more than 2 cards)</td>
-		<td>7.36%</td>
-		</tr><tr>
-		<td>20</td>
-		<td>17.58%</td>
-		</tr><tr>
-		<td>19</td>
-		<td>13.48%</td>
-		</tr><tr>
-		<td>18</td>
-		<td>13.81%</td>
-		</tr><tr>
-		<td>17</td>
-		<td>14.58%</td>
-		</tr><tr>
-		<td>Non-Bust (less than 21)</td>
-		<td>71.63%</td>
-		</tr><tr>
-		<td>Bust (more than 21)</td>
-		<td>28.37%</td>
-		</tr>
-		</table><br>
-
-		</div>
-		</div>
-
-	  	<p>Data from <a href="https://www.lolblackjack.com/blackjack/probability-odds/" target="_blank">lolblackjack.com</a></p>
-
-	  </div>
 	</div>
-  </div>
 </div>
 
 <div class="modal fade" id="oddsModal">
-  <div class="modal-dialog modal-lg">
-	<div class="modal-content">
-	  <div class="modal-header">
-		<h4 class="modal-title"><i class="fas fa-calculator"></i> Hand Calculator</h4>
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	  </div>
-	  <div class="modal-body">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><i class="fas fa-calculator"></i> Hand Calculator</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p>Drag the cards into your and the dealer's hand</p>
+				<div id="card1" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a1;</div>
+				<div id="card2" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a2;</div>
+				<div id="card3" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a3;</div>
+				<div id="card4" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a4;</div>
+				<div id="card5" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a5;</div>
+				<div id="card6" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a6;</div>
+				<div id="card7" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a7;</div>
+				<div id="card8" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a8;</div>
+				<div id="card9" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a9;</div>
+				<div id="card10" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0aa;</div>
+				<br>
 
-	  	<p>Drag the cards into your and the dealer's hand</p>
-
-		<div id="card1" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a1;</div>
-		<div id="card2" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a2;</div>
-		<div id="card3" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a3;</div>
-		<div id="card4" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a4;</div>
-		<div id="card5" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a5;</div>
-		<div id="card6" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a6;</div>
-		<div id="card7" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a7;</div>
-		<div id="card8" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a8;</div>
-		<div id="card9" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a9;</div>
-		<div id="card10" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0aa;</div>
-
-		<br>
-<!-- todo maybe: delete a card option? drag to trash area? -->
-
-		<div class="row">
-			<div class="col-lg-8">
+				<div class="row">
+				<div class="col-lg-8">
 				<div id="playerHandDrag" class="drag-area" ondrop="drop(event)" ondragover="allowDrop(event)">
 					<!-- have everything inside a div for script that counts children().length -->
 					<div>Player's Hand<br><br></div>
 				</div>
-			</div>
-			<div class="col-lg-4">
+				</div>
+				<div class="col-lg-4">
 				<div id="dealerHandDrag" class="drag-area" ondrop="drop(event)" ondragover="allowDrop(event)">
 					<div>Dealer's Hand<br><br></div>
 				</div>
+				</div>
+				</div>
+				<br>
+
+				<div id="modalButtons">
+					<button id="clearDragButton" class="btn btn-lg">
+						Clear <i class="fas fa-eraser"></i>
+					</button>
+					<button id="calculateHandButton" class="btn btn-lg">
+						Calculate <i class="fas fa-calculator"></i>
+					</button>
+				</div>
+
+				<p id="calculateInfoP"></p>
 			</div>
 		</div>
-		<br>
-
-		<div id="modalButtons">
-		<button id="clearDragButton" class="btn btn-lg">Clear <i class="fas fa-eraser"></i></button>
-		<button id="calculateHandButton" class="btn btn-lg">Calculate <i class="fas fa-calculator"></i></button>
-		</div>
-
-		<p id="calculateInfoP"></p>
-
-	  </div>
 	</div>
-  </div>
 </div>
 
 <div class="modal fade" id="cheatcardModal">
-  <div class="modal-dialog modal-lg">
-	<div class="modal-content">
-	  <div class="modal-header">
-		<h4 class="modal-title"><i class="fas fa-table"></i> Strategy Card</h4>
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	  </div>
-	  <div class="modal-body">
-	  	<table class="table table-sm table-bordered table-hover">
-	  		<tr>
-	  			<th colspan="2">Hard</th>
-	  			<th>2</th>
-	  			<th>3</th>
-	  			<th>4</th>
-	  			<th>5</th>
-	  			<th>6</th>
-	  			<th>7</th>
-	  			<th>8</th>
-	  			<th>9</th>
-	  			<th>10</th>
-	  			<th>A</th>
-	  		</tr>
-	  		<tr>
-	  			<th colspan="2">4-8</th>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  		</tr>
-	  		<tr>
-	  			<th colspan="2">9</th>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  		</tr>
-	  		<tr>
-	  			<th colspan="2">10</th>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  		</tr>
-	  		<tr>
-	  			<th colspan="2">11</th>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-hit">H</td>
-	  		</tr>
-	  		<tr>
-	  			<th colspan="2">12</th>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-hit">H</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-	  		<tr>
-	  			<th colspan="2">13</th>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-	  		<tr>
-	  			<th colspan="2">14</th>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-	  		<tr>
-	  			<th colspan="2">15</th>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-surrender">R</td>
-				<td class="table-hit">H</td>
-			</tr>
-	  		<tr>
-	  			<th colspan="2">16</th>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-surrender">R</td>
-				<td class="table-surrender">R</td>
-				<td class="table-surrender">R</td>
-			</tr>
-	  		<tr>
-	  			<th colspan="2">17-21</th>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-	  			<td class="table-stand">S</td>
-			</tr>
-	  		<tr>
-	  			<th colspan="2">Soft</th>
-	  			<th>2</th>
-	  			<th>3</th>
-	  			<th>4</th>
-	  			<th>5</th>
-	  			<th>6</th>
-	  			<th>7</th>
-	  			<th>8</th>
-	  			<th>9</th>
-	  			<th>10</th>
-	  			<th>A</th>
-	  		</tr>
-			<tr>
-	  			<th colspan="2">13</th>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-	  			<td class="table-double">D</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">14</th>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">15</th>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">16</th>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">17</th>
-				<td class="table-hit">H</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-	  			<td class="table-double">D</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">18</th>
-				<td class="table-stand">S</td>
-				<td class="table-double">Ds</td>
-				<td class="table-double">Ds</td>
-				<td class="table-double">Ds</td>
-				<td class="table-double">Ds</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">19-21</th>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-			</tr>
-	  		<tr>
-	  			<th colspan="2">Pairs</th>
-	  			<th>2</th>
-	  			<th>3</th>
-	  			<th>4</th>
-	  			<th>5</th>
-	  			<th>6</th>
-	  			<th>7</th>
-	  			<th>8</th>
-	  			<th>9</th>
-	  			<th>10</th>
-	  			<th>A</th>
-	  		</tr>
-			<tr>
-	  			<th colspan="2">2,2</th>
-				<td class="table-split">H/P</td>
-				<td class="table-split">H/P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">3,3</th>
-				<td class="table-split">H/P</td>
-				<td class="table-split">H/P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">4,4</th>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-split">H/P</td>
-				<td class="table-split">H/P</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">5,5</th>
-				<td class="table-double">D</td>
-				<td class="table-double">D</td>
-				<td class="table-double">D</td>
-				<td class="table-double">D</td>
-				<td class="table-double">D</td>
-				<td class="table-double">D</td>
-				<td class="table-double">D</td>
-				<td class="table-double">D</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">6,6</th>
-				<td class="table-split">H/P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">7,7</th>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-				<td class="table-hit">H</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">8,8</th>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">9,9</th>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-stand">S</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">10,10</th>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-				<td class="table-stand">S</td>
-			</tr>
-			<tr>
-	  			<th colspan="2">A,A</th>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-				<td class="table-split">P</td>
-			</tr>
-	  	</table>
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><i class="fas fa-table"></i> Strategy Card</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<table class="table table-sm table-bordered table-hover">
+					<tr>
+						<th colspan="2">Hard</th>
+						<th>2</th>
+						<th>3</th>
+						<th>4</th>
+						<th>5</th>
+						<th>6</th>
+						<th>7</th>
+						<th>8</th>
+						<th>9</th>
+						<th>10</th>
+						<th>A</th>
+					</tr>
+					<tr>
+						<th colspan="2">4-8</th>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">9</th>
+						<td class="table-hit">H</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">10</th>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">11</th>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">12</th>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">13</th>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">14</th>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">15</th>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-surrender">R</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">16</th>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-surrender">R</td>
+						<td class="table-surrender">R</td>
+						<td class="table-surrender">R</td>
+					</tr>
+					<tr>
+						<th colspan="2">17-21</th>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+					</tr>
+					<tr>
+						<th colspan="2">Soft</th>
+						<th>2</th>
+						<th>3</th>
+						<th>4</th>
+						<th>5</th>
+						<th>6</th>
+						<th>7</th>
+						<th>8</th>
+						<th>9</th>
+						<th>10</th>
+						<th>A</th>
+					</tr>
+					<tr>
+						<th colspan="2">13</th>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-double">D</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">14</th>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">15</th>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">16</th>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">17</th>
+						<td class="table-hit">H</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">18</th>
+						<td class="table-stand">S</td>
+						<td class="table-double">Ds</td>
+						<td class="table-double">Ds</td>
+						<td class="table-double">Ds</td>
+						<td class="table-double">Ds</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">19-21</th>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+					</tr>
+					<tr>
+						<th colspan="2">Pairs</th>
+						<th>2</th>
+						<th>3</th>
+						<th>4</th>
+						<th>5</th>
+						<th>6</th>
+						<th>7</th>
+						<th>8</th>
+						<th>9</th>
+						<th>10</th>
+						<th>A</th>
+					</tr>
+					<tr>
+						<th colspan="2">2,2</th>
+						<td class="table-split">H/P</td>
+						<td class="table-split">H/P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">3,3</th>
+						<td class="table-split">H/P</td>
+						<td class="table-split">H/P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">4,4</th>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-split">H/P</td>
+						<td class="table-split">H/P</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">5,5</th>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-double">D</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">6,6</th>
+						<td class="table-split">H/P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">7,7</th>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+						<td class="table-hit">H</td>
+					</tr>
+					<tr>
+						<th colspan="2">8,8</th>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+					</tr>
+					<tr>
+						<th colspan="2">9,9</th>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-stand">S</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+					</tr>
+					<tr>
+						<th colspan="2">10,10</th>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+						<td class="table-stand">S</td>
+					</tr>
+					<tr>
+						<th colspan="2">A,A</th>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+						<td class="table-split">P</td>
+					</tr>
+				</table>
 
-	  	Key:
-	  	<table class="table">
-	  		<tr>
-			<td class="table-hit">H: hit</td>
-			</tr>
-			<tr>
-			<td class="table-stand">S: stand</td>
-			</tr>
-			<tr>
-			<td class="table-double">D: double, otherwise hit</td>
-			</tr>
-			<tr>
-			<td class="table-double">Ds: double, otherwise stand</td>
-			</tr>
-			<tr>
-			<td class="table-split">P: split</td>
-			</tr>
-			<tr>
-			<td class="table-split">H/P: split if double after split allowed, otherwise hit</td>
-			</tr>
-			<tr>
-			<td class="table-surrender">R: surrender, otherwise hit</td>
-			</tr>
-		</table>
+				Key:
+				<table class="table">
+					<tr>
+					<td class="table-hit">H: hit</td>
+					</tr>
+					<tr>
+					<td class="table-stand">S: stand</td>
+					</tr>
+					<tr>
+					<td class="table-double">D: double, otherwise hit</td>
+					</tr>
+					<tr>
+					<td class="table-double">Ds: double, otherwise stand</td>
+					</tr>
+					<tr>
+					<td class="table-split">P: split</td>
+					</tr>
+					<tr>
+					<td class="table-split">H/P: split if double after split allowed, otherwise hit</td>
+					</tr>
+					<tr>
+					<td class="table-surrender">R: surrender, otherwise hit</td>
+					</tr>
+				</table>
 
-		<a download href="strategy.png"><button class="btn btn-lg"><i class="fas fa-download"></i> Download Cheatsheet</button></a>
-
-	  </div>
+				<a download href="strategy.png"><button class="btn btn-lg"><i class="fas fa-download"></i> Download Cheatsheet</button></a>
+				</div>
+			</div>
+		</div>
 	</div>
-  </div>
-</div>
-
 </div>
 </body>
 </html>
