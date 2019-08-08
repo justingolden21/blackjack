@@ -101,6 +101,7 @@ INFO / NOTES
 ========
 data folder has original .csv files as well as converted .json files
 test locally on edge to get around CORS policy requirements
+strategy card img is screenshot of zoomed out webpage, on fullscreen
 
 ========
 LINKS
