@@ -106,10 +106,39 @@ function newHand() {
 	$('#resultAlert').html('Click a button to test your knowledge');
 
 	clearCards();
-	buildDeck();	
 
 	// draw 3 unique cards
-	currentCards = [getRandomCard(deck), getRandomCard(deck), getRandomCard(deck)]; 
+	let validCards = false;
+
+	let hardValid = $('#hardCheckbox').is(':checked');
+	let softValid = $('#softCheckbox').is(':checked');
+	let splitValid = $('#splitCheckbox').is(':checked');
+
+	// make sure at least one is checked, otherwise treat all as checked
+	if(!hardValid && !softValid && !splitValid)
+		hardValid = softValid = splitValid = true;
+
+	// let excludeUnselected = $('#logicCheckbox').is(':checked');
+
+	while(!validCards) {
+		buildDeck();
+		currentCards = [getRandomCard(deck), getRandomCard(deck), getRandomCard(deck)];
+
+		// if(excludeUnselected) {
+		// 	validCards = !( (!isSoft(currentCards) && !hardValid) || 
+		// 		(isSoft(currentCards) && !softValid) || 
+		// 		(isSplit(currentCards) && !splitValid) );
+		// } else {
+		// 	validCards = (!isSoft(currentCards) && hardValid) || 
+		// 		(isSoft(currentCards) && softValid) || 
+		// 		(isSplit(currentCards) && splitValid);
+		// }
+
+		// solution: splits are neither soft nor hard
+		validCards = (!isSoft(currentCards) && !isSplit(currentCards) && hardValid) || 
+			(isSoft(currentCards) && !isSplit(currentCards) && softValid) || 
+			(isSplit(currentCards) && splitValid);
+	}
 
 	drawCardImage(currentCards[0], true);
 	drawCardImage(currentCards[1], true);

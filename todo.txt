@@ -27,6 +27,8 @@ remove keyboard shortcut info on mobile (css display none @media)
 graphical representation of bar filled left or right red or green for odds if checkbox is shown
 
 
+checkbox for displaying animation or not
+
 3 checkboxes for which possible hands to display:
 hard, soft, pairs
 
