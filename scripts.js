@@ -92,8 +92,10 @@ function clearCards() {
 }
 
 function newHand() {
-	$('.cardHandDiv').css('opacity', '0');
-	$('.cardHandDiv').fadeOut(0).fadeIn(400, ()=>{$('.cardHandDiv').css('opacity', '1');});
+	if($('#animateCheckbox').is(':checked') ) {
+		$('.cardHandDiv').css('opacity', '0');
+		$('.cardHandDiv').fadeOut(0).fadeIn(400, ()=>{$('.cardHandDiv').css('opacity', '1');});		
+	}
 
 	$('#newHandDiv').css('display', 'none');
 

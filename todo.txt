@@ -17,7 +17,7 @@ get rid of calc hand btn (does it automatically, adds confusion). currently calc
 add to about modal about each of the other modals and how to use them (or add that info to the bottom of those modals)
 
 Hard:
-animate dealing cards to player and dealer. make animation a checkbox/option
+animate dealing cards to player and dealer
 option to play rest of hand (no chips, draw the cards)
 
 ========
