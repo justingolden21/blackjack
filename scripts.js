@@ -1,8 +1,4 @@
-
 let deck, currentCards;
-
-// let valDict = {'1':'Ace', '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', 'a':'10', 'b': 'Jack', 'd':'Queen', 'e':'King'};
-// let suitDict = {'a':'Spades', 'b': 'Hearts', 'c': 'Diamonds', 'd':'Clubs'};
 
 let numCorrect = numWrong = numStreak = maxStreak = 0;
 
@@ -15,7 +11,6 @@ let doubleData, hitData, splitData, standData;
 class Card {
 	constructor(val, char) {
 		this.char = char;
-		// this.name = valDict[val[1] ] + ' of ' + suitDict[val[0] ] ;
 		this.isRed = val[0] == 'b' || val[0] == 'c'; // heart or diamond
 		this.value = parseInt(val[1]); //a through e is 10
 		if(isNaN(this.value) )
@@ -85,7 +80,6 @@ function buildDeck() { // creates deck of 52
 
 // graphics
 function drawCardImage(card, isPlayer) {
-	// let isRed = card.name.indexOf('Hearts') != -1 || card.name.indexOf('Diamonds') != -1;
 	let cardHTML = '<span class=" pokercard ' + (card.isRed ? 'redcard':'') + '">' + card.char + '</span>';
 	if(isPlayer)
 		$('#playerHandDiv').html($('#playerHandDiv').html() + cardHTML);
@@ -100,8 +94,6 @@ function clearCards() {
 }
 
 function newHand() {
-
-	// fade animations took way too much effort...
 	$('.cardHandDiv').css('opacity', '0');
 	$('.cardHandDiv').fadeOut(0).fadeIn(400, ()=>{$('.cardHandDiv').css('opacity', '1');});
 
@@ -125,10 +117,6 @@ function newHand() {
 	drawCardImage(currentCards[1], true);
 	drawCardImage(currentCards[2], false);
 	drawCardbackImage();
-
-
-	//todo: if checkbox, have dropdown for odds when hand dealt, not just after
-	//drawOdds(currentCards[0].value+currentCards[1].value, currentCards[2].value, isSoft(currentCards), isSplit(currentCards) );
 
 	$('#splitButton').prop('disabled', !isSplit(currentCards) );
 }
