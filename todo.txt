@@ -7,80 +7,47 @@ dragging a card on top of itself (or other cards in any zone) copies the card, n
 ========
 TODO
 ========
-easy:
-split into multiple js files?
-drag card off of hand calc to remove it
-
-organize css colors with comments or sass
-
-harder:
-let them actually draw the cards and play through the round?
-
-animate dealing cards to player and dealer?
-
-store cookies for streaks/stats option
-add sharethis?
-
-icon on next hand button with hand of cards
-icons next to hit, stand, etc buttons
+Easy:
+add progress bar display to hand calc
+update cheatsheet img for download
 remove keyboard shortcut info on mobile (css display none @media)
-graphical representation of bar filled left or right red or green for odds if checkbox is shown
 
+Medium:
+option for close case hands only "close cases"
+fix checkbox.js for focusing checkboxes...
+get rid of calc hand btn (does it automatically, adds confusion). currently calcs by clicking btn, so need to change that first
 
-checkbox for displaying animation or not
+Hard:
+animate dealing cards to player and dealer. make animation a checkbox/option
+option to play rest of hand (no chips, draw the cards)
 
-3 checkboxes for which possible hands to display:
-hard, soft, pairs
-
-display close cases only
-
-option to play rest of hand (no chips)
-
-
-
-possible redundant code in calc hand btn listener and getCorrectOption function
-
-split js into 2 or 3 files. possible new files include calcHand modal code and drag and drop stuff
-
-optional/maybe:
+========
+MAYBE
+========
+option to edit house rule settings, like double after split, surrender, number of decks, etc
+share/promo idea: share that i stood on hard 13 against dealer 6 and got it right and only 23.7% of people did. check out blackjack sim HERE
+more stats on percentages like percentages on hard, soft, split hands, in a new stats modal, maybe even a graph vs time of accuracy
+get a custom url
+import and export stats to .txt
+drag card off of hand calc to remove it
+store cookies for streaks/stats option
+add sharethis
 make calc hand modal work with keyboard
 change the hand calc UI to just 2 drop downs for player and dealer...
 
-split css into multiple files?
+OPTIONS:
+display percentage accuracy on bottom
+display soft hands in table as A7 instead of 18
+add more info to alert about if you're correct, info for when you do what with that hand
 
-fix file structure/organize
+MODALS:
 
-get rid of calc hand btn (does it automatically, adds confusion). currently calcs by clicking btn, so need to change that first
-
-fix checkbox.js for focusing checkboxes...
-
-update cheatsheet img for download
-
-add progress bar display to hand calc
-
-
-todo
-
-todo: checkbox not ugly, like songsearcher using fontawesome
-todo: bargraph for odds?
-todo: display only difficult cases
-
-later: basic rules of blackjack explained modal. like wiki
 later: cheatcard modal. highlight your hand in cheatcard. like bottom of this: https://wizardofodds.com/games/blackjack/appendix/1/
 later: odds on each hand modal. highlight hand in table. like this: https://wizardofodds.com/games/blackjack/appendix/1/
 later: enter your hand and dealer's and show odds modal. like this: https://wizardofodds.com/games/blackjack/hand-calculator/
 
-import and export stats to .txt
-
-
-maybe edit house rule settings, show stats on percentage corrct and streak
-maybe: share that i stood on hard 13 against dealer 6 and got it right and only 23.7% of people did. check out blackjack sim HERE
-
-
-
-MODALS:
 how to play:
-	basic rules. get to 21 without bust, etc
+	basic rules, like wiki. get to 21 without bust, etc
 
 how to count:
 	simple hi-lo counting
@@ -107,9 +74,21 @@ betting units:
 
 add disclaimer to info modal that we are not responsible if you lose money, blackjack is inherintly random
 
+DOMAIN NAME IDEAS:
+play blackjack now
+the blackjack sim
+bj practice
+
+CLEAN:
+possible redundant code in calc hand btn listener and getCorrectOption function
+make another js file
+organize css colors with comments
+change css to scss
+organize file structure
 
 OTHER APPLICATIONS:
 make it a phone app
+make it a pwa, and a chrome web app
 make a seperate thing for just a strategy table
 make a seperate thing for a full simulator, with no other features just playing
 make a seperate thing for card counting help and practice/sim
