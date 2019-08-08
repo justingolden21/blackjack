@@ -9,12 +9,12 @@ TODO
 ========
 Easy:
 add progress bar display to hand calc
-remove keyboard shortcut info on mobile (css display none @media)
 
 Medium:
 option for close case hands only "close cases"
 fix checkbox.js for focusing checkboxes...
 get rid of calc hand btn (does it automatically, adds confusion). currently calcs by clicking btn, so need to change that first
+add to about modal about each of the other modals and how to use them (or add that info to the bottom of those modals)
 
 Hard:
 animate dealing cards to player and dealer. make animation a checkbox/option

@@ -56,7 +56,7 @@ b {
 	transition: 0.2s ease-in-out;
 }
 .chip:hover {
-	transform: scale(1.25);
+	transform: scale(1.2);
 }
 #headerDiv {
 	background-color: hsl(160, 75%, 30%) !important;
@@ -154,7 +154,7 @@ label:hover {
 .modal-content {
 	background-color: hsl(160, 50%, 90%);
 	border-radius: 0px;
-	font-size: 100%;
+	font-size: 90%;
 }
 .modal-header {
 	background-color: hsl(160, 75%, 30%);
@@ -248,6 +248,9 @@ th, td {
 
 /* media queries */
 @media (max-width: 768px) {
+	.no-mobile {
+		display: none;
+	}
 	.cardHandDiv {
 		font-size: 800%;
 	}
