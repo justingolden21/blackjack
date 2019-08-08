@@ -9,7 +9,6 @@ TODO
 ========
 Easy:
 add progress bar display to hand calc
-update cheatsheet img for download
 remove keyboard shortcut info on mobile (css display none @media)
 
 Medium:
