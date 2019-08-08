@@ -87,7 +87,7 @@ b {
 
 /* table decorations */
 #tableDiv {
-	border-top: 30px solid hsl(10, 75%, 30%);
+	border-top: 25px solid hsl(10, 75%, 30%);
 
 	border-bottom-right-radius: 40%;
 	border-bottom-left-radius: 40%;

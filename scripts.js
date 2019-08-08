@@ -2,11 +2,10 @@ let deck, currentCards;
 
 let numCorrect = numWrong = numStreak = maxStreak = 0;
 
-let doubleData, hitData, splitData, standData;
-
 // example:
 // double with hard 4 against dealer 2
 // doubleData['hard 4']['2'];
+let doubleData, hitData, splitData, standData;
 
 class Card {
 	constructor(val, char) {
@@ -18,7 +17,6 @@ class Card {
 		this.type = this.value == 1 ? 'Ace' : this.value;
 	}
 }
-
 
 $(function() {
 	// Setup Checkboxes and Data
@@ -244,7 +242,7 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 	let splitOdds = -2; // default so we never pick split as best option if hand isn't split
 	if(isSplit)
 		splitOdds = getSplitOdds(playerValue, dealerValue);
-	let standOdds = getStandOdds(playerValue,dealerValue);
+	let standOdds = getStandOdds(playerValue, dealerValue);
 
 	let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
 	if(bestOdds==doubleOdds) { return 'Double'; }

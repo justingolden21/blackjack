@@ -1,12 +1,12 @@
-bugs:
+========
+BUGS
+========
 unicode doesnt show up on some devices
 dragging a card on top of itself (or other cards in any zone) copies the card, not cuts it
-ace by itself doesnt count as vaid hand in calc
 
-note:
-test locally on edge to get around CORS policy requirements
-
-todo:
+========
+TODO
+========
 easy:
 split into multiple js files?
 drag card off of hand calc to remove it
@@ -76,7 +76,7 @@ maybe: share that i stood on hard 13 against dealer 6 and got it right and only 
 
 
 
-modals:
+MODALS:
 how to play:
 	basic rules. get to 21 without bust, etc
 
@@ -103,14 +103,12 @@ betting units:
 	also, link to advantage calculator
 	also add link to https://www.instructables.com/id/Card-Counting-and-Ranging-Bet-Sizes/
 
-
 add disclaimer to info modal that we are not responsible if you lose money, blackjack is inherintly random
 
 
-
-other things to make:
-make it an app
-make a seperate thing for just a table
+OTHER APPLICATIONS:
+make it a phone app
+make a seperate thing for just a strategy table
 make a seperate thing for a full simulator, with no other features just playing
 make a seperate thing for card counting help and practice/sim
 
@@ -118,15 +116,14 @@ links:
 	link to youtube videos by blackjack apprenticeship
 
 ========
-INFO
+INFO / NOTES
 ========
-
 data folder has original .csv files as well as converted .json files
+test locally on edge to get around CORS policy requirements
 
 ========
 LINKS
 ========
-
 https://en.wikipedia.org/wiki/Playing_cards_in_Unicode
 https://wizardofodds.com/games/blackjack/
 https://wizardofodds.com/games/blackjack/appendix/1/
