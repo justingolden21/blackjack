@@ -48,7 +48,6 @@ function calcHand() {
 		return;
 	}
 
-	console.log(playerValue, dealerValue);
 	if(isNaN(playerValue) || (isNaN(dealerValue) && dealerValue != 'ace') ) {
 		$('#calculateInfoP').html('Missing player or dealer hand value.');
 		return;	
