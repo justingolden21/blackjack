@@ -12,11 +12,12 @@ add progress bar display to hand calc
 
 Medium:
 option for close case hands only "close cases"
+make checkbox.js its own repo, then have songssearcher, blackjack, etc link to that script, update that script when it needs updating
 fix checkbox.js for focusing checkboxes...
 get rid of calc hand btn (does it automatically, adds confusion). currently calcs by clicking btn, so need to change that first
 add to about modal about each of the other modals and how to use them (or add that info to the bottom of those modals)
 
-Hard:
+Hard/Pain:
 animate dealing cards to player and dealer
 option to play rest of hand (no chips, draw the cards)
 

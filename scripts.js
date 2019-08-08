@@ -93,8 +93,10 @@ function clearCards() {
 
 function newHand() {
 	if($('#animateCheckbox').is(':checked') ) {
-		$('.cardHandDiv').css('opacity', '0');
-		$('.cardHandDiv').fadeOut(0).fadeIn(400, ()=>{$('.cardHandDiv').css('opacity', '1');});		
+		$('.cardHandDiv').css('transform', 'translateX(-200%)');
+		$('.cardHandDiv').fadeOut(0).fadeIn(300, ()=>{$('.cardHandDiv').css('transform', 'translateX(0%)');});		
+		// $('.cardHandDiv').css('opacity', '0');
+		// $('.cardHandDiv').fadeOut(0).fadeIn(400, ()=>{$('.cardHandDiv').css('opacity', '1');});		
 	}
 
 	$('#newHandDiv').css('display', 'none');
