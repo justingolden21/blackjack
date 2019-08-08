@@ -1,54 +1,9 @@
-#playerHandDiv, #dealerHandDiv {
-	font-size: 1200%; /*larger card unicode*/
-	letter-spacing: -2px;
-	margin-top: -30px;
-	transition: all 0.5s ease-in-out;
-}
-.clickable-card {
-	font-size: 600%;
-	display: inline;
-	cursor: pointer;
-}
-.clickable-card:hover, .clickable-card.active {
-	color: hsl(20, 75%, 30%);
-}
-/*.drag-area .clickable-card {
-	color: hsl(20, 75%, 30%);
-}*/
-.drag-area {
-	display: inline-block !important;
-	padding: 10px;
-	margin: 10px;
-	height: 200px;
-	border: 3px solid hsl(20, 75%, 30%);
-
-
-}
-.drag-area .clickable-card {
-	/*color: hsl(20, 75%, 30%);*/
-}
-.drag-area:hover {
-	background-color: hsl(160, 75%, 30%);
-	color: #fff;
-}
-
-.odds-option {
-	padding: 10px;
-}
-.best-pick {
-	background-color: hsl(160, 75%, 30%);
-	color: #fff;
-}
-
+/* generic styles */
 body, html {
 	background-color: hsl(20, 75%, 30%) !important;
-	/*background-color: hsl(160, 75%, 30%) !important;*/
 	overflow-x: hidden; /*remove scrollbar for x-axis*/
 }
-#headerDiv {
-	background-color: hsl(160, 75%, 30%) !important;
-}
-br, #playerHandDiv, #dealerHandDiv, button {
+br, .cardHandDiv, button, .chip {
 	-webkit-user-select: none; /* Safari */        
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+/Edge */
@@ -60,12 +15,29 @@ br, #playerHandDiv, #dealerHandDiv, button {
 ::selection {
 	background: hsl(0, 0%, 90%) !important;
 }
+body, html, button, .alert, b, #noHistory {
+	color: hsl(0, 0%, 10%);
+}
+.redcard {
+	color: hsl(0, 75%, 30%);
+}
+hr {
+	border: 1px solid hsl(0, 0%, 10%);
+}
 
-p, h3 {
+/* text */
+p, h2, h3, #history, #oddsInfo {
 	color: #fff;
 }
 p, .alert {
 	font-size: 120%;
+}
+h2 {
+	font-size: 160%;
+	font-weight: bold;
+	display: inline;
+	letter-spacing: 2px;
+	margin-left: 20px;
 }
 h3 {
 	font-size: 160% !important;
@@ -73,69 +45,102 @@ h3 {
 	display: inline;
 }
 b {
-	font-size: 140%;
-}
-.chip {
-	width: 72px;
-}
-#tableDiv {
-	background-color: hsl(160, 50%, 90%);
-	color: hsl(0, 0%, 10%);
-}
-#optionButtons, #newHandDiv, #modalButtons {
-	/*background-color: hsl(20, 75%, 30%);*/
-	background-color: hsl(160, 75%, 30%);
-	padding: 20px;
-}
-#bottomDiv {
-	background-color: hsl(20, 75%, 30%);
-}
-body, html, button, .alert, b, #noHistory {
-	color: hsl(0, 0%, 10%);
-}
-.redcard {
-	color: hsl(0, 75%, 30%);
+	font-size: 120%;
 }
 
+/* header */
+.chip {
+	width: 64px;
+	box-shadow: 5px 5px 0px hsl(0, 0%, 20%);
+	border-radius: 100%;
+	transition: 0.2s ease-in-out;
+}
+.chip:hover {
+	transform: scale(1.25);
+}
+#headerDiv {
+	background-color: hsl(160, 75%, 30%) !important;
+}
+
+/* table */
+#tableDiv {
+	background-color: hsl(160, 75%, 30%);
+	color: hsl(0, 0%, 10%);
+}
+.cardHandDiv {
+	font-size: 1000%; /*larger card unicode*/
+	letter-spacing: -2px;
+	margin-top: -30px;
+	transition: all 0.5s ease-in-out;
+}
+.pokercard {
+	margin: -20px;
+	border-radius: 20px;
+	background-color: hsl(160, 50%, 90%);
+}
+.pokercard:first-child{
+	padding-left: 20px !important;
+}
+.pokercard:last-child {
+	padding-right: 20px;
+}
+
+/* table decorations */
+#tableDiv {
+	border-top: 25px solid hsl(10, 75%, 30%);
+
+	border-bottom-right-radius: 40%;
+	border-bottom-left-radius: 40%;
+}
+#optionButtons {
+	border-bottom-right-radius: 100%;
+	border-bottom-left-radius: 100%;
+	padding-bottom: 50px !important; 
+}
+#outerTableDiv {
+	background-color: hsl(0, 0%, 20%);
+}
+#optionButtons, #newHandDiv, #modalButtons {
+	background-color: hsl(0, 0%, 20%);
+	padding: 20px;
+}
+/*#bottomDiv {
+	background-color: hsl(20, 75%, 30%);
+}*/
+
+/* buttons and form elements */
 button {
-	background-color: hsl(0, 0%, 90%);
+	background-color: hsl(0, 0%, 90%) !important;
 	border-radius: 0 !important;
 	margin: 10px;
 	/*font-weight: 600 !important;*/
 }
 button:not(.close) {
-	box-shadow: 5px 5px hsl(0, 0%, 10%);	
-}
-#history, #oddsInfo {
-	color: #fff;
-}
-.correct-history, .wrong-history {
-	padding: 6px;
+	box-shadow: 5px 5px hsl(0, 0%, 10%);
 }
 button:focus:not(.close), button:hover:not(.close):not(:disabled) {
 	outline: 3px solid  #fff;
-	background-color: hsl(160, 75%, 30%);
+	background-color: hsl(160, 75%, 30%) !important;
 	color: #fff;
 	/*outline: none !important;*/
 	box-shadow: none !important;
 }
 button:disabled {
-	background-color: hsl(0, 0%, 60%);
-	color: #fff;
+	background-color: hsl(0, 0%, 60%) !important;
+	color: #fff !important;
 	opacity: 1 !important;
 }
-
-hr {
-	border: 1px solid hsl(0, 0%, 10%);
+label:hover {
+	color: hsl(160, 75%, 30%);
 }
 
+/* alerts  */
 .alert {
 	border-radius: 0;
 	color: #fff;
 	border: 0px;
 }
 .alert-info {
-	/*background-color: hsl(240, 50%, 30%);*/
 	background-color: hsl(20, 75%, 30%);
 }
 .alert-success, .correct-history {
@@ -145,10 +150,11 @@ hr {
 	background-color: hsl(0, 50%, 30%);
 }
 
-
+/* modals */
 .modal-content {
 	background-color: hsl(160, 50%, 90%);
 	border-radius: 0px;
+	font-size: 100%;
 }
 .modal-header {
 	background-color: hsl(160, 75%, 30%);
@@ -156,13 +162,18 @@ hr {
 	border-radius: 0px;
 }
 button.close {
-	color: #fff !important;
+	background-color: #fff !important;
 	/*opacity: 1;*/
+	outline: none !important;
 }
 .modal-body p, .modal-body h3 {
 	color: hsl(0, 0%, 10%) !important;
 }
 
+/* modal insides */
+.correct-history, .wrong-history {
+	padding: 6px;
+}
 th, td {
 	/* 1/12 */
 	width: 8.33%;
@@ -186,6 +197,7 @@ th, td {
 	background-color: #fff;
 }
 
+/* odds bars */
 .odds-bar-container {
 	width: 200px;
 	margin: auto;
@@ -205,20 +217,74 @@ th, td {
 	text-align: right !important;
 }
 
+/* hand calculator */
+.clickable-card {
+	font-size: 600%;
+	display: inline;
+	cursor: pointer;
+}
+.clickable-card:hover, .clickable-card.active {
+	color: hsl(20, 75%, 30%);
+}
+.drag-area {
+	display: inline-block !important;
+	padding: 10px;
+	margin: 10px;
+	height: 200px;
+	width: 100%;
+	border: 2px solid hsl(20, 75%, 30%);
+}
+.drag-area:hover {
+	background-color: hsl(160, 75%, 30%);
+	color: #fff;
+}
+.odds-option {
+	padding: 10px;
+}
+.best-pick {
+	background-color: hsl(160, 75%, 30%);
+	color: #fff;
+}
+
+/* media queries */
 @media (max-width: 768px) {
-	#playerHandDiv, #dealerHandDiv {
-		font-size: 900%;
+	.cardHandDiv {
+		font-size: 800%;
 	}
 	.clickable-card {
-		font-size: 600%;
+		font-size: 400%;
+		margin: -2px;
+	}
+	.drag-area {
+		height: 150px;
 	}
 	.chip {
 		width: 48px;
 	}
+	p, .alert {
+		font-size: 100%;
+	}
 	b, h3 {
+		font-size: 120%;
+	}
+	h2 {
 		font-size: 120%;
 	}
 	.correct-history, .wrong-history {
 		font-size: 90%;
 	}
+	button {
+		margin: 5px;
+	}
+	#optionButtons, #newHandDiv, #modalButtons {
+		padding: 10px;
+	}
+	.modal-content {
+		font-size: 80%;
+	}
+}
+@media (max-width: 640px) {
+	.cardHandDiv {
+		font-size: 600%;
+	}	
 }

@@ -1,12 +1,12 @@
-bugs:
+========
+BUGS
+========
 unicode doesnt show up on some devices
-hand calculator hard to use/doesn't work on mobile
 dragging a card on top of itself (or other cards in any zone) copies the card, not cuts it
 
-note:
-test locally on edge to get around CORS policy requirements
-
-todo:
+========
+TODO
+========
 easy:
 split into multiple js files?
 drag card off of hand calc to remove it
@@ -27,6 +27,8 @@ remove keyboard shortcut info on mobile (css display none @media)
 graphical representation of bar filled left or right red or green for odds if checkbox is shown
 
 
+checkbox for displaying animation or not
+
 3 checkboxes for which possible hands to display:
 hard, soft, pairs
 
@@ -43,6 +45,16 @@ split js into 2 or 3 files. possible new files include calcHand modal code and d
 optional/maybe:
 make calc hand modal work with keyboard
 change the hand calc UI to just 2 drop downs for player and dealer...
+
+split css into multiple files?
+
+fix file structure/organize
+
+get rid of calc hand btn (does it automatically, adds confusion). currently calcs by clicking btn, so need to change that first
+
+fix checkbox.js for focusing checkboxes...
+
+update cheatsheet img for download
 
 add progress bar display to hand calc
 
@@ -66,7 +78,7 @@ maybe: share that i stood on hard 13 against dealer 6 and got it right and only 
 
 
 
-modals:
+MODALS:
 how to play:
 	basic rules. get to 21 without bust, etc
 
@@ -93,14 +105,12 @@ betting units:
 	also, link to advantage calculator
 	also add link to https://www.instructables.com/id/Card-Counting-and-Ranging-Bet-Sizes/
 
-
 add disclaimer to info modal that we are not responsible if you lose money, blackjack is inherintly random
 
 
-
-other things to make:
-make it an app
-make a seperate thing for just a table
+OTHER APPLICATIONS:
+make it a phone app
+make a seperate thing for just a strategy table
 make a seperate thing for a full simulator, with no other features just playing
 make a seperate thing for card counting help and practice/sim
 
@@ -108,15 +118,14 @@ links:
 	link to youtube videos by blackjack apprenticeship
 
 ========
-INFO
+INFO / NOTES
 ========
-
 data folder has original .csv files as well as converted .json files
+test locally on edge to get around CORS policy requirements
 
 ========
 LINKS
 ========
-
 https://en.wikipedia.org/wiki/Playing_cards_in_Unicode
 https://wizardofodds.com/games/blackjack/
 https://wizardofodds.com/games/blackjack/appendix/1/

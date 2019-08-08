@@ -17,8 +17,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="styles.css">
 <script src="checkbox.js"></script>
@@ -31,50 +31,54 @@
 <div class="text-center">
 
 <div id="headerDiv">
-	<br><img class="chip" src="chip.svg"> <h3>Blackjack Practice</h3><br><br>
+	<br><img class="chip" src="chip.svg" draggable="false"> <h2>Blackjack Practice</h2><br><br>
 </div>
 
+<div id="outerTableDiv">
 <div id="tableDiv" class="row">
-	<div class="col-sm-6">
+	<div class="col-6">
+		<b style="color:#fff;">You</b>
+		<br><br>
+		<div id="playerHandDiv" class="cardHandDiv"></div>
 		<br>
-		<b>You</b>
-		<div id="playerHandDiv"></div>
 	</div>
-	<div class="col-sm-6">
+	<div class="col-6">
+		<b style="color:#fff;">Dealer</b>
+		<br><br>
+		<div id="dealerHandDiv" class="cardHandDiv"></div>
 		<br>
-		<b>Dealer</b>
-		<div id="dealerHandDiv"></div>
 	</div>
+</div>
 </div>
 
 <div id="optionButtons">
-	<button class="btn btn-lg" id="hitButton">Hit <i class="fas fa-hand-pointer"></i> </button>
-	<button class="btn btn-lg" id="standButton">Stand <i class="fas fa-hand-paper"></i> </button>
-	<button class="btn btn-lg" id="doubleButton">Double <i class="fas fa-hand-rock"></i> </button>
-	<button class="btn btn-lg" id="splitButton">Split <i class="fas fa-hands"></i> </button>
+	<button class="btn" id="hitButton">Hit <i class="fas fa-hand-pointer"></i> </button>
+	<button class="btn" id="standButton">Stand <i class="fas fa-hand-paper"></i> </button>
+	<button class="btn" id="doubleButton">Double <i class="fas fa-hand-rock"></i> </button>
+	<button class="btn" id="splitButton">Split <i class="fas fa-hands"></i> </button>
 </div>
 
 <div id="newHandDiv">
-	<button class="btn btn-default" id="newHandButton">
+	<button class="btn" id="newHandButton">
 		New Hand <i class="fas fa-arrow-right"></i>
 	</button>
 	<span id="oddsInfo"></span>
 </div>
 
-<div id="bottomDiv">
+<!-- <div id="bottomDiv"> -->
 	<div id="resultAlert" class="alert" role="alert"></div>
 
-	<button class="btn btn" data-toggle="modal" data-target="#infoModal" title="About this website"><i class="fas fa-info-circle"></i> About</button>
-	<button class="btn btn" data-toggle="modal" data-target="#rulesModal" title="Table rules"><i class="fas fa-book-open"></i> Table Rules</button>
-	<button class="btn btn" data-toggle="modal" data-target="#historyModal" title="Your hand history"><i class="fas fa-history"></i> History</button>
-	<button class="btn btn" data-toggle="modal" data-target="#optionsModal" title="Website options and settings"><i class="fas fa-cog"></i> Options</button>
-	<button class="btn btn" data-toggle="modal" data-target="#cheatcardModal" title="Display blackjack strategy card"><i class="fas fa-table"></i> Strategy Card</button>
-	<button class="btn btn" data-toggle="modal" data-target="#tablesModal" title="Display more tables for nerds"><i class="fas fa-list"></i> More tables</button>
-	<button class="btn btn" data-toggle="modal" data-target="#oddsModal" title="Manually enter your hand and dealer's to display your odds"><i class="fas fa-calculator"></i> Hand Calculator</button>
-
+	<button class="btn btn-sm" data-toggle="modal" data-target="#infoModal" title="About this website"><i class="fas fa-info-circle"></i> About</button>
+	<button class="btn btn-sm" data-toggle="modal" data-target="#rulesModal" title="Table rules"><i class="fas fa-book-open"></i> Table Rules</button>
+	<button class="btn btn-sm" data-toggle="modal" data-target="#historyModal" title="Your hand history"><i class="fas fa-history"></i> History</button>
+	<button class="btn btn-sm" data-toggle="modal" data-target="#optionsModal" title="Website options and settings"><i class="fas fa-cog"></i> Options</button>
+	<button class="btn btn-sm" data-toggle="modal" data-target="#cheatcardModal" title="Display blackjack strategy card"><i class="fas fa-table"></i> Strategy Card</button>
+	<button class="btn btn-sm" data-toggle="modal" data-target="#tablesModal" title="Display more tables for nerds"><i class="fas fa-list"></i> More tables</button>
+	<button class="btn btn-sm" data-toggle="modal" data-target="#oddsModal" title="Manually enter your hand and dealer's to display your odds"><i class="fas fa-calculator"></i> Hand Calculator</button>
+	<br><br>
 	<p id="statP">Streak: 0 &mdash;&mdash; Max streak: 0 &mdash;&mdash; 0 / 0</p>
 	<br>
-</div>
+<!-- </div> -->
 
 <!-- Modals -->
 <div class="modal fade" id="infoModal">
@@ -158,6 +162,27 @@
 			<div class="modal-body">
 				<input id="drawOddsCheckbox" type="checkbox">
 				<label for="drawOddsCheckbox">Display Hand Odds</label>
+				<hr>
+
+				<input checked id="hardCheckbox" type="checkbox">
+				<label for="hardCheckbox">Generate Hard Hands</label>
+				<br>
+
+				<input checked id="softCheckbox" type="checkbox">
+				<label for="softCheckbox">Generate Soft Hands</label>
+				<br>
+
+				<input checked id="splitCheckbox" type="checkbox">
+				<label for="splitCheckbox">Generate Split Hands</label>
+				<br>
+
+				<p>Note: If hard, soft, and split are all unchecked, all will be treated as checked.</p>
+
+<!-- 				<input id="logicCheckbox" type="checkbox">
+				<label for="logicCheckbox">Exclude Unselected Terms</label>
+				<br>
+				<p>If checked, generated hands must match only selected categories. If unchecked, hands that match any selected category can be generated, even if they also match an unselected category. For example, hard splits and soft splits fall into two categories.</p> -->
+				<br>
 			</div>
 		</div>
 	</div>
@@ -399,12 +424,13 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
-				<p>Drag the cards into your and the dealer's hand</p>
+				<p style="margin-bottom: -10px;">Drag the cards into your and the dealer's hand</p>
 				<div id="card1" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a1;</div>
 				<div id="card2" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a2;</div>
 				<div id="card3" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a3;</div>
 				<div id="card4" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a4;</div>
 				<div id="card5" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a5;</div>
+				<!-- <br> -->
 				<div id="card6" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a6;</div>
 				<div id="card7" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a7;</div>
 				<div id="card8" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a8;</div>
@@ -413,25 +439,25 @@
 				<br>
 
 				<div class="row">
-				<div class="col-lg-8">
+				<div class="col-md-8">
 				<div id="playerHandDrag" class="drag-area" ondrop="drop(event)" ondragover="allowDrop(event)">
 					<!-- have everything inside a div for script that counts children().length -->
-					<div>Player's Hand<br><br></div>
+					<div>Player's Hand<br></div>
 				</div>
 				</div>
-				<div class="col-lg-4">
+				<div class="col-md-4">
 				<div id="dealerHandDrag" class="drag-area" ondrop="drop(event)" ondragover="allowDrop(event)">
-					<div>Dealer's Hand<br><br></div>
+					<div>Dealer's Hand<br></div>
 				</div>
 				</div>
 				</div>
 				<br>
 
 				<div id="modalButtons">
-					<button id="clearDragButton" class="btn btn-lg">
+					<button id="clearDragButton" class="btn">
 						Clear <i class="fas fa-eraser"></i>
 					</button>
-					<button id="calculateHandButton" class="btn btn-lg">
+					<button id="calculateHandButton" class="btn">
 						Calculate <i class="fas fa-calculator"></i>
 					</button>
 				</div>

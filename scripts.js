@@ -1,21 +1,15 @@
-
 let deck, currentCards;
 
-// let valDict = {'1':'Ace', '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', 'a':'10', 'b': 'Jack', 'd':'Queen', 'e':'King'};
-// let suitDict = {'a':'Spades', 'b': 'Hearts', 'c': 'Diamonds', 'd':'Clubs'};
-
 let numCorrect = numWrong = numStreak = maxStreak = 0;
-
-let doubleData, hitData, splitData, standData;
 
 // example:
 // double with hard 4 against dealer 2
 // doubleData['hard 4']['2'];
+let doubleData, hitData, splitData, standData;
 
 class Card {
 	constructor(val, char) {
 		this.char = char;
-		// this.name = valDict[val[1] ] + ' of ' + suitDict[val[0] ] ;
 		this.isRed = val[0] == 'b' || val[0] == 'c'; // heart or diamond
 		this.value = parseInt(val[1]); //a through e is 10
 		if(isNaN(this.value) )
@@ -23,7 +17,6 @@ class Card {
 		this.type = this.value == 1 ? 'Ace' : this.value;
 	}
 }
-
 
 $(function() {
 	// Setup Checkboxes and Data
@@ -85,29 +78,22 @@ function buildDeck() { // creates deck of 52
 
 // graphics
 function drawCardImage(card, isPlayer) {
-	// let isRed = card.name.indexOf('Hearts') != -1 || card.name.indexOf('Diamonds') != -1;
-	let isRed = card.isRed;
+	let cardHTML = '<span class=" pokercard ' + (card.isRed ? 'redcard':'') + '">' + card.char + '</span>';
 	if(isPlayer)
-		$('#playerHandDiv').html($('#playerHandDiv').html() + '<span' + (isRed?' class="redcard"':'') +  '>' + card.char + '</span>');
+		$('#playerHandDiv').html($('#playerHandDiv').html() + cardHTML);
 	else
-		$('#dealerHandDiv').html($('#dealerHandDiv').html() + '<span' + (isRed?' class="redcard"':'') +  '>' + card.char + '</span>');
+		$('#dealerHandDiv').html($('#dealerHandDiv').html() + cardHTML);
 }
 function drawCardbackImage() {
-	$('#dealerHandDiv').html($('#dealerHandDiv').html() + '<span class="redcard">&#x1f0a0;</span>');
+	$('#dealerHandDiv').html($('#dealerHandDiv').html() + '<span class="pokercard redcard">&#x1f0a0;</span>');
 }
 function clearCards() {
-	$('#playerHandDiv').html('');
-	$('#dealerHandDiv').html('');
+	$('.cardHandDiv').html(''); //player and dealer hand divs
 }
 
 function newHand() {
-
-	// fade animations took way too much effort...
-	$('#playerHandDiv').css('opacity', '0');
-	$('#playerHandDiv').fadeOut(0).fadeIn(400, ()=>{$('#playerHandDiv').css('opacity', '1');});
-	$('#dealerHandDiv').css('opacity', '0');
-	$('#dealerHandDiv').fadeOut(0).fadeIn(400, ()=>{$('#dealerHandDiv').css('opacity', '1');});
-
+	$('.cardHandDiv').css('opacity', '0');
+	$('.cardHandDiv').fadeOut(0).fadeIn(400, ()=>{$('.cardHandDiv').css('opacity', '1');});
 
 	$('#newHandDiv').css('display', 'none');
 
@@ -120,19 +106,44 @@ function newHand() {
 	$('#resultAlert').html('Click a button to test your knowledge');
 
 	clearCards();
-	buildDeck();	
 
 	// draw 3 unique cards
-	currentCards = [getRandomCard(deck), getRandomCard(deck), getRandomCard(deck)]; 
+	let validCards = false;
+
+	let hardValid = $('#hardCheckbox').is(':checked');
+	let softValid = $('#softCheckbox').is(':checked');
+	let splitValid = $('#splitCheckbox').is(':checked');
+
+	// make sure at least one is checked, otherwise treat all as checked
+	if(!hardValid && !softValid && !splitValid)
+		hardValid = softValid = splitValid = true;
+
+	// let excludeUnselected = $('#logicCheckbox').is(':checked');
+
+	while(!validCards) {
+		buildDeck();
+		currentCards = [getRandomCard(deck), getRandomCard(deck), getRandomCard(deck)];
+
+		// if(excludeUnselected) {
+		// 	validCards = !( (!isSoft(currentCards) && !hardValid) || 
+		// 		(isSoft(currentCards) && !softValid) || 
+		// 		(isSplit(currentCards) && !splitValid) );
+		// } else {
+		// 	validCards = (!isSoft(currentCards) && hardValid) || 
+		// 		(isSoft(currentCards) && softValid) || 
+		// 		(isSplit(currentCards) && splitValid);
+		// }
+
+		// solution: splits are neither soft nor hard
+		validCards = (!isSoft(currentCards) && !isSplit(currentCards) && hardValid) || 
+			(isSoft(currentCards) && !isSplit(currentCards) && softValid) || 
+			(isSplit(currentCards) && splitValid);
+	}
 
 	drawCardImage(currentCards[0], true);
 	drawCardImage(currentCards[1], true);
 	drawCardImage(currentCards[2], false);
 	drawCardbackImage();
-
-
-	//todo: if checkbox, have dropdown for odds when hand dealt, not just after
-	//drawOdds(currentCards[0].value+currentCards[1].value, currentCards[2].value, isSoft(currentCards), isSplit(currentCards) );
 
 	$('#splitButton').prop('disabled', !isSplit(currentCards) );
 }
@@ -260,7 +271,7 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 	let splitOdds = -2; // default so we never pick split as best option if hand isn't split
 	if(isSplit)
 		splitOdds = getSplitOdds(playerValue, dealerValue);
-	let standOdds = getStandOdds(playerValue,dealerValue);
+	let standOdds = getStandOdds(playerValue, dealerValue);
 
 	let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
 	if(bestOdds==doubleOdds) { return 'Double'; }

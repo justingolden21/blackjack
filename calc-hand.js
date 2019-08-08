@@ -48,10 +48,16 @@ function calcHand() {
 		return;
 	}
 
-	if(isNaN(playerValue) || isNaN(dealerValue) ) {
+	if(isNaN(playerValue) || (isNaN(dealerValue) && dealerValue != 'ace') ) {
 		$('#calculateInfoP').html('Missing player or dealer hand value.');
 		return;	
 	}
+
+	// if one card and it's an ace
+	// this couldn't happen normally, but can be entered in the calculator
+	// so we'll handle it as a hard 11 not a soft 11 which is an impossible hand
+	if(playerVals.length==1 && playerVals[0]==1)
+		isSoft = false;
 
 	// Part 2: Display the odds of each option and highlight the best option
 	let infoStr = '';
@@ -61,7 +67,7 @@ function calcHand() {
 	let splitOdds = -2; // default so we never pick split as best option if hand isn't split
 	if(isSplit)
 		splitOdds = getSplitOdds(playerValue, dealerValue);
-	let standOdds = getStandOdds(playerValue,dealerValue);
+	let standOdds = getStandOdds(playerValue, dealerValue);
 
 	let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
 
@@ -73,7 +79,6 @@ function calcHand() {
 
 	$('#calculateInfoP').html(infoStr);
 }
-
 
 // drag and drop, w3schools
 function allowDrop(ev) {
@@ -101,8 +106,8 @@ function drop(ev) {
 		return;
 	}
 
-	// using > 8 and 1 because there is already 1 child div that's not a card (doesn't count)
-	if(dragTarget.children.length > 8) // max 8 cards per div
+	// using > 6 and 1 because there is already 1 child div that's not a card (doesn't count)
+	if(dragTarget.children.length > 6) // max 6 cards per div
 		return;
 	if(dragTarget.id=='dealerHandDrag' && dragTarget.children.length > 1) // max 1 card in dealer drag div
 		return;
@@ -128,8 +133,7 @@ function handleDragClick() {
 	if($('.clickable-card.active').length == 0)
 		return;
 
-	console.log($(this).children().length);
-	if($(this).children().length > 8)
+	if($(this).children().length > 6)
 		return
 	if(this.id=='dealerHandDrag' && $(this).children().length > 1)
 		return
