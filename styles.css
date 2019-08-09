@@ -1,4 +1,7 @@
 /* generic styles */
+* {
+	font-family: 'Teko', sans-serif;
+}
 body, html {
 	background-color: hsl(20, 75%, 30%) !important;
 	overflow-x: hidden; /*remove scrollbar for x-axis*/
@@ -26,26 +29,30 @@ hr {
 }
 
 /* text */
-p, h2, h3, #history, #oddsInfo {
+p, h2, h3, #history, #oddsInfo, .card-label {
 	color: #fff;
 }
 p, .alert {
-	font-size: 120%;
+	/*font-size: 120%;*/
+	font-size: 150%;
 }
 h2 {
-	font-size: 160%;
+	/*font-size: 160%;*/
+	font-size: 190%;
 	font-weight: bold;
 	display: inline;
 	letter-spacing: 2px;
 	margin-left: 20px;
 }
 h3 {
-	font-size: 160% !important;
+	/*font-size: 160% !important;*/
+	font-size: 190% !important;
 	padding: 24px;
 	display: inline;
 }
-b {
-	font-size: 120%;
+.card-label, .modal-body b {
+	/*font-size: 120%;*/
+	font-size: 150%;
 }
 
 /* header */
@@ -60,6 +67,7 @@ b {
 }
 #headerDiv {
 	background-color: hsl(160, 75%, 30%) !important;
+	padding: 20px;
 }
 
 /* table */
@@ -68,13 +76,18 @@ b {
 	color: hsl(0, 0%, 10%);
 }
 .cardHandDiv {
-	font-size: 1000%; /*larger card unicode*/
+	font-size: 800%; /*larger card unicode*/
 	letter-spacing: -2px;
 	margin-top: -30px;
 	transition: all 0.5s ease-in-out;
+	margin-bottom: 20px;
 }
 .pokercard {
+	/*padding-bottom: -20px !important;*/
+
 	margin: -20px;
+	/*padding-bottom: -50px !important;*/
+
 	border-radius: 20px;
 	background-color: hsl(160, 50%, 90%);
 }
@@ -87,7 +100,7 @@ b {
 
 /* table decorations */
 #tableDiv {
-	border-top: 25px solid hsl(10, 75%, 30%);
+	border-top: 20px solid hsl(10, 75%, 30%);
 
 	border-bottom-right-radius: 40%;
 	border-bottom-left-radius: 40%;
@@ -97,12 +110,15 @@ b {
 	border-bottom-left-radius: 100%;
 	padding-bottom: 50px !important; 
 }
+#optionButtons, #tableDiv {
+	border-bottom: 10px solid hsl(40, 100%, 40%);
+}
 #outerTableDiv {
 	background-color: hsl(0, 0%, 20%);
 }
 #optionButtons, #newHandDiv, #modalButtons {
 	background-color: hsl(0, 0%, 20%);
-	padding: 20px;
+	padding: 15px;
 }
 /*#bottomDiv {
 	background-color: hsl(20, 75%, 30%);
@@ -130,6 +146,10 @@ button:disabled {
 	color: #fff !important;
 	opacity: 1 !important;
 }
+#optionButtons button {
+	padding-left: 20px;
+	padding-right: 20px;
+}
 label:hover {
 	color: hsl(160, 75%, 30%);
 }
@@ -154,7 +174,7 @@ label:hover {
 .modal-content {
 	background-color: hsl(160, 50%, 90%);
 	border-radius: 0px;
-	font-size: 90%;
+	font-size: 80%;
 }
 .modal-header {
 	background-color: hsl(160, 75%, 30%);
@@ -203,7 +223,7 @@ th, td {
 	margin: auto;
 }
 .odds-bar {
-	height: 20px;
+	height: 15px;
 	width: 100%;
 	border: 2px solid #fff;
 }
@@ -246,13 +266,31 @@ th, td {
 	color: #fff;
 }
 
+/* animations */
+.spin {
+	animation: spin 2s;
+	box-shadow: none;
+}
+@-moz-keyframes spin {
+	from { -moz-transform: rotate(0deg); }
+	to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+	from { -webkit-transform: rotate(0deg); }
+	to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+	from {transform:rotate(0deg); }
+	to {transform:rotate(360deg); }
+}
+
 /* media queries */
 @media (max-width: 768px) {
 	.no-mobile {
 		display: none;
 	}
 	.cardHandDiv {
-		font-size: 800%;
+		font-size: 600%;
 	}
 	.clickable-card {
 		font-size: 400%;
@@ -265,16 +303,20 @@ th, td {
 		width: 48px;
 	}
 	p, .alert {
-		font-size: 100%;
+		/*font-size: 100%;*/
+		font-size: 110%;
 	}
-	b, h3 {
-		font-size: 120%;
+	.card-label, .modal-body b, h3 {
+		/*font-size: 120%;*/
+		font-size: 130%;
 	}
 	h2 {
-		font-size: 120%;
+		/*font-size: 120%;*/
+		font-size: 130%;
 	}
 	.correct-history, .wrong-history {
-		font-size: 90%;
+		/*font-size: 90%;*/
+		font-size: 100%;
 	}
 	button {
 		margin: 5px;
@@ -283,11 +325,12 @@ th, td {
 		padding: 10px;
 	}
 	.modal-content {
-		font-size: 80%;
+		/*font-size: 80%;*/
+		font-size: 90%;
 	}
 }
 @media (max-width: 640px) {
 	.cardHandDiv {
-		font-size: 600%;
+		/*font-size: 600%;*/
 	}	
 }

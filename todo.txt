@@ -9,6 +9,7 @@ TODO
 ========
 Easy:
 add progress bar display to hand calc
+larger modals (manually decrease margin/padding)
 
 Medium:
 option for close case hands only "close cases"
@@ -30,7 +31,7 @@ more stats on percentages like percentages on hard, soft, split hands, in a new 
 get a custom url
 import and export stats to .txt
 drag card off of hand calc to remove it
-store cookies for streaks/stats option
+store cookies for streaks/stats and options/settings
 add sharethis
 make calc hand modal work with keyboard
 change the hand calc UI to just 2 drop downs for player and dealer...
