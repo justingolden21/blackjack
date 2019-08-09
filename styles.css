@@ -5,6 +5,14 @@
 body, html {
 	background-color: hsl(20, 75%, 30%) !important;
 	overflow-x: hidden; /*remove scrollbar for x-axis*/
+
+	/* https://leaverou.github.io/css3patterns/#argyle */
+	background-image:
+	repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+	repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
+	linear-gradient(60deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1)),
+	linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
+	background-size: 70px 120px;
 }
 br, .cardHandDiv, button, .chip {
 	-webkit-user-select: none; /* Safari */        
@@ -66,14 +74,35 @@ h3 {
 	transform: scale(1.2);
 }
 #headerDiv {
-	background-color: hsl(160, 75%, 30%) !important;
 	padding: 20px;
 }
 
 /* table */
-#tableDiv {
+#tableDiv, #headerDiv {
 	background-color: hsl(160, 75%, 30%);
-	color: hsl(0, 0%, 10%);
+
+	/* https://leaverou.github.io/css3patterns/#cross-dots */
+	background:
+	radial-gradient(hsl(0, 0%, 20%) 3px, transparent 4px),
+	radial-gradient(hsl(0, 0%, 20%) 3px, transparent 4px),
+	linear-gradient(hsl(160, 75%, 30%) 4px, transparent 0),
+	linear-gradient(45deg, transparent 74px, transparent 75px, hsl(160, 50%, 90%) 75px, hsl(160, 50%, 90%) 76px, transparent 77px, transparent 109px),
+	linear-gradient(-45deg, transparent 75px, transparent 76px, hsl(160, 50%, 90%) 76px, hsl(160, 50%, 90%) 77px, transparent 78px, transparent 109px),
+	hsl(160, 75%, 30%);
+	background-size: 109px 109px, 109px 109px,100% 6px, 109px 109px, 109px 109px;
+	background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+
+
+
+	/* https://leaverou.github.io/css3patterns/#polka-dot */
+
+/*	background-image: radial-gradient(hsl(0, 0%, 20%) 7.5%, transparent 7.5%),
+	radial-gradient(hsl(0, 0%, 20%) 7.5%, transparent 7.5%);*/
+
+/*	background-image: radial-gradient(hsl(160, 50%, 90%) 7.5%, transparent 7.5%),
+	radial-gradient(hsl(160, 50%, 90%) 7.5%, transparent 7.5%);
+	background-size: 60px 60px;
+	background-position: 0 0, 30px 30px;*/
 }
 .cardHandDiv {
 	font-size: 800%; /*larger card unicode*/
@@ -100,7 +129,8 @@ h3 {
 
 /* table decorations */
 #tableDiv {
-	border-top: 20px solid hsl(10, 75%, 30%);
+	/* red stripe */
+	border-top: 25px solid hsl(10, 75%, 30%);
 
 	border-bottom-right-radius: 40%;
 	border-bottom-left-radius: 40%;
@@ -111,6 +141,7 @@ h3 {
 	padding-bottom: 50px !important; 
 }
 #optionButtons, #tableDiv {
+	/* gold ring */
 	border-bottom: 10px solid hsl(40, 100%, 40%);
 }
 #outerTableDiv {
@@ -161,7 +192,8 @@ label:hover {
 	border: 0px;
 }
 .alert-info {
-	background-color: hsl(20, 75%, 30%);
+	background-color: transparent;
+	/*background-color: hsl(20, 75%, 30%);*/
 }
 .alert-success, .correct-history {
 	background-color: hsl(160, 50%, 30%);
