@@ -1,11 +1,13 @@
 /* generic styles */
 * {
+	text-align: center;
 	font-family: 'Teko', sans-serif;
 }
 body, html {
 	background-color: hsl(20, 75%, 30%) !important;
 	overflow-x: hidden; /*remove scrollbar for x-axis*/
-
+}
+body, html, button:not(.close) {
 	/* https://leaverou.github.io/css3patterns/#argyle */
 	background-image:
 	repeating-linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 60px),
@@ -21,10 +23,10 @@ br, .cardHandDiv, button, .chip {
 	user-select: none; /* Standard */
 }
 ::-moz-selection {
-	background: hsl(0, 0%, 90%) !important;
+	background: hsl(0, 0%, 20%) !important;
 }
 ::selection {
-	background: hsl(0, 0%, 90%) !important;
+	background: hsl(0, 0%, 20%) !important;
 }
 body, html, button, .alert, b, #noHistory {
 	color: hsl(0, 0%, 10%);
@@ -42,7 +44,7 @@ p, h2, h3, #history, #oddsInfo, .card-label {
 }
 p, .alert {
 	/*font-size: 120%;*/
-	font-size: 150%;
+	font-size: 110%;
 }
 h2 {
 	/*font-size: 160%;*/
@@ -51,6 +53,10 @@ h2 {
 	display: inline;
 	letter-spacing: 2px;
 	margin-left: 20px;
+
+/*	background-color: hsl(0, 0%, 20%);
+	padding: 2px;
+	border-radius: 4px;*/
 }
 h3 {
 	/*font-size: 160% !important;*/
@@ -69,12 +75,33 @@ h3 {
 	box-shadow: 5px 5px 0px hsl(0, 0%, 20%);
 	border-radius: 100%;
 	transition: 0.2s ease-in-out;
+	background-color: hsl(160, 75%, 30%);
 }
 .chip:hover {
 	transform: scale(1.2);
 }
 #headerDiv {
 	padding: 20px;
+}
+
+/* chips display */
+.small-chip {
+	width: 32px;
+	margin-right: -28px;
+	box-shadow: 2px 2px 0px hsl(0, 0%, 20%);
+	border-radius: 100%;
+}
+.small-chip.red {
+	background-color: hsl(0, 75%, 30%);
+}
+.small-chip.green {
+	background-color: hsl(160, 75%, 30%);
+}
+.small-chip.blue {
+	background-color: hsl(240, 75%, 30%);
+}
+#chipsDiv {
+	display: inline;
 }
 
 /* table */
@@ -108,37 +135,61 @@ h3 {
 	font-size: 800%; /*larger card unicode*/
 	letter-spacing: -2px;
 	margin-top: -30px;
-	transition: all 0.5s ease-in-out;
+	transition: all 0.4s ease-in-out;
 	margin-bottom: 20px;
 }
 .pokercard {
+	font-family: Arial !important; /* the only freaking fix for the stupid padding... */
+	/* seriously... margin and padding, height and line-height, nothing works on .pokercard
+	or .cardHandDiv..., with !important and everything, every combination */
+
 	/*padding-bottom: -20px !important;*/
 
 	margin: -20px;
 	/*padding-bottom: -50px !important;*/
 
-	border-radius: 20px;
+	/*border-radius: 20px;*/
+	border-radius: 10px;
 	background-color: hsl(160, 50%, 90%);
+
+	box-shadow: 4px 0px 0px hsl(0, 0%, 20%);
+
+	/*border-top: 4px solid hsl(20, 75%, 30%);*/
+	/*border-bottom: 4px solid hsl(20, 75%, 30%);*/
 }
-.pokercard:first-child{
-	padding-left: 20px !important;
+.pokercard:first-child {
+	padding-left: 10px;
+	/*border-left: 4px solid hsl(20, 75%, 30%);*/
 }
 .pokercard:last-child {
-	padding-right: 20px;
+	padding-right: 10px;
+	/*border-right: 4px solid hsl(20, 75%, 30%);*/
+}
+.pokercard.splitcard {
+	/*padding-left: 10px;*/
+	/*padding-right: 10px;*/
+}
+.splitcard:first-child + .pokercard {
+	padding-right: 60px;
 }
 
 /* table decorations */
 #tableDiv {
 	/* red stripe */
 	border-top: 25px solid hsl(10, 75%, 30%);
+	/*border-top: 25px solid hsl(0, 50%, 30%);*/
 
 	border-bottom-right-radius: 40%;
 	border-bottom-left-radius: 40%;
+
+/*	border-color: hsl(0, 0%, 20%);
+	margin-left: 20px;
+	margin-right: 20px;*/
 }
 #optionButtons {
 	border-bottom-right-radius: 100%;
 	border-bottom-left-radius: 100%;
-	padding-bottom: 50px !important; 
+	padding-bottom:20px !important; 
 }
 #optionButtons, #tableDiv {
 	/* gold ring */
@@ -147,7 +198,7 @@ h3 {
 #outerTableDiv {
 	background-color: hsl(0, 0%, 20%);
 }
-#optionButtons, #newHandDiv, #modalButtons {
+#optionButtons, #newHandDiv, .innerModalButtons {
 	background-color: hsl(0, 0%, 20%);
 	padding: 15px;
 }
@@ -158,7 +209,8 @@ h3 {
 /* buttons and form elements */
 button {
 	background-color: hsl(0, 0%, 90%) !important;
-	border-radius: 0 !important;
+	border-radius: 0px !important;
+	/*border-radius: 5px !important;*/
 	margin: 10px;
 	/*font-weight: 600 !important;*/
 }
@@ -209,22 +261,26 @@ label:hover {
 	font-size: 80%;
 }
 .modal-header {
-	background-color: hsl(160, 75%, 30%);
+	/*background-color: hsl(160, 75%, 30%);*/
+	background-color: hsl(20, 75%, 30%);
 	color: #fff;
 	border-radius: 0px;
 }
 button.close {
 	background-color: #fff !important;
-	/*opacity: 1;*/
+	/*opacity: 1 !important;*/
 	outline: none !important;
 }
-.modal-body p, .modal-body h3 {
+.modal-body p, .modal-body h3, .modal-body li {
 	color: hsl(0, 0%, 10%) !important;
 }
 
 /* modal insides */
 .correct-history, .wrong-history {
 	padding: 6px;
+}
+#clearHistoryDiv {
+	display: none;
 }
 th, td {
 	/* 1/12 */
@@ -233,6 +289,12 @@ th, td {
 /*	th[colspan=2] {
 	width: 16.66%;
 }*/
+th, td {
+	border: 2px solid hsl(0, 0%, 20%) !important;
+}
+th {
+	background-color: hsl(160, 50%, 80%);
+}
 .table-hit {
 	background-color: hsl(0, 50%, 60%);
 }
@@ -246,6 +308,10 @@ th, td {
 	background-color: hsl(160, 50%, 60%);
 }
 .table-surrender {
+	background-color: #fff;
+}
+tr:hover td {
+	cursor: default;
 	background-color: #fff;
 }
 
@@ -269,6 +335,20 @@ th, td {
 	text-align: right !important;
 }
 
+/* other */
+#tableRow {
+	display: inline;
+	text-align: center !important;
+}
+#numChips {
+	margin-left : 32px;
+	color : #fff;
+	background-color: hsl(0, 0%, 20%);
+	padding-left: 5px;
+	padding-right: 5px;
+	border-radius: 5px;
+}
+
 /* hand calculator */
 .clickable-card {
 	font-size: 600%;
@@ -287,16 +367,18 @@ th, td {
 	border: 2px solid hsl(20, 75%, 30%);
 }
 .drag-area:hover {
-	background-color: hsl(160, 75%, 30%);
-	color: #fff;
+	background-color: #fff;
+
+	/*background-color: hsl(160, 75%, 30%);*/
+	/*color: #fff;*/
 }
-.odds-option {
+/*.odds-option {
 	padding: 10px;
 }
 .best-pick {
 	background-color: hsl(160, 75%, 30%);
 	color: #fff;
-}
+}*/
 
 /* animations */
 .spin {
@@ -315,6 +397,14 @@ th, td {
 	from {transform:rotate(0deg); }
 	to {transform:rotate(360deg); }
 }
+.move {
+	animation: move 0.5s;
+	box-shadow: none;
+}
+@keyframes move {
+	from {transform:translateX(-200%); }
+	to {transform:translateX(0%); }
+}
 
 /* media queries */
 @media (max-width: 768px) {
@@ -323,6 +413,7 @@ th, td {
 	}
 	.cardHandDiv {
 		font-size: 600%;
+		margin-bottom: 0px;
 	}
 	.clickable-card {
 		font-size: 400%;
@@ -334,7 +425,7 @@ th, td {
 	.chip {
 		width: 48px;
 	}
-	p, .alert {
+	p, .alert, li {
 		/*font-size: 100%;*/
 		font-size: 110%;
 	}
@@ -353,7 +444,7 @@ th, td {
 	button {
 		margin: 5px;
 	}
-	#optionButtons, #newHandDiv, #modalButtons {
+	#optionButtons, #newHandDiv, .innerModalButtons {
 		padding: 10px;
 	}
 	.modal-content {
@@ -361,8 +452,24 @@ th, td {
 		font-size: 90%;
 	}
 }
+.small-only {
+	display: none;
+}
 @media (max-width: 640px) {
 	.cardHandDiv {
 		/*font-size: 600%;*/
-	}	
+	}
+	#chipsDiv {
+		display: block;
+	}
+
+	.small-only {
+		display: inline;
+	}
+	.splitcard:first-child + .pokercard {
+		padding-right: 10px;
+	}
+	.splitcard:not(:first-child) {
+		padding-left: 10px;
+	}
 }

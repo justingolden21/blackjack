@@ -16,7 +16,15 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.js"></script>
+
+<!-- <script src="libraries/jquery.js"></script> -->
+<!-- <script src="libraries/jquery-csv.js"></script> -->
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+<!-- <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css"> -->
+<!-- <script src="libraries/bootstrap/js/bootstrap.min.js"></script> -->
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
@@ -26,14 +34,16 @@
 <script src="checkbox.js"></script>
 <script src="scripts.js"></script>
 <script src="calc-hand.js"></script>
+<script src="play.js"></script>
+<script src="draw-chips.js"></script>
 
 </head>
 
 <body>
-<div class="text-center">
 
 <div id="headerDiv">
-	<img class="chip" src="chip.svg" draggable="false"> <h2>Blackjack Practice</h2>
+	<img class="chip move" src="chip.svg" draggable="false"> <h2>Blackjack Practice</h2>
+	<div id="chipsDiv"></div>
 </div>
 
 <div id="outerTableDiv">
@@ -67,22 +77,25 @@
 		New Hand <i class="fas fa-arrow-right"></i>
 	</button>
 	<span id="oddsInfo"></span>
+	<br>
+	<table id="tableRow"></table>
 </div>
 
-<!-- <div id="bottomDiv"> -->
-	<div id="resultAlert" class="alert" role="alert"></div>
+<div id="resultAlert" class="alert" role="alert"></div>
 
-	<button class="btn btn-sm" data-toggle="modal" data-target="#infoModal" title="About this website"><i class="fas fa-info-circle"></i> About</button>
-	<button class="btn btn-sm" data-toggle="modal" data-target="#rulesModal" title="Table rules"><i class="fas fa-book-open"></i> Table Rules</button>
-	<button class="btn btn-sm" data-toggle="modal" data-target="#historyModal" title="Your hand history"><i class="fas fa-history"></i> History</button>
-	<button class="btn btn-sm" data-toggle="modal" data-target="#optionsModal" title="Website options and settings"><i class="fas fa-cog"></i> Options</button>
-	<button class="btn btn-sm" data-toggle="modal" data-target="#cheatcardModal" title="Display blackjack strategy card"><i class="fas fa-table"></i> Strategy Card</button>
-	<button class="btn btn-sm" data-toggle="modal" data-target="#tablesModal" title="Display more tables for nerds"><i class="fas fa-list"></i> More tables</button>
-	<button class="btn btn-sm" data-toggle="modal" data-target="#oddsModal" title="Manually enter your hand and dealer's to display your odds"><i class="fas fa-calculator"></i> Hand Calculator</button>
-	<br><br>
-	<p id="statP">Streak: 0 &mdash;&mdash; Max streak: 0 &mdash;&mdash; 0 / 0</p>
-	<br>
-<!-- </div> -->
+<div id="modalButtons">
+<button class="btn btn-sm" data-toggle="modal" data-target="#infoModal" title="About This Website"><i class="fas fa-info-circle"></i> About</button>
+<button class="btn btn-sm" data-toggle="modal" data-target="#rulesModal" title="Table Rules"><i class="fas fa-book-open"></i> Table Rules</button>
+<button class="btn btn-sm" data-toggle="modal" data-target="#historyModal" title="Your Hand History"><i class="fas fa-history"></i> History</button>
+<button class="btn btn-sm" data-toggle="modal" data-target="#optionsModal" title="Options and Settings"><i class="fas fa-cog"></i> Options</button>
+<button class="btn btn-sm" data-toggle="modal" data-target="#cheatcardModal" title="Blackjack Strategy Card"><i class="fas fa-table"></i> Strategy Card</button>
+<button class="btn btn-sm" data-toggle="modal" data-target="#tablesModal" title="Display More Tables for Nerds"><i class="fas fa-list"></i> More Tables</button>
+<button class="btn btn-sm" data-toggle="modal" data-target="#oddsModal" title="Manually Enter Your Hand and Dealer Hand for Best Choice and Odds"><i class="fas fa-calculator"></i> Hand Calculator</button>
+</div>
+
+<br><br>
+<p id="statP">Streak: 0 &mdash;&mdash; Max streak: 0 &mdash;&mdash; 0 / 0</p>
+<br>
 
 <!-- Modals -->
 <div class="modal fade" id="infoModal">
@@ -102,7 +115,7 @@
 				<p>V.1.3.0</p>
 				<p>Made by <a href="https://justingolden21.github.io" target="_blank">Justin Golden</a></p>
 				<p><a href="https://github.com/justingolden21/blackjack" target="_blank"><i class="fab fa-github"></i> Github Repo</a></p>
-				<p>Contact me at <a href="mailto:justingolden@rgbstudios.org" target="_blank"><i class="fas fa-envelope"></i> justingolden@rgbstudios.org</a></p>
+				<p>Could something be improved? Contact me at <a href="mailto:justingolden@rgbstudios.org" target="_blank"><i class="fas fa-envelope"></i> justingolden@rgbstudios.org</a></p>
 			</div>
 		</div>
 	</div>
@@ -144,13 +157,20 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
-				<span id="history">
 				<span id="noHistory">
-				<strong>There is no history. </strong> 
+					<strong>There is no history. </strong> 
+					<br>
+					<i class="fas fa-info-circle"></i><i> Click "Hit", "Stand", "Double", or "Split" to get started.</i>
+				</span>
+
+				<span id="history"></span>
 				<br>
-				<i class="fas fa-info-circle"></i><i> Click "Hit", "Stand", "Double", or "Split" to get started.</i>
-				</span>
-				</span>
+
+				<div id="clearHistoryDiv" class="innerModalButtons">
+					<button id="clearHistoryButton" class="btn">
+						Clear <i class="fas fa-eraser"></i>
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -165,11 +185,23 @@
 			</div>
 			<div class="modal-body">
 				<input id="drawOddsCheckbox" type="checkbox">
-				<label for="drawOddsCheckbox">Display Hand Odds</label>
+				<label for="drawOddsCheckbox">Show Hand Odds</label>
+				<br>
+
+				<input id="drawTableRowCheckbox" type="checkbox">
+				<label for="drawTableRowCheckbox">Show Strategy Table Row</label>
+				<br>
+
+				<input id="drawChipsCheckbox" type="checkbox">
+				<label for="drawChipsCheckbox">Show Chips Above</label>
 				<br>
 
 				<input checked id="animateCheckbox" type="checkbox">
 				<label for="animateCheckbox">Card Animation</label>
+				<br>
+
+				<input id="playCheckbox" type="checkbox">
+				<label for="playCheckbox">Play Through Hand (simple)</label>
 				<hr>
 
 				<input checked id="hardCheckbox" type="checkbox">
@@ -432,7 +464,7 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
-				<p style="margin-bottom: -10px;">Drag the cards into your and the dealer's hand</p>
+				<p style="margin-bottom: -10px;">Drag (or click) the cards into your and the dealer's hand</p>
 				<div id="card1" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a1;</div>
 				<div id="card2" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a2;</div>
 				<div id="card3" class="clickable-card" draggable="true" ondragstart="drag(event)">&#x1f0a3;</div>
@@ -449,7 +481,6 @@
 				<div class="row">
 				<div class="col-md-8">
 				<div id="playerHandDrag" class="drag-area" ondrop="drop(event)" ondragover="allowDrop(event)">
-					<!-- have everything inside a div for script that counts children().length -->
 					<div>Player's Hand<br></div>
 				</div>
 				</div>
@@ -461,16 +492,17 @@
 				</div>
 				<br>
 
-				<div id="modalButtons">
+				<div class="innerModalButtons">
 					<button id="clearDragButton" class="btn">
 						Clear <i class="fas fa-eraser"></i>
 					</button>
-					<button id="calculateHandButton" class="btn">
+					<!-- <button id="calculateHandButton" class="btn">
 						Calculate <i class="fas fa-calculator"></i>
-					</button>
+					</button> -->
 				</div>
 
 				<p id="calculateInfoP"></p>
+				<div id="calcOddsDiv"></div>
 			</div>
 		</div>
 	</div>
@@ -484,7 +516,7 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
-				<table class="table table-sm table-bordered table-hover">
+				<table id="strategyTable" class="table table-sm table-bordered table-hover">
 					<tr>
 						<th colspan="2">Hard</th>
 						<th>2</th>
@@ -902,7 +934,8 @@
 					</tr>
 				</table>
 
-				<a download href="strategy.png"><button class="btn btn-lg"><i class="fas fa-download"></i> Download Cheatsheet</button></a>
+				<div class="innerModalButtons">
+					<a download href="strategy.png"><button class="btn"><i class="fas fa-download"></i> Download Cheatsheet</button></a>
 				</div>
 			</div>
 		</div>

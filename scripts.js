@@ -7,6 +7,8 @@ let numCorrect = numWrong = numStreak = maxStreak = 0;
 // doubleData['hard 4']['2'];
 let doubleData, hitData, splitData, standData;
 
+let numChips = 0;
+
 class Card {
 	constructor(val, char) {
 		this.char = char;
@@ -33,24 +35,37 @@ $(function() {
 	$('#doubleButton').click( ()=> handleInput('Double') );
 	$('#splitButton').click( ()=> handleInput('Split') );
 
-	$('#oddsInfo').css('display', 'none');
-	$('#drawOddsCheckbox').change(function() {
-		$('#oddsInfo').css('display', $(this).is(':checked') ? '' : 'none');
+	$('#oddsInfo').css('display', $('#drawOddsCheckbox').is(':checked') ? '' : 'none');
+	$('#drawOddsCheckbox').change( ()=> {
+		$('#oddsInfo').css('display', $('#drawOddsCheckbox').is(':checked') ? '' : 'none');
+	});
+
+	$('#tableRow').css('display', $('#drawTableRowCheckbox').is(':checked') ? '' : 'none');
+	$('#drawTableRowCheckbox').change( ()=> {
+		$('#tableRow').css('display', $('#drawTableRowCheckbox').is(':checked') ? '' : 'none');
 	});
 
 	$('#newHandButton').click(newHand).click();
 
 	// drag and drop
-	$('#clearDragButton').click(function() {
+	$('#clearDragButton').click( ()=> {
 		$('#dealerHandDrag').html('Dealer\'s Hand<br>');
 		$('#playerHandDrag').html('Player\'s Hand<br>');
 		$('#calculateInfoP').html('');
 	});
 
-	$('#calculateHandButton').click(calcHand);
+	$('#clearHistoryButton').click( ()=> {
+		$('#history').html('');
+		$('#noHistory').css('display', '');
+		$('#clearHistoryDiv').css('display', 'none');
+	});
+
+	// $('#calculateHandButton').click(calcHand);
 
 	$('.clickable-card').click(handleCardClick);
 	$('.drag-area').click(handleDragClick);
+
+	setTimeout(()=> $('.chip').removeClass('move'), 500);
 });
 
 // focus button to the left or right with arrow keys for easy navigation
@@ -77,15 +92,17 @@ function buildDeck() { // creates deck of 52
 }
 
 // graphics
-function drawCardImage(card, isPlayer) {
+function drawCardImage(card, isPlayer, returnOnly=false) {
 	let cardHTML = '<span class=" pokercard ' + (card.isRed ? 'redcard':'') + '">' + card.char + '</span>';
+	if(returnOnly)
+		return cardHTML;
 	if(isPlayer)
 		$('#playerHandDiv').html($('#playerHandDiv').html() + cardHTML);
 	else
 		$('#dealerHandDiv').html($('#dealerHandDiv').html() + cardHTML);
 }
 function drawCardbackImage() {
-	$('#dealerHandDiv').html($('#dealerHandDiv').html() + '<span class="pokercard redcard">&#x1f0a0;</span>');
+	$('#dealerHandDiv').html($('#dealerHandDiv').html() + '<span class="pokercard redcard cardback">&#x1f0a0;</span>');
 }
 function clearCards() {
 	$('.cardHandDiv').html(''); //player and dealer hand divs
@@ -97,10 +114,16 @@ function newHand() {
 	setTimeout( ()=> {$('.chip').css('box-shadow', '5px 5px 0px hsl(0, 0%, 20%)');}, 2000);
 
 	if($('#animateCheckbox').is(':checked') ) {
+
+		// garbage below, still testing...
+		// $('.pokercard').animate({'opacity': '0'}, 100, ()=> { $('.pokercard').css('opacity', 1); } );
+
 		$('.cardHandDiv').css('transform', 'translateX(-200%)');
-		$('.cardHandDiv').fadeOut(0).fadeIn(300, ()=>{$('.cardHandDiv').css('transform', 'translateX(0%)');});		
+		$('.cardHandDiv').fadeOut(0).fadeIn(0, ()=>{$('.cardHandDiv').css('transform', 'translateX(0%)');});		
+		// setTimeout( ()=>{$('.cardHandDiv').css('transform', 'translateX(0%)');}, 300);
+
 		// $('.cardHandDiv').css('opacity', '0');
-		// $('.cardHandDiv').fadeOut(0).fadeIn(400, ()=>{$('.cardHandDiv').css('opacity', '1');});		
+		// $('.cardHandDiv').fadeOut(0).fadeIn(400, ()=>{$('.cardHandDiv').css('opacity', '1');});
 	}
 
 	$('#newHandDiv').css('display', 'none');
@@ -171,6 +194,7 @@ function getRandomCard(deck) { // remove card and return it
 }
 
 function handleInput(selectedOption) {
+
 	$('.chip').toggleClass('spin');
 
 	let playerValue = currentCards[0].value+currentCards[1].value;
@@ -184,7 +208,9 @@ function handleInput(selectedOption) {
 	if(playerValue < 4) //for get odds
 		playerValue = 4;
 
-	drawOdds(playerValue, dealerValue, handIsSoft, handIsSplit);
+	drawOdds($('#oddsInfo'), playerValue, dealerValue, handIsSoft, handIsSplit);
+	drawTable($('#tableRow'), playerValue, handIsSoft, handIsSplit);
+
 	let correctOption = getCorrectOption(playerValue, dealerValue, handIsSoft, handIsSplit);
 
 	$('#optionButtons').css('display', 'none');
@@ -194,7 +220,10 @@ function handleInput(selectedOption) {
 		playerHandName = 'Blackjack';
 
 	$('#noHistory').css('display', 'none');
+	$('#clearHistoryDiv').css('display', 'block');
+
 	if(correctOption == selectedOption) {
+		numChips++;
 		let infoStr = '<i class="fas fa-check"></i> Correct! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type;
 		$('#history').html('<br><span class="correct-history">' + infoStr + '</span><br>' + $('#history').html() );
 		$('#resultAlert').html(infoStr);
@@ -206,6 +235,7 @@ function handleInput(selectedOption) {
 		if(numStreak>maxStreak)
 			maxStreak = numStreak;
 	} else {
+		numChips = Math.max(numChips-1, 0);
 		let infoStr = '<i class="fas fa-times"></i> Wrong! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type + '. Not <strong>' + selectedOption + '</strong>';
 		$('#history').html('<br><span class="wrong-history">' + infoStr + '</span><br>' + $('#history').html() );
 		$('#resultAlert').html(infoStr);
@@ -214,29 +244,37 @@ function handleInput(selectedOption) {
 		$('#resultAlert').addClass('alert-danger');
 		numWrong++;
 		numStreak = 0;
-		// if(playerHandName=='Blackjack')
-		// 	window.alert('Seriously... You didn\'t stand on blackjack...');
 	}
 
-	$('#newHandDiv').css('display', '');
-	$('#newHandButton').focus();
+	if($('#playCheckbox').is(':checked') ) {
+		playHand(selectedOption);
+	} else {
+		$('#newHandDiv').css('display', '');
+		$('#newHandButton').focus();
+	}
+
+	if($('#drawChipsCheckbox').is(':checked') ) {
+		drawChips(numChips);
+	}
+	
+
 	$('#statP').html('Streak: ' + numStreak + ' &mdash;&mdash; ' + 'Max streak: ' + maxStreak
 		+ ' &mdash;&mdash; ' + numCorrect + ' / ' + (numCorrect+numWrong) );
 }
 
-function drawOdds(playerValue, dealerValue, isSoft, isSplit) {
-	$('#oddsInfo').html('');
+function drawOdds(elm, playerValue, dealerValue, isSoft, isSplit) {
+	elm.html('');
 
 	// $('#oddsInfo').append('<br>Double: ' + getDoubleOdds(playerValue, dealerValue, isSoft) );
 	let doubleOdds = getDoubleOdds(playerValue, dealerValue, isSoft);
-	$('#oddsInfo').append('<br>Double: ' + doubleOdds +
+	elm.append('<br>Double: ' + doubleOdds +
 		'<div class="odds-bar-container"><div class="odds-bar ' +
 		(doubleOdds>0 ? 'green' : 'red') + '" style="width:' +
 		Math.abs(doubleOdds*100) + '%;"></div></div>');
 
 	// $('#oddsInfo').append('<br>Hit: ' + getHitOdds(playerValue, dealerValue, isSoft) );
 	let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
-	$('#oddsInfo').append('<br>Hit: ' + hitOdds +
+	elm.append('<br>Hit: ' + hitOdds +
 		'<div class="odds-bar-container"><div class="odds-bar ' +
 		(hitOdds>0 ? 'green' : 'red') + '" style="width:' +
 		Math.abs(hitOdds*100) + '%;"></div></div>');
@@ -244,7 +282,7 @@ function drawOdds(playerValue, dealerValue, isSoft, isSplit) {
 	if(isSplit) {
 		// $('#oddsInfo').append('<br>Split: ' + getSplitOdds(playerValue, dealerValue) );
 		let splitOdds = getSplitOdds(playerValue, dealerValue);
-		$('#oddsInfo').append('<br>Split: ' + splitOdds +
+		elm.append('<br>Split: ' + splitOdds +
 			'<div class="odds-bar-container"><div class="odds-bar ' +
 			(splitOdds>0 ? 'green' : 'red flip-horizontal') + '" style="width:' +
 			Math.abs(splitOdds*100) + '%;"></div></div>');
@@ -252,10 +290,43 @@ function drawOdds(playerValue, dealerValue, isSoft, isSplit) {
 
 	// $('#oddsInfo').append('<br>Stand: ' + getStandOdds(playerValue, dealerValue) );
 	let standOdds = getStandOdds(playerValue, dealerValue);
-	$('#oddsInfo').append('<br>Stand: ' + standOdds +
+	elm.append('<br>Stand: ' + standOdds +
 		'<div class="odds-bar-container"><div class="odds-bar ' +
 		(standOdds>0 ? 'green' : 'red flip-horizontal') + '" style="width:' +
 		Math.abs(standOdds*100) + '%;"></div></div>');
+}
+
+function drawTable(elm, playerValue, isSoft, isSplit) {
+	elm.html('');
+	let row1, row2;
+
+	if(isSplit) {
+		row1 = 19;
+		if(playerValue==2) {
+			row2 = 29;
+		} else {
+			row2 = playerValue/2 + 18;
+		}
+	} else if(isSoft) {
+		row1 = 11;
+		if(playerValue >= 19) {
+			row2 = 18;
+		} else {
+			row2 = playerValue-1;
+		}
+	} else { // hard
+		row1 = 0;
+		if(playerValue <=8) {
+			row2 = 1;
+		} else if(playerValue >=17) {
+			row2 = 10;
+		} else {
+			row2 = playerValue-7;
+		}
+	}
+
+	$($('#strategyTable tr').get(row1) ).clone().appendTo(elm);
+	$($('#strategyTable tr').get(row2) ).clone().appendTo(elm);
 }
 
 // return the players expecte value if they take that action given those hands

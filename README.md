@@ -28,7 +28,7 @@
 
 <hr>
 
-- My website: https://justingolden21.github.io
+- My homepage: https://justingolden21.github.io
 
 - My repos: https://github.com/justingolden21
 
@@ -41,5 +41,9 @@
 - Read about the rules of Blackjack on https://en.wikipedia.org/wiki/Blackjack
 
 - Tables from https://www.lolblackjack.com/blackjack/probability-odds/
+
+- Built with jQuery, Bootstrap, FontAwesome
+
+- Font: Teko, CSS patterns from https://leaverou.github.io/css3patterns
 
 <hr>

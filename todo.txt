@@ -8,38 +8,48 @@ dragging a card on top of itself (or other cards in any zone) copies the card, n
 TODO
 ========
 Easy:
-add progress bar display to hand calc
-larger modals (manually decrease margin/padding)
+update strategy card img (again...)
+fullscreen button
+display stats for accuracy on hard, soft, and split hands... new stats modal?
 
 Medium:
 option for close case hands only "close cases"
 make checkbox.js its own repo, then have songssearcher, blackjack, etc link to that script, update that script when it needs updating
 fix checkbox.js for focusing checkboxes...
-get rid of calc hand btn (does it automatically, adds confusion). currently calcs by clicking btn, so need to change that first
-add to about modal about each of the other modals and how to use them (or add that info to the bottom of those modals)
+more specific options on which hands to generate? enter specific hands you want included or exluded? display buttons that say quiz me on this more or less? have options for forgetting ones youve got correct, or got correct twice, or twice in a row? drop down menu for threshhold? cookies for stats?
+option to quiz only on a certain player hand
+button to print strategy table
 
 Hard/Pain:
 animate dealing cards to player and dealer
 option to play rest of hand (no chips, draw the cards)
 
+Ugh:
+Make it a dynamic website, store data on which hands users choose which options, display stats and use it as catalyst for sharing/marketing
+
 ========
 MAYBE
 ========
+fix close btn in modal manually with css
+if strategy is in url, then open that modal on load?
 option to edit house rule settings, like double after split, surrender, number of decks, etc
 share/promo idea: share that i stood on hard 13 against dealer 6 and got it right and only 23.7% of people did. check out blackjack sim HERE
-more stats on percentages like percentages on hard, soft, split hands, in a new stats modal, maybe even a graph vs time of accuracy
+more stats on percentages like percentages on hard, soft, split hands, in a new stats modal, maybe even a graph time vs accuracy
 get a custom url
 import and export stats to .txt
 drag card off of hand calc to remove it
-store cookies for streaks/stats and options/settings
+store cookies for streaks/stats and options/settings (and numChips :) )
 add sharethis
 make calc hand modal work with keyboard
 change the hand calc UI to just 2 drop downs for player and dealer...
+larger modals (manually decrease margin/padding)
+add to about modal about each of the other modals and how to use them (or add that info to the bottom of those modals)
 
 OPTIONS:
 display percentage accuracy on bottom
 display soft hands in table as A7 instead of 18
 add more info to alert about if you're correct, info for when you do what with that hand
+option to display the sliver of the table for your hand?
 
 MODALS:
 
@@ -98,11 +108,18 @@ links:
 	link to youtube videos by blackjack apprenticeship
 
 ========
+CONSIDERATON
+========
+can you split a ten and a queen?
+
+========
 INFO / NOTES
 ========
 data folder has original .csv files as well as converted .json files
 test locally on edge to get around CORS policy requirements
 strategy card img is screenshot of zoomed out webpage, on fullscreen
+added jquery and bootstrap in repo for offline work
+offline resources: jquery, bootstrap, fontawesome, google font
 
 ========
 LINKS

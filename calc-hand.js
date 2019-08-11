@@ -1,4 +1,3 @@
-// funciton set as listener for calculateHandButton in scripts.js
 function calcHand() {
 	// Part 1: Weed out invalid hands and get hand values
 	let dealerHandCards = document.getElementById('dealerHandDrag').children;
@@ -60,24 +59,25 @@ function calcHand() {
 		isSoft = false;
 
 	// Part 2: Display the odds of each option and highlight the best option
-	let infoStr = '';
+	drawOdds($('#calcOddsDiv'), playerValue, dealerValue, isSoft, isSplit);
 
-	let doubleOdds = getDoubleOdds(playerValue, dealerValue, isSoft);
-	let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
-	let splitOdds = -2; // default so we never pick split as best option if hand isn't split
-	if(isSplit)
-		splitOdds = getSplitOdds(playerValue, dealerValue);
-	let standOdds = getStandOdds(playerValue, dealerValue);
+	// let infoStr = '';
+	// let doubleOdds = getDoubleOdds(playerValue, dealerValue, isSoft);
+	// let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
+	// let splitOdds = -2; // default so we never pick split as best option if hand isn't split
+	// if(isSplit)
+	// 	splitOdds = getSplitOdds(playerValue, dealerValue);
+	// let standOdds = getStandOdds(playerValue, dealerValue);
 
-	let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
+	// let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
 
-	infoStr += '<br><span class="odds-option ' + (doubleOdds == bestOdds ? 'best-pick' : '') + '">Double: ' + doubleOdds + '</span><br>';
-	infoStr += '<br><span class="odds-option ' + (hitOdds == bestOdds ? 'best-pick' : '') + '">Hit: ' + hitOdds + '</span><br>';
-	if(isSplit)
-		infoStr += '<br><span class="odds-option ' + (splitOdds == bestOdds ? 'best-pick' : '') + '">Split: ' + splitOdds + '</span><br>';
-	infoStr += '<br><span class="odds-option ' + (standOdds == bestOdds ? 'best-pick' : '') + '">Stand: ' + standOdds + '</span><br>';
+	// infoStr += '<br><span class="odds-option ' + (doubleOdds == bestOdds ? 'best-pick' : '') + '">Double: ' + doubleOdds + '</span><br>';
+	// infoStr += '<br><span class="odds-option ' + (hitOdds == bestOdds ? 'best-pick' : '') + '">Hit: ' + hitOdds + '</span><br>';
+	// if(isSplit)
+	// 	infoStr += '<br><span class="odds-option ' + (splitOdds == bestOdds ? 'best-pick' : '') + '">Split: ' + splitOdds + '</span><br>';
+	// infoStr += '<br><span class="odds-option ' + (standOdds == bestOdds ? 'best-pick' : '') + '">Stand: ' + standOdds + '</span><br>';
 
-	$('#calculateInfoP').html(infoStr);
+	// $('#calculateInfoP').html(infoStr);
 }
 
 // drag and drop, w3schools
@@ -102,7 +102,7 @@ function drop(ev) {
 	else if(dragTarget.className.indexOf('drag-area') == -1 ) { // if dragging to invalid location
 		// console.log('moved to invalid locaiton, removing');
 		dragTarget.remove(); // delete it
-		$('#calculateHandButton').click();
+		calcHand();
 		return;
 	}
 
@@ -115,7 +115,7 @@ function drop(ev) {
 	let clone = document.getElementById(data).cloneNode(true);
 	dragTarget.appendChild(clone);
 
-	$('#calculateHandButton').click();
+	calcHand();
 }
 
 // For clicking as opposed to dragging
@@ -142,11 +142,11 @@ function handleDragClick() {
 
 	$('.clickable-card').removeClass('active');
 
-	$('#calculateHandButton').click(); // update display
+	calcHand();
 }
 function removeCard() {
 	// not an arrow function because in that scope/context, "this" refers to another element
 	$(this).remove();
 
-	$('#calculateHandButton').click(); // update display
+	calcHand();
 }
