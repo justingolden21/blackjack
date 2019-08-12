@@ -13,6 +13,7 @@ fullscreen button
 display stats for accuracy on hard, soft, and split hands... new stats modal?
 
 Medium:
+make text (especially bold) not dumb on huge screens...
 option for close case hands only "close cases"
 make checkbox.js its own repo, then have songssearcher, blackjack, etc link to that script, update that script when it needs updating
 fix checkbox.js for focusing checkboxes...
