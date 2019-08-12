@@ -66,7 +66,7 @@ function calcHand() {
 	// let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
 	// let splitOdds = -2; // default so we never pick split as best option if hand isn't split
 	// if(isSplit)
-	// 	splitOdds = getSplitOdds(playerValue, dealerValue);
+	// 	splitOdds = getSplitOdds(playerValue, dealerValue, isSoft);
 	// let standOdds = getStandOdds(playerValue, dealerValue);
 
 	// let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);

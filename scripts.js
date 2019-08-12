@@ -45,6 +45,11 @@ $(function() {
 		$('#tableRow').css('display', $('#drawTableRowCheckbox').is(':checked') ? '' : 'none');
 	});
 
+	$('#chipsDiv').css('display', $('#drawChipsCheckbox').is(':checked') ? '' : 'none');
+	$('#drawChipsCheckbox').change( ()=> {
+		$('#chipsDiv').css('display', $('#drawChipsCheckbox').is(':checked') ? '' : 'none');
+	});
+
 	$('#newHandButton').click(newHand).click();
 
 	// drag and drop
@@ -253,10 +258,7 @@ function handleInput(selectedOption) {
 		$('#newHandButton').focus();
 	}
 
-	if($('#drawChipsCheckbox').is(':checked') ) {
-		drawChips(numChips);
-	}
-	
+	drawChips(numChips);
 
 	$('#statP').html('Streak: ' + numStreak + ' &mdash;&mdash; ' + 'Max streak: ' + maxStreak
 		+ ' &mdash;&mdash; ' + numCorrect + ' / ' + (numCorrect+numWrong) );
@@ -280,8 +282,8 @@ function drawOdds(elm, playerValue, dealerValue, isSoft, isSplit) {
 		Math.abs(hitOdds*100) + '%;"></div></div>');
 
 	if(isSplit) {
-		// $('#oddsInfo').append('<br>Split: ' + getSplitOdds(playerValue, dealerValue) );
-		let splitOdds = getSplitOdds(playerValue, dealerValue);
+		// $('#oddsInfo').append('<br>Split: ' + getSplitOdds(playerValue, dealerValue, isSoft) );
+		let splitOdds = getSplitOdds(playerValue, dealerValue, isSoft);
 		elm.append('<br>Split: ' + splitOdds +
 			'<div class="odds-bar-container"><div class="odds-bar ' +
 			(splitOdds>0 ? 'green' : 'red flip-horizontal') + '" style="width:' +
@@ -336,8 +338,8 @@ function getDoubleOdds(playerValue, dealerValue, isSoft) {
 function getHitOdds(playerValue, dealerValue, isSoft) {
 	return hitData[(isSoft?'soft ':'hard ') + playerValue][dealerValue.toString()];	
 }
-function getSplitOdds(playerValue, dealerValue) {
-	if(playerValue==12) //aces
+function getSplitOdds(playerValue, dealerValue, isSoft) {
+	if(playerValue==12 && isSoft) //aces
 		return splitData['pair ace'][dealerValue.toString()];
 
 	return splitData['pair ' + playerValue/2][dealerValue.toString()];
@@ -351,7 +353,7 @@ function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
 	let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
 	let splitOdds = -2; // default so we never pick split as best option if hand isn't split
 	if(isSplit)
-		splitOdds = getSplitOdds(playerValue, dealerValue);
+		splitOdds = getSplitOdds(playerValue, dealerValue, isSoft);
 	let standOdds = getStandOdds(playerValue, dealerValue);
 
 	let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
