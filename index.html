@@ -17,6 +17,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.js"></script>
 
+<!-- doesn't work... -->
+<!-- <script src="cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js"></script> -->
+
 <!-- <script src="libraries/jquery.js"></script> -->
 <!-- <script src="libraries/jquery-csv.js"></script> -->
 
@@ -36,6 +39,7 @@
 <script src="calc-hand.js"></script>
 <script src="play.js"></script>
 <script src="draw-chips.js"></script>
+<script src="stats.js"></script>
 
 </head>
 
@@ -91,6 +95,7 @@
 <button class="btn btn-sm" data-toggle="modal" data-target="#cheatcardModal" title="Blackjack Strategy Card"><i class="fas fa-table"></i> Strategy Card</button>
 <button class="btn btn-sm" data-toggle="modal" data-target="#tablesModal" title="Display More Tables for Nerds"><i class="fas fa-list"></i> More Tables</button>
 <button class="btn btn-sm" data-toggle="modal" data-target="#oddsModal" title="Manually Enter Your Hand and Dealer Hand for Best Choice and Odds"><i class="fas fa-calculator"></i> Hand Calculator</button>
+<button class="btn btn-sm" data-toggle="modal" data-target="#statsModal" title="View Your Stats on Different Types of Hands"><i class="fas fa-star"></i> Stats</button>
 </div>
 
 <br><br>
@@ -106,13 +111,16 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
-				<b>Using the website</b>
-				<p>Select the best available option and we will tell you if your choice was statistically correct.</p>
+				<h3>Using the website</h3>
+				<p>Select the best available option and we'll tell you if you made the best choice.</p>
 				<p>Your streak and totals are shown below.</p>
-				<p>Never take insurance (betting the dealer has blackjack).</p>
 				<p class="no-mobile">You can use the left <kbd><i class="fas fa-caret-left"></i></kbd> and right <kbd><i class="fas fa-caret-right"></i></kbd> arrow keys to change buttons and the <kbd>Enter</kbd> key to submit.</p>
 				<hr>
-				<p>V.1.3.0</p>
+				<p>Never take insurance (betting the dealer has blackjack).</p>
+				<p>There are options available to display the estimated value and/or the relevant row of the strategy table after your choice every round.</p>
+				<p>You can also display your "chips" above, where you gain a chip for the right choice and lose one for the wrong choice. You can't go negative.</p>
+				<p>You can also choose which hands are generated, between hard, soft, and split, to quiz yourself where you need help.</p>
+				<hr>
 				<p>Made by <a href="https://justingolden21.github.io" target="_blank">Justin Golden</a></p>
 				<p><a href="https://github.com/justingolden21/blackjack" target="_blank"><i class="fab fa-github"></i> Github Repo</a></p>
 				<p>Could something be improved? Contact me at <a href="mailto:justingolden@rgbstudios.org" target="_blank"><i class="fas fa-envelope"></i> justingolden@rgbstudios.org</a></p>
@@ -129,8 +137,7 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
-				<b>Table Rules</b>
-				<p>This website assumes the following table rules: </p>
+				<h3>This website assumes the following table rules: </h3>
 				<ul>
 				<li>Blackjack pays 3:2</li>
 				<li>Dealer stands on a soft 17</li>
@@ -139,11 +146,30 @@
 				<li>Split up to three times except aces</li>
 				<li>Draw only one card per split ace</li>
 				</ul>
-				<p>Based on these rules, the player's expected value is -0.511734%.</p>
 				<p>This website does not feature a surrender option, however if one is allowed, you should surender only on hard 16 against 9, 10, or ace, or hard 15 against 10.</p>
+				<p>Based on these rules, the player's expected value is -0.511734%.</p>
+				<p>However, this value can turn positive with a simple card counting scheme, such as hi-lo. Learning basic strategy is the first step to being a profitable blackjack player.</p>
 				<hr>
 				<p>Data is from <a href="https://wizardofodds.com/games/blackjack/appendix/1/" target="_blank">wizardofodds.com</a>.</p>
 				<p>For how to play blackjack, feel free to read <a href="https://en.wikipedia.org/wiki/Blackjack" target="_blank">Blackjack on Wikipedia</a>.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="statsModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><i class="fas fa-star"></i> Stats</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<div id="statModalDiv">
+					<strong>There are no stats yet.</strong> 
+					<br>
+					<i class="fas fa-info-circle"></i><i> Click "Hit", "Stand", "Double", or "Split" to get started.</i>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -185,7 +211,7 @@
 			</div>
 			<div class="modal-body">
 				<input id="drawOddsCheckbox" type="checkbox">
-				<label for="drawOddsCheckbox">Show Hand Odds</label>
+				<label for="drawOddsCheckbox">Show Estimated Value</label>
 				<br>
 
 				<input id="drawTableRowCheckbox" type="checkbox">
@@ -197,7 +223,7 @@
 				<br>
 
 				<input checked id="animateCheckbox" type="checkbox">
-				<label for="animateCheckbox">Card Animation</label>
+				<label for="animateCheckbox">Display Animations</label>
 				<br>
 
 				<input id="playCheckbox" type="checkbox">
@@ -481,12 +507,12 @@
 				<div class="row">
 				<div class="col-md-8">
 				<div id="playerHandDrag" class="drag-area" ondrop="drop(event)" ondragover="allowDrop(event)">
-					<div>Player's Hand<br></div>
+					<div><p>Player's Hand</p><br></div>
 				</div>
 				</div>
 				<div class="col-md-4">
 				<div id="dealerHandDrag" class="drag-area" ondrop="drop(event)" ondragover="allowDrop(event)">
-					<div>Dealer's Hand<br></div>
+					<div><p>Dealer's Hand</p><br></div>
 				</div>
 				</div>
 				</div>

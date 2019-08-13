@@ -114,11 +114,12 @@ function clearCards() {
 }
 
 function newHand() {
-	$('.chip').css('box-shadow', 'none');
-	$('.chip').toggleClass('spin');
-	setTimeout( ()=> {$('.chip').css('box-shadow', '5px 5px 0px hsl(0, 0%, 20%)');}, 2000);
 
 	if($('#animateCheckbox').is(':checked') ) {
+
+		$('.chip').css('box-shadow', 'none');
+		$('.chip').toggleClass('spin');
+		setTimeout( ()=> {$('.chip').css('box-shadow', '5px 5px 0px hsl(0, 0%, 20%)');}, 2000);
 
 		// garbage below, still testing...
 		// $('.pokercard').animate({'opacity': '0'}, 100, ()=> { $('.pokercard').css('opacity', 1); } );
@@ -200,7 +201,8 @@ function getRandomCard(deck) { // remove card and return it
 
 function handleInput(selectedOption) {
 
-	$('.chip').toggleClass('spin');
+	if($('#animateCheckbox').is(':checked') )
+		$('.chip').toggleClass('spin');
 
 	let playerValue = currentCards[0].value+currentCards[1].value;
 	let dealerValue = currentCards[2].value;
@@ -229,8 +231,8 @@ function handleInput(selectedOption) {
 
 	if(correctOption == selectedOption) {
 		numChips++;
-		let infoStr = '<i class="fas fa-check"></i> Correct! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type;
-		$('#history').html('<br><span class="correct-history">' + infoStr + '</span><br>' + $('#history').html() );
+		let infoStr = '<i class="fas fa-check"></i> Correct! <u>' + correctOption + '</u> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type;
+		$('#history').html('<br><span class="history correct-history">' + infoStr + '</span><br>' + $('#history').html() );
 		$('#resultAlert').html(infoStr);
 		$('#resultAlert').removeClass('alert-info');
 		$('#resultAlert').removeClass('alert-danger');
@@ -241,8 +243,8 @@ function handleInput(selectedOption) {
 			maxStreak = numStreak;
 	} else {
 		numChips = Math.max(numChips-1, 0);
-		let infoStr = '<i class="fas fa-times"></i> Wrong! <strong>' + correctOption + '</strong> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type + '. Not <strong>' + selectedOption + '</strong>';
-		$('#history').html('<br><span class="wrong-history">' + infoStr + '</span><br>' + $('#history').html() );
+		let infoStr = '<i class="fas fa-times"></i> Wrong! <u>' + correctOption + '</u> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type + '. Not <u>' + selectedOption + '</u>';
+		$('#history').html('<br><span class="history wrong-history">' + infoStr + '</span><br>' + $('#history').html() );
 		$('#resultAlert').html(infoStr);
 		$('#resultAlert').removeClass('alert-info');
 		$('#resultAlert').removeClass('alert-success');
@@ -259,6 +261,8 @@ function handleInput(selectedOption) {
 	}
 
 	drawChips(numChips);
+
+	updateStats(selectedOption, correctOption, playerValue, dealerValue, handIsSoft, handIsSplit);
 
 	$('#statP').html('Streak: ' + numStreak + ' &mdash;&mdash; ' + 'Max streak: ' + maxStreak
 		+ ' &mdash;&mdash; ' + numCorrect + ' / ' + (numCorrect+numWrong) );

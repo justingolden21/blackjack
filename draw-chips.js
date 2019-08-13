@@ -1,13 +1,19 @@
 function drawChips(num) {
-	$('#chipsDiv').html('');
+	let classList = 'small-chip';
+	if(! $('#animateCheckbox').is(':checked') )
+		classList += ' animate';
+
 	let chipsHTML = '';
 	let idx = num;
 	for(; idx>=25; idx-=25)
-		chipsHTML += '<img src="chips/chip-blue.svg" class="small-chip blue"> ';
+		chipsHTML += '<img src="chips/chip-blue.svg" class="' + classList + ' blue"> ';
 	for(; idx>=5; idx-=5)
-		chipsHTML += '<img src="chips/chip-red.svg" class="small-chip red"> ';
+		chipsHTML += '<img src="chips/chip-red.svg" class="' + classList + ' red"> ';
 	for(; idx>=1; idx-=1)
-		chipsHTML += '<img src="chips/chip-green.svg" class="small-chip green"> ';		
+		chipsHTML += '<img src="chips/chip-green.svg" class="' + classList + ' green"> ';
 
-	$('#chipsDiv').append(chipsHTML + '<span id="numChips">' + num + '</span>');
+	$('#chipsDiv').html(chipsHTML + '<span id="numChips">' + num + '</span>');
+
+	if($('#animateCheckbox').is(':checked') )
+		setTimeout( ()=> $('.small-chip').toggleClass('animate'), 100);
 }

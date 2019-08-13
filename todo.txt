@@ -10,10 +10,10 @@ TODO
 Easy:
 update strategy card img (again...)
 fullscreen button
-display stats for accuracy on hard, soft, and split hands... new stats modal?
 
 Medium:
-make text (especially bold) not dumb on huge screens...
+fix close btn in modal manually with css
+fix for huge screens
 option for close case hands only "close cases"
 make checkbox.js its own repo, then have songssearcher, blackjack, etc link to that script, update that script when it needs updating
 fix checkbox.js for focusing checkboxes...
@@ -31,8 +31,9 @@ Make it a dynamic website, store data on which hands users choose which options,
 ========
 MAYBE
 ========
-fix close btn in modal manually with css
-if strategy is in url, then open that modal on load?
+insights like "you hit too often" etc...? option?
+graph of chips going up and down? eh...
+if ?q=strategy is in url, then open that modal on load?
 option to edit house rule settings, like double after split, surrender, number of decks, etc
 share/promo idea: share that i stood on hard 13 against dealer 6 and got it right and only 23.7% of people did. check out blackjack sim HERE
 more stats on percentages like percentages on hard, soft, split hands, in a new stats modal, maybe even a graph time vs accuracy

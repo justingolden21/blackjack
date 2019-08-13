@@ -28,7 +28,13 @@ br, .cardHandDiv, button, .chip {
 ::selection {
 	background: hsl(0, 0%, 20%) !important;
 }
-body, html, button, .alert, b, #noHistory {
+.modal-content *::-moz-selection {
+	background: hsl(0, 0%, 80%) !important;
+}
+.modal-content *::selection {
+	background: hsl(0, 0%, 80%) !important;
+}
+body, html, button, .alert, #noHistory {
 	color: hsl(0, 0%, 10%);
 }
 .redcard {
@@ -59,12 +65,18 @@ h2 {
 	border-radius: 4px;*/
 }
 h3 {
-	/*font-size: 160% !important;*/
-	font-size: 190% !important;
+	font-size: 160% !important;
+	/*font-size: 190% !important;*/
 	padding: 24px;
 	display: inline;
 }
-.card-label, .modal-body b {
+a {
+	color: hsl(240, 75%, 30%);
+}
+a:hover {
+	color: hsl(240, 75%, 50%);
+}
+.card-label, .modal-body h3 {
 	/*font-size: 120%;*/
 	font-size: 150%;
 }
@@ -90,6 +102,11 @@ h3 {
 	margin-right: -28px;
 	box-shadow: 2px 2px 0px hsl(0, 0%, 20%);
 	border-radius: 100%;
+	transform: scale(0);
+	transition: all 0.3s ease-in-out;
+}
+.small-chip.animate {
+	transform: scale(1);
 }
 .small-chip.red {
 	background-color: hsl(0, 75%, 30%);
@@ -234,7 +251,8 @@ button:disabled {
 	padding-right: 20px;
 }
 label:hover {
-	color: hsl(160, 75%, 30%);
+	color: hsl(160, 75%, 30%) !important;
+	cursor: pointer;
 }
 
 /* alerts  */
@@ -258,7 +276,7 @@ label:hover {
 .modal-content {
 	background-color: hsl(160, 50%, 90%);
 	border-radius: 0px;
-	font-size: 80%;
+	font-size: 100%;
 }
 .modal-header {
 	/*background-color: hsl(160, 75%, 30%);*/
@@ -271,13 +289,23 @@ button.close {
 	/*opacity: 1 !important;*/
 	outline: none !important;
 }
-.modal-body p, .modal-body h3, .modal-body li {
-	color: hsl(0, 0%, 10%) !important;
+
+kbd i ,kbd {
+	color: #fff !important;
+	background-color: hsl(0, 0%, 10%);
+}
+
+/*.modal-body p, .modal-body h3, .modal-body li, .modal-body b, .modal-body label, .modal-body strong, .modal-body span, .modal-body i:not(.fas):not(.fab), th, td, button {*/
+.modal-body *:not(a):not(kbd):not(.fas):not(.fab), th, td, button {
+	color: hsl(0, 0%, 10%);
 }
 
 /* modal insides */
-.correct-history, .wrong-history {
+.history {
 	padding: 6px;
+}
+.history, .history u {
+	color: #fff !important;
 }
 #clearHistoryDiv {
 	display: none;
@@ -294,6 +322,8 @@ th, td {
 }
 th {
 	background-color: hsl(160, 50%, 80%);
+	font-weight: normal;
+	text-decoration: underline;
 }
 .table-hit {
 	background-color: hsl(0, 50%, 60%);
@@ -429,9 +459,9 @@ tr:hover td {
 		/*font-size: 100%;*/
 		font-size: 110%;
 	}
-	.card-label, .modal-body b, h3 {
-		/*font-size: 120%;*/
-		font-size: 130%;
+	.card-label, .modal-body h3 {
+		font-size: 120%;
+		/*font-size: 130%;*/
 	}
 	h2 {
 		/*font-size: 120%;*/
