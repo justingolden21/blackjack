@@ -1,4 +1,4 @@
-# <img src="chip.svg" width="128px"> Blackjack Simulator
+# <img src="img/chip.svg" width="128px"> Blackjack Simulator
 
 ### About
 

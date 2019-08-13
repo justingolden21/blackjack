@@ -10,6 +10,7 @@ TODO
 Easy:
 update strategy card img (again...)
 fullscreen button
+update readme with all the feaures, and img of strat table, site screenshot
 
 Medium:
 fix close btn in modal manually with css
