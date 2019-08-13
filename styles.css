@@ -250,6 +250,11 @@ button:disabled {
 	padding-left: 20px;
 	padding-right: 20px;
 }
+#fullscreenButton {
+	position : absolute;
+	top : 0;
+	right : 0;
+}
 label:hover {
 	color: hsl(160, 75%, 30%) !important;
 	cursor: pointer;
@@ -438,7 +443,7 @@ tr:hover td {
 
 /* media queries */
 @media (max-width: 768px) {
-	.no-mobile {
+	.no-mobile, #fullscreenButton {
 		display: none;
 	}
 	.cardHandDiv {

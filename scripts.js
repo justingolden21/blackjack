@@ -35,6 +35,8 @@ $(function() {
 	$('#doubleButton').click( ()=> handleInput('Double') );
 	$('#splitButton').click( ()=> handleInput('Split') );
 
+	$('#fullscreenButton').click(toggleFullscreen);
+
 	$('#oddsInfo').css('display', $('#drawOddsCheckbox').is(':checked') ? '' : 'none');
 	$('#drawOddsCheckbox').change( ()=> {
 		$('#oddsInfo').css('display', $('#drawOddsCheckbox').is(':checked') ? '' : 'none');
