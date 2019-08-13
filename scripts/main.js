@@ -1,27 +1,9 @@
 let deck, currentCards;
-
-let numCorrect = numWrong = numStreak = maxStreak = 0;
-
-// example:
-// double with hard 4 against dealer 2
-// doubleData['hard 4']['2'];
 let doubleData, hitData, splitData, standData;
-
+let numCorrect = numWrong = numStreak = maxStreak = 0;
 let numChips = 0;
 
-class Card {
-	constructor(val, char) {
-		this.char = char;
-		this.isRed = val[0] == 'b' || val[0] == 'c'; // heart or diamond
-		this.value = parseInt(val[1]); //a through e is 10
-		if(isNaN(this.value) )
-			this.value = 10;
-		this.type = this.value == 1 ? 'Ace' : this.value;
-	}
-}
-
-// Setup
-
+// Setup/Listeners
 $(function() {
 	// Setup Checkboxes and Data
 	setupCheckboxes();
@@ -61,6 +43,7 @@ $(function() {
 		$('#dealerHandDrag').html('Dealer\'s Hand<br>');
 		$('#playerHandDrag').html('Player\'s Hand<br>');
 		$('#calculateInfoP').html('');
+		$('#calcOddsDiv').html('');
 	});
 
 	$('#clearHistoryButton').click( ()=> {
@@ -69,16 +52,14 @@ $(function() {
 		$('#clearHistoryDiv').css('display', 'none');
 	});
 
-	// $('#calculateHandButton').click(calcHand);
-
 	$('.clickable-card').click(handleCardClick);
-	$('.drag-area').click(handleDragClick);
+	$('.drag-area').click(handleDragAreaClick);
 
 	setTimeout(()=> $('.chip').removeClass('move'), 500);
 });
 
-// focus button to the left or right with arrow keys for easy navigation
 window.onkeyup = function(e) {
+	// focus button to the left or right with arrow keys for easy navigation
 	let key = e.keyCode ? e.keyCode : e.which;
 	if(key == 37) { //left
 		if($(':focus').is('.btn') )
@@ -87,48 +68,6 @@ window.onkeyup = function(e) {
 		if($(':focus').is('.btn') )
 			$(':focus').next('.btn').focus();
 	}
-}
-
-function buildDeck() { // creates deck of 52
-	deck = [];
-	let vals = '123456789abde'.split('');
-	let suits = 'abcd'.split('');
-	for(let i=0; i<vals.length; i++) {
-		for(let j=0; j<suits.length; j++) {
-			deck.push(new Card(suits[j]+vals[i],'&#x1f0' + suits[j] + vals[i] + ';') );
-		}
-	}
-}
-
-// Graphics
-function drawCardImage(card, isPlayer, returnOnly=false) {
-	let cardHTML = '<span class=" pokercard ' + (card.isRed ? 'redcard':'') + '">' + card.char + '</span>';
-	if(returnOnly)
-		return cardHTML;
-	if(isPlayer)
-		$('#playerHandDiv').html($('#playerHandDiv').html() + cardHTML);
-	else
-		$('#dealerHandDiv').html($('#dealerHandDiv').html() + cardHTML);
-}
-function drawCardbackImage() {
-	$('#dealerHandDiv').html($('#dealerHandDiv').html() + '<span class="pokercard redcard cardback">&#x1f0a0;</span>');
-}
-function clearCards() {
-	$('.cardHandDiv').html(''); //player and dealer hand divs
-}
-
-// Utility
-function isSoft(cards) {
-	return cards[0].value==1 || cards[1].value==1;
-}
-function isSplit(cards) {
-	return cards[0].value == cards[1].value;
-}
-function getRandomCard(deck) { // remove card and return it
-	let idx = Math.floor(Math.random()*deck.length);
-	let randCard = deck[idx];
-	deck.splice(idx, 1); // remove card
-	return randCard;
 }
 
 // The Big Functions
@@ -248,99 +187,4 @@ function handleInput(selectedOption) {
 
 	$('#statP').html('Streak: ' + numStreak + ' &mdash;&mdash; ' + 'Max streak: ' + maxStreak
 		+ ' &mdash;&mdash; ' + numCorrect + ' / ' + (numCorrect+numWrong) );
-}
-
-// More Graphics
-function drawOdds(elm, playerValue, dealerValue, isSoft, isSplit) {
-	elm.html('');
-
-	let doubleOdds = getDoubleOdds(playerValue, dealerValue, isSoft);
-	elm.append('<br>Double: ' + doubleOdds +
-		'<div class="odds-bar-container"><div class="odds-bar ' +
-		(doubleOdds>0 ? 'green' : 'red') + '" style="width:' +
-		Math.abs(doubleOdds*100) + '%;"></div></div>');
-
-	let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
-	elm.append('<br>Hit: ' + hitOdds +
-		'<div class="odds-bar-container"><div class="odds-bar ' +
-		(hitOdds>0 ? 'green' : 'red') + '" style="width:' +
-		Math.abs(hitOdds*100) + '%;"></div></div>');
-
-	if(isSplit) {
-		let splitOdds = getSplitOdds(playerValue, dealerValue, isSoft);
-		elm.append('<br>Split: ' + splitOdds +
-			'<div class="odds-bar-container"><div class="odds-bar ' +
-			(splitOdds>0 ? 'green' : 'red flip-horizontal') + '" style="width:' +
-			Math.abs(splitOdds*100) + '%;"></div></div>');
-	}
-
-	let standOdds = getStandOdds(playerValue, dealerValue);
-	elm.append('<br>Stand: ' + standOdds +
-		'<div class="odds-bar-container"><div class="odds-bar ' +
-		(standOdds>0 ? 'green' : 'red flip-horizontal') + '" style="width:' +
-		Math.abs(standOdds*100) + '%;"></div></div>');
-}
-
-function drawTable(elm, playerValue, isSoft, isSplit) { // draws relevant slice of the strategy table
-	elm.html('');
-	let row1, row2;
-
-	if(isSplit) {
-		row1 = 19;
-		if(playerValue==2) {
-			row2 = 29;
-		} else {
-			row2 = playerValue/2 + 18;
-		}
-	} else if(isSoft) {
-		row1 = 11;
-		if(playerValue >= 19) {
-			row2 = 18;
-		} else {
-			row2 = playerValue-1;
-		}
-	} else { // hard
-		row1 = 0;
-		if(playerValue <=8) {
-			row2 = 1;
-		} else if(playerValue >=17) {
-			row2 = 10;
-		} else {
-			row2 = playerValue-7;
-		}
-	}
-
-	$($('#strategyTable tr').get(row1) ).clone().appendTo(elm);
-	$($('#strategyTable tr').get(row2) ).clone().appendTo(elm);
-}
-
-// Data Utility Functions
-// return the players expected value if they take that action given those hands
-function getDoubleOdds(playerValue, dealerValue, isSoft) {
-	return doubleData[(isSoft?'soft ':'hard ') + playerValue][dealerValue.toString()];
-}
-function getHitOdds(playerValue, dealerValue, isSoft) {
-	return hitData[(isSoft?'soft ':'hard ') + playerValue][dealerValue.toString()];	
-}
-function getSplitOdds(playerValue, dealerValue, isSoft) {
-	if(isSoft)
-		return splitData['pair ace'][dealerValue.toString()];
-	return splitData['pair ' + playerValue/2][dealerValue.toString()];
-}
-function getStandOdds(playerValue, dealerValue) {
-	return standData[playerValue.toString()][dealerValue.toString()];
-}
-function getCorrectOption(playerValue, dealerValue, isSoft, isSplit) {
-	let doubleOdds = getDoubleOdds(playerValue, dealerValue, isSoft);
-	let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
-	let splitOdds = -2; // default so we never pick split as best option if hand isn't split
-	if(isSplit)
-		splitOdds = getSplitOdds(playerValue, dealerValue, isSoft);
-	let standOdds = getStandOdds(playerValue, dealerValue);
-
-	let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
-	if(bestOdds==doubleOdds) { return 'Double'; }
-	if(bestOdds==hitOdds) { return 'Hit'; }
-	if(bestOdds==standOdds) { return 'Stand'; }
-	if(bestOdds==splitOdds) { return 'Split'; }
 }

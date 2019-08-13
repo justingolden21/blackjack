@@ -52,8 +52,8 @@ let typeNames = 'hard soft pair'.split(' ');
 let optionNames = 'hit stand double split'.split(' ');
 
 function updateStats(selectedOption, correctOption, playerValue, dealerValue, handIsSoft, handIsSplit) {
-
-	// Update stats
+	// Update Stats
+	let correctWrong = selectedOption==correctOption ? 'correct' : 'wrong';
 	let typeName = '';
 	if(handIsSplit)
 		typeName = 'pair';
@@ -62,13 +62,9 @@ function updateStats(selectedOption, correctOption, playerValue, dealerValue, ha
 	else
 		typeName = 'hard';
 
-	let correctWrong = selectedOption==correctOption ? 'correct' : 'wrong';
-
-
 	stats[typeName][correctOption.toLowerCase()][correctWrong]++;
 
-
-	// Update display
+	// Update Display
 	let statHTML = '';
 
 	for(let i=0; i<typeNames.length; i++) {

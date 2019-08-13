@@ -11,6 +11,7 @@ Easy:
 update strategy card img (again...)
 fullscreen button
 update readme with all the feaures, and img of strat table, site screenshot
+option in hand calc for displaying best optiononly or displaying odds bars
 
 Medium:
 fix close btn in modal manually with css
@@ -99,7 +100,6 @@ possible redundant code in calc hand btn listener and getCorrectOption function
 make another js file
 organize css colors with comments
 change css to scss
-organize file structure
 
 OTHER APPLICATIONS:
 make it a phone app

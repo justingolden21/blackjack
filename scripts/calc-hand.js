@@ -5,7 +5,7 @@ function calcHand() {
 		$('#calculateInfoP').html('Please enter dealer hand.');
 		return;
 	}
-	let dealerVal = parseInt(dealerHandCards[1].id.replace('card', '') );
+	let dealerValue = parseInt(dealerHandCards[1].id.replace('card', '') );
 
 	let playerHandCards = document.getElementById('playerHandDrag').children;
 
@@ -35,7 +35,6 @@ function calcHand() {
 
 	let isSoft = numAces > 0; // if any 'unused' aces
 
-	let dealerValue = dealerVal;
 	if(dealerValue==1)
 		dealerValue = 'ace';
 
@@ -59,11 +58,11 @@ function calcHand() {
 		isSoft = false;
 
 	// Part 2: Display the odds of each option and highlight the best option
+	$('#calculateInfoP').html('');
 	drawOdds($('#calcOddsDiv'), playerValue, dealerValue, isSoft, isSplit);
-
 }
 
-// drag and drop, w3schools
+// Handle Drag and Drop
 function allowDrop(ev) {
 	ev.preventDefault();
 }
@@ -71,19 +70,15 @@ function drag(ev) {
 	ev.dataTransfer.setData('text', ev.target.id);
 }
 function drop(ev) {
-	// console.log('droppin ', ev.target);
-
 	ev.preventDefault();
 	let data = ev.dataTransfer.getData('text');
 
 	let dragTarget = ev.target;
 
 	if(dragTarget.parentNode.className.indexOf('drag-area') != -1) { // if dragged onto child of drag area (another card)
-		// console.log('dragged onto card, moving to parent');
 		dragTarget = ev.target.parentNode;
 	}
 	else if(dragTarget.className.indexOf('drag-area') == -1 ) { // if dragging to invalid location
-		// console.log('moved to invalid locaiton, removing');
 		dragTarget.remove(); // delete it
 		calcHand();
 		return;
@@ -101,8 +96,7 @@ function drop(ev) {
 	calcHand();
 }
 
-// For clicking as opposed to dragging
-// Listeners set in main file
+// Handle Clicking
 function handleCardClick() {
 	if($(this).hasClass('active') ) {
 		$(this).removeClass('active');
@@ -112,17 +106,15 @@ function handleCardClick() {
 		$(this).toggleClass('active');
 	}
 }
-function handleDragClick() {
+function handleDragAreaClick() {
 	if($('.clickable-card.active').length == 0)
 		return;
-
 	if($(this).children().length > 6)
 		return
 	if(this.id=='dealerHandDrag' && $(this).children().length > 1)
 		return
 
 	$('.clickable-card.active').clone().click(removeCard).appendTo($(this) );
-
 	$('.clickable-card').removeClass('active');
 
 	calcHand();
@@ -130,6 +122,5 @@ function handleDragClick() {
 function removeCard() {
 	// not an arrow function because in that scope/context, "this" refers to another element
 	$(this).remove();
-
 	calcHand();
 }
