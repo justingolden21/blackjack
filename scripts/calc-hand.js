@@ -61,23 +61,6 @@ function calcHand() {
 	// Part 2: Display the odds of each option and highlight the best option
 	drawOdds($('#calcOddsDiv'), playerValue, dealerValue, isSoft, isSplit);
 
-	// let infoStr = '';
-	// let doubleOdds = getDoubleOdds(playerValue, dealerValue, isSoft);
-	// let hitOdds = getHitOdds(playerValue, dealerValue, isSoft);
-	// let splitOdds = -2; // default so we never pick split as best option if hand isn't split
-	// if(isSplit)
-	// 	splitOdds = getSplitOdds(playerValue, dealerValue, isSoft);
-	// let standOdds = getStandOdds(playerValue, dealerValue);
-
-	// let bestOdds = Math.max(doubleOdds, hitOdds, splitOdds, standOdds);
-
-	// infoStr += '<br><span class="odds-option ' + (doubleOdds == bestOdds ? 'best-pick' : '') + '">Double: ' + doubleOdds + '</span><br>';
-	// infoStr += '<br><span class="odds-option ' + (hitOdds == bestOdds ? 'best-pick' : '') + '">Hit: ' + hitOdds + '</span><br>';
-	// if(isSplit)
-	// 	infoStr += '<br><span class="odds-option ' + (splitOdds == bestOdds ? 'best-pick' : '') + '">Split: ' + splitOdds + '</span><br>';
-	// infoStr += '<br><span class="odds-option ' + (standOdds == bestOdds ? 'best-pick' : '') + '">Stand: ' + standOdds + '</span><br>';
-
-	// $('#calculateInfoP').html(infoStr);
 }
 
 // drag and drop, w3schools

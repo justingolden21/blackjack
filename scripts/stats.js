@@ -1,4 +1,3 @@
-
 let stats = {
 	'hard': {
 		'hit':    {'correct': 0, 'wrong':0},
@@ -40,9 +39,6 @@ function getOptionAccuracy(optionName) {
 	return [correct, wrong];
 }
 
-let typeNames = 'hard soft pair'.split(' ');
-let optionNames = 'hit stand double split'.split(' ');
-
 function capitalize(str) {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -51,6 +47,9 @@ function getPercentStr(numCorrect, numWrong) {
 		return '0%';
 	return Math.round(numCorrect/(numCorrect+numWrong)*10000)/100 + '%'; 
 }
+
+let typeNames = 'hard soft pair'.split(' ');
+let optionNames = 'hit stand double split'.split(' ');
 
 function updateStats(selectedOption, correctOption, playerValue, dealerValue, handIsSoft, handIsSplit) {
 

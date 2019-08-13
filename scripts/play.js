@@ -6,13 +6,6 @@ function playHand(selectedOption) {
 	if(selectedOption=='Hit' || selectedOption=='Double') {
 		newCards.push(getRandomCard(deck) );
 		drawCardImage(newCards[newCards.length-1], true);
-
-		// code for fade in animation...
-		// figured out how to do it and then decided against it...
-		// let cardHTML = drawCardImage(newCards[newCards.length-1], true, true);
-		// let cardElm = $(cardHTML);
-		// cardElm.insertAfter($('#playerHandDiv .pokercard:last-child')[0]);
-		// cardElm.fadeOut(0).fadeIn(500);
 	}
 
 	if(selectedOption=='Split') {
@@ -34,9 +27,6 @@ function playHand(selectedOption) {
 	let dealerCard = getRandomCard(deck);
 	$('.cardback').remove();
 	drawCardImage(dealerCard, false);
-
-	// TODO: show if they win
-	// and display total values below hands
 
 	$('#newHandDiv').css('display', '');
 	$('#newHandButton').focus();

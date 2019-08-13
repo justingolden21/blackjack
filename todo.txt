@@ -47,6 +47,7 @@ make calc hand modal work with keyboard
 change the hand calc UI to just 2 drop downs for player and dealer...
 larger modals (manually decrease margin/padding)
 add to about modal about each of the other modals and how to use them (or add that info to the bottom of those modals)
+play through hand option: show if they win? display total value below hand?
 
 OPTIONS:
 display percentage accuracy on bottom
