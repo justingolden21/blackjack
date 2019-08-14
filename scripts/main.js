@@ -40,8 +40,8 @@ $(function() {
 
 	// drag and drop
 	$('#clearDragButton').click( ()=> {
-		$('#dealerHandDrag').html('Dealer\'s Hand<br>');
-		$('#playerHandDrag').html('Player\'s Hand<br>');
+		$('#dealerHandDrag').html('<p>Dealer\'s Hand</p><br>');
+		$('#playerHandDrag').html('<p>Player\'s Hand</p><br>');
 		$('#calculateInfoP').html('');
 		$('#calcOddsDiv').html('');
 	});
