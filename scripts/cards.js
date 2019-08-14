@@ -5,7 +5,7 @@ class Card {
 		this.value = parseInt(val[1]); //a through e is 10
 		if(isNaN(this.value) )
 			this.value = 10;
-		this.type = this.value == 1 ? 'Ace' : this.value;
+		this.type = (this.value==1 ? 'Ace' : val[1]=='b' ? 'Jack' : val[1]=='d' ? 'Queen' : val[1]=='e' ? 'King' : this.value);
 	}
 }
 
@@ -24,7 +24,9 @@ function isSoft(cards) {
 	return cards[0].value==1 || cards[1].value==1;
 }
 function isSplit(cards) {
-	return cards[0].value == cards[1].value;
+	if($('#pair10Checkbox').is(':checked') )
+		return cards[0].value == cards[1].value;
+	return cards[0].type == cards[1].type;
 }
 function getRandomCard(deck) { // remove card and return it
 	let idx = Math.floor(Math.random()*deck.length);
