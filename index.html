@@ -3,6 +3,7 @@
 <head>
 <title>Blackjack Practice</title>
 
+<!-- Meta -->
 <meta charset="utf-8">
 <meta name="title=" content="Blackjack Practice">
 <meta name="robots" content="index, follow">
@@ -14,27 +15,26 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="hsl(160, 75%, 30%)">
 <link rel="shortcut icon" href="img/chip.png">
 
+<!-- External Links -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.js"></script>
+<!-- <script src="libraries/jquery.js"></script> -->
+<!-- <script src="libraries/jquery-csv.js"></script> -->
 
 <!-- doesn't work... -->
 <!-- <script src="cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js"></script> -->
 
-<!-- <script src="libraries/jquery.js"></script> -->
-<!-- <script src="libraries/jquery-csv.js"></script> -->
-
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-<!-- <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css"> -->
-<!-- <script src="libraries/bootstrap/js/bootstrap.min.js"></script> -->
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css"> -->
+<!-- <script src="libraries/bootstrap/js/bootstrap.min.js"></script> -->
 
 <link href="https://fonts.googleapis.com/css?family=Teko&display=swap" rel="stylesheet">
 
+<!-- Local Links -->
 <link rel="stylesheet" href="styles.css">
-
 <script src="scripts/checkbox.js"></script>
 <script src="scripts/main.js"></script>
 <script src="scripts/data.js"></script>
@@ -46,7 +46,6 @@
 <script src="scripts/fullscreen.js"></script>
 
 </head>
-
 <body>
 
 <div id="headerDiv">
@@ -103,11 +102,12 @@
 <button class="btn btn-sm" data-toggle="modal" data-target="#statsModal" title="View Your Stats on Different Types of Hands"><i class="fas fa-star"></i> Stats</button>
 </div>
 
-<br><br>
+<br>
 <p id="statP">Streak: 0 &mdash;&mdash; Max streak: 0 &mdash;&mdash; 0 / 0</p>
 <br>
 
 <!-- Modals -->
+
 <div class="modal fade" id="infoModal">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -248,12 +248,6 @@
 				<br>
 
 				<p>Note: If hard, soft, and split are all unchecked, all will be treated as checked.</p>
-
-<!-- 				<input id="logicCheckbox" type="checkbox">
-				<label for="logicCheckbox">Exclude Unselected Terms</label>
-				<br>
-				<p>If checked, generated hands must match only selected categories. If unchecked, hands that match any selected category can be generated, even if they also match an unselected category. For example, hard splits and soft splits fall into two categories.</p> -->
-				<br>
 			</div>
 		</div>
 	</div>

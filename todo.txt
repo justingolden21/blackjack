@@ -9,7 +9,7 @@ TODO
 ========
 Easy:
 update readme with all the feaures
-option in hand calc for displaying best optiononly or displaying odds bars
+option in hand calc for displaying best option only or displaying odds bars
 
 Medium:
 fix close btn in modal manually with css
@@ -41,7 +41,7 @@ get a custom url
 import and export stats to .txt
 drag card off of hand calc to remove it
 store cookies for streaks/stats and options/settings (and numChips :) )
-add sharethis
+add sharethis, google analytics
 make calc hand modal work with keyboard
 change the hand calc UI to just 2 drop downs for player and dealer...
 larger modals (manually decrease margin/padding)

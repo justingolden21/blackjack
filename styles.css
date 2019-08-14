@@ -159,32 +159,17 @@ a:hover {
 	font-family: Arial !important; /* the only freaking fix for the stupid padding... */
 	/* seriously... margin and padding, height and line-height, nothing works on .pokercard
 	or .cardHandDiv..., with !important and everything, every combination */
-
-	/*padding-bottom: -20px !important;*/
-
 	margin: -20px;
-	/*padding-bottom: -50px !important;*/
-
 	/*border-radius: 20px;*/
 	border-radius: 10px;
 	background-color: hsl(160, 50%, 90%);
-
 	box-shadow: 4px 0px 0px hsl(0, 0%, 20%);
-
-	/*border-top: 4px solid hsl(20, 75%, 30%);*/
-	/*border-bottom: 4px solid hsl(20, 75%, 30%);*/
 }
 .pokercard:first-child {
 	padding-left: 10px;
-	/*border-left: 4px solid hsl(20, 75%, 30%);*/
 }
 .pokercard:last-child {
 	padding-right: 10px;
-	/*border-right: 4px solid hsl(20, 75%, 30%);*/
-}
-.pokercard.splitcard {
-	/*padding-left: 10px;*/
-	/*padding-right: 10px;*/
 }
 .splitcard:first-child + .pokercard {
 	padding-right: 60px;
@@ -219,9 +204,6 @@ a:hover {
 	background-color: hsl(0, 0%, 20%);
 	padding: 15px;
 }
-/*#bottomDiv {
-	background-color: hsl(20, 75%, 30%);
-}*/
 
 /* buttons and form elements */
 button {
@@ -240,10 +222,10 @@ button.close, button.close:hover, button.close:focus {
 }
 button.close:hover, button.close:focus {
 	background-color: hsl(160, 75%, 30%) !important;
-	outline: 3px solid #fff !important;
+	outline: 2px solid #fff !important;
 }
 button:focus, button:hover:not(:disabled) {
-	outline: 3px solid #fff !important;
+	outline: 2px solid #fff !important;
 	background-color: hsl(160, 75%, 30%) !important;
 	color: #fff !important;
 	/*outline: none !important;*/
@@ -266,6 +248,9 @@ button:disabled {
 label:hover {
 	color: hsl(160, 75%, 30%) !important;
 	cursor: pointer;
+}
+summary:focus, summary:hover {
+	outline: 2px solid hsl(0, 0%, 10%) !important;
 }
 
 /* alerts  */
@@ -292,8 +277,8 @@ label:hover {
 	font-size: 100%;
 }
 .modal-header {
-	/*background-color: hsl(160, 75%, 30%);*/
-	background-color: hsl(20, 75%, 30%);
+	background-color: hsl(160, 75%, 30%);
+	/*background-color: hsl(20, 75%, 30%);*/
 	color: #fff;
 	border-radius: 0px;
 }
