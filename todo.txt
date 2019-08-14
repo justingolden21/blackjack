@@ -124,6 +124,7 @@ test locally on edge to get around CORS policy requirements
 strategy card img is screenshot of zoomed out webpage, on fullscreen
 added jquery and bootstrap in repo for offline work
 offline resources: jquery, bootstrap, fontawesome, google font
+compress strategy chart img with squoosh.app, OptiPNG, 32 palette, 0 dithering
 
 ========
 LINKS

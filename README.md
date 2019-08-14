@@ -4,6 +4,8 @@
 
 **Test your knowledge of what to do with different blackjack hands with this fun and simple simulator.**
 
+<img src="img/strategy.png">
+
 ### Features
 
 - Get dealt a random hand against a random dealer hand
