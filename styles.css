@@ -16,7 +16,7 @@ body, html, button:not(.close) {
 	linear-gradient(120deg, rgba(0,0,0,.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,.1) 75%, rgba(0,0,0,.1));
 	background-size: 70px 120px;
 }
-br, .cardHandDiv, button, .chip {
+br, .cardHandDiv, button, .chip, .small-chip {
 	-webkit-user-select: none; /* Safari */        
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+/Edge */
@@ -234,10 +234,18 @@ button {
 button:not(.close) {
 	box-shadow: 5px 5px hsl(0, 0%, 10%);
 }
-button:focus:not(.close), button:hover:not(.close):not(:disabled) {
-	outline: 3px solid  #fff;
+button.close, button.close:hover, button.close:focus {
+	opacity: 1 !important;
+	font-size: 200%;
+}
+button.close:hover, button.close:focus {
 	background-color: hsl(160, 75%, 30%) !important;
-	color: #fff;
+	outline: 3px solid #fff !important;
+}
+button:focus, button:hover:not(:disabled) {
+	outline: 3px solid #fff !important;
+	background-color: hsl(160, 75%, 30%) !important;
+	color: #fff !important;
 	/*outline: none !important;*/
 	box-shadow: none !important;
 }
