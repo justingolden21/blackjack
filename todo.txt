@@ -13,7 +13,6 @@ option in hand calc for displaying best option only or displaying odds bars
 add clear stats btn in stat modal that also clears the streak info and then sets cookies
 
 Medium:
-fix close btn in modal manually with css
 fix for huge screens
 option for close case hands only "close cases"
 make checkbox.js its own repo, then have songssearcher, blackjack, etc link to that script, update that script when it needs updating
@@ -41,7 +40,6 @@ more stats on percentages like percentages on hard, soft, split hands, in a new 
 get a custom url
 import and export stats to .txt
 drag card off of hand calc to remove it
-store cookies for streaks/stats and options/settings (and numChips :) )
 add sharethis, google analytics
 make calc hand modal work with keyboard
 change the hand calc UI to just 2 drop downs for player and dealer...
@@ -53,13 +51,10 @@ OPTIONS:
 display percentage accuracy on bottom
 display soft hands in table as A7 instead of 18
 add more info to alert about if you're correct, info for when you do what with that hand
-option to display the sliver of the table for your hand?
 
 MODALS:
 
-later: cheatcard modal. highlight your hand in cheatcard. like bottom of this: https://wizardofodds.com/games/blackjack/appendix/1/
-later: odds on each hand modal. highlight hand in table. like this: https://wizardofodds.com/games/blackjack/appendix/1/
-later: enter your hand and dealer's and show odds modal. like this: https://wizardofodds.com/games/blackjack/hand-calculator/
+change hand calc modal UI to be more similar to: https://wizardofodds.com/games/blackjack/hand-calculator/
 
 how to play:
 	basic rules, like wiki. get to 21 without bust, etc
