@@ -19,7 +19,6 @@ make checkbox.js its own repo, then have songssearcher, blackjack, etc link to t
 fix checkbox.js for focusing checkboxes...
 more specific options on which hands to generate? enter specific hands you want included or exluded? display buttons that say quiz me on this more or less? have options for forgetting ones youve got correct, or got correct twice, or twice in a row? drop down menu for threshhold?
 option to quiz only on a certain player hand
-button to print strategy table
 
 Hard/Pain:
 animate dealing cards to player and dealer

@@ -69,6 +69,11 @@ $(function() {
 		$(evt.target).find('.close').focus();
 	});
 
+	$('#printButton').click( ()=> {
+		let pageToPrint = window.open();
+		pageToPrint.document.write('<title>Cheatsheet | Blackjack Practice </title><img src="img/strategy.png" height="100%" onload="print();">');
+	});
+
 	$('#newHandButton').click(newHand).click();
 	setTimeout(()=> $('.chip').removeClass('move'), 500);
 });
