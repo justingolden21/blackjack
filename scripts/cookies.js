@@ -3,16 +3,10 @@ let savingCookies = false;
 function loadCookies() {
 	console.log('loading cookies');
 
-	//  overrides current with previous
-	// numChips = parseInt(Cookies.get('numChips') || numChips);
-
-	// add previous chips to current, doesn't override
 	let prevNumChips = parseInt(Cookies.get('numChips') );
 	if(!isNaN(prevNumChips) )
-		numChips += prevNumChips;
-
+		numChips += prevNumChips; // add previous to current
 	drawChips(); // update display
-
 
 	let prevNumCorrect = parseInt(Cookies.get('numCorrect') );
 	if(!isNaN(prevNumCorrect) )
@@ -23,28 +17,20 @@ function loadCookies() {
 	let prevNumStreak = parseInt(Cookies.get('numStreak') );
 	if(!isNaN(prevNumStreak) )
 		numStreak = numStreak != 0 && prevNumStreak != 0 ? numStreak+prevNumStreak : 0;
-		// numStreak = Math.max(numStreak, prevNumStreak);
 	let prevMaxStreak = parseInt(Cookies.get('maxStreak') );
 	if(!isNaN(prevMaxStreak) )
 		maxStreak = Math.max(Math.max(maxStreak, prevMaxStreak), numStreak);
-		// maxStreak = Math.max(maxStreak, prevMaxStreak);
 	drawStreak(); // update display
 
-	// overrides current stats with previous:
-	// stats = Cookies.getJSON('stats') || stats;
-
-	// add previous stats to current, doesn't override
 	let prevStats = Cookies.getJSON('stats');
 	for(item1 in prevStats) {
 		for(item2 in prevStats[item1]) {
 			for(item3 in prevStats[item1][item2]) {
-				stats[item1][item2][item3] += prevStats[item1][item2][item3];
+				stats[item1][item2][item3] += prevStats[item1][item2][item3]; // add stats to current
 			}
 		}
 	}
-
 	updateStatDisplay(); // update display
-
 
 	let settings = Cookies.getJSON('settings');
 	if(settings)
