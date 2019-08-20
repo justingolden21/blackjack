@@ -33,6 +33,8 @@
 
 <link href="https://fonts.googleapis.com/css?family=Teko&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
 <!-- Local Links -->
 <link rel="stylesheet" href="styles.css">
 <script src="scripts/checkbox.js"></script>
@@ -44,6 +46,7 @@
 <script src="scripts/play.js"></script>
 <script src="scripts/stats.js"></script>
 <script src="scripts/fullscreen.js"></script>
+<script src="scripts/cookies.js"></script>
 
 </head>
 <body>
@@ -104,6 +107,15 @@
 
 <br>
 <p id="statP">Streak: 0 &mdash;&mdash; Max streak: 0 &mdash;&mdash; 0 / 0</p>
+<br>
+
+<div id="cookieAlert" class="alert" role="alert">
+	<i class="fas fa-cookie-bite"></i> Use cookies to save your stats and settings?
+	<button id="yesCookieButton" class="btn btn-sm"><i class="fas fa-check-circle"></i> Sure</button>
+	<button id="noCookieButton" class="btn btn-sm"><i class="fas fa-times-circle"></i> Nah</button>
+	<br>
+	<i>You can always change this later in Options</i>
+</div>
 <br>
 
 <!-- Modals -->
@@ -237,6 +249,14 @@
 			
 				<input id="pair10Checkbox" type="checkbox">
 				<label for="pair10Checkbox">Count All 10 Value Cards as Pairs</label>
+				<br>
+
+				<input id="cookieCheckbox" type="checkbox">
+				<label for="cookieCheckbox">Use Cookies to Save Your Stats and Settings</label>
+				<br>
+				<button id="clearCookieButton" class="btn btn-sm"><i class="fas fa-eraser"></i> Clear Cookies</button>
+				<button id="loadCookieButton" class="btn btn-sm"><i class="fas fa-download"></i> Load Previous Cookies</button>
+
 				<hr>
 
 				<input checked id="hardCheckbox" type="checkbox">

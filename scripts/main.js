@@ -36,7 +36,23 @@ $(function() {
 		$('#chipsDiv').css('display', $('#drawChipsCheckbox').is(':checked') ? '' : 'none');
 	});
 
-	$('#newHandButton').click(newHand).click();
+	//  cookies
+	$('#noCookieButton').click( ()=> {
+		$('#cookieAlert').fadeOut(300);
+		savingCookies = false;
+		$('#cookieCheckbox').prop('checked', false);
+	});
+	$('#yesCookieButton').click( ()=> {
+		$('#cookieAlert').fadeOut(300);
+		savingCookies = true;
+		$('#cookieCheckbox').prop('checked', true);
+		loadCookies();
+	});
+	$('#clearCookieButton').click(clearCookies);
+	$('#loadCookieButton').click(loadCookies);
+	$('#cookieCheckbox').change( ()=> {
+		savingCookies = $('#cookieCheckbox').is(':checked');
+	});
 
 	// drag and drop
 	$('#clearDragButton').click( ()=> {
@@ -45,16 +61,42 @@ $(function() {
 		$('#calculateInfoP').html('');
 		$('#calcOddsDiv').html('');
 	});
-
 	$('#clearHistoryButton').click( ()=> {
 		$('#history').html('');
 		$('#noHistory').css('display', '');
 		$('#clearHistoryDiv').css('display', 'none');
 	});
-
 	$('.clickable-card').click(handleCardClick);
 	$('.drag-area').click(handleDragAreaClick);
 
+	$('.modal').on('shown.bs.modal', ()=> {
+		// $(this).children('.modal-dialog').children('.modal-content').children('.modal-header').children('.close').trigger('focus');
+		// $(this).trigger('focus');
+
+		// console.log($(this).closest('.modal-dialog') );
+		// console.log($(this).find('.modal-dialog') );
+		// console.log($(this).find('.modal-dialog').first() );
+		// console.log($(this).children('.modal-dialog') );
+
+		// $(this).children('.modal-dialog').first().children('.modal-content').first().children('.modal-header').first().children('.close').first().focus();
+		// $(this).find('.modal-dialog').first().find('.modal-content').first().find('.modal-header').first().find('.close').first().focus();
+		$(this).find('.modal-dialog .modal-content .modal-header .close').first().focus();
+
+		console.log($(this) );
+
+		console.log($(this).find('.modal-dialog .modal-content .modal-header .close') );
+		// console.log($(this).children('.modal-dialog').children('.modal-content').children('.modal-header').children('.close') );
+		// $(this).children('.modal-dialog').children('.modal-content').children('.modal-header').children('.close').focus();
+		// $(this).children('.close').focus();
+		// $('#myInput').trigger('focus')
+	});
+
+	// $('.modal').click( ()=> {
+	// 	console.log($(this).children('.close') );
+	// 	$(this).children('.close').focus();
+	// });
+
+	$('#newHandButton').click(newHand).click();
 	setTimeout(()=> $('.chip').removeClass('move'), 500);
 });
 
@@ -82,13 +124,10 @@ function newHand() {
 	}
 
 	$('#newHandDiv').css('display', 'none');
-
 	$('#optionButtons').css('display', '');
 	$('#hitButton').focus();
 
-	$('#resultAlert').addClass('alert-info');
-	$('#resultAlert').removeClass('alert-success');
-	$('#resultAlert').removeClass('alert-danger');
+	$('#resultAlert').addClass('alert-info').removeClass('alert-success').removeClass('alert-danger');
 	$('#resultAlert').html('<i class="fas fa-info"></i> Click a button to test your knowledge');
 
 	clearCards();
@@ -134,9 +173,6 @@ function handleInput(selectedOption) {
 		playerValue += 10;
 	if(dealerValue == 1)
 		dealerValue = 'ace';
-	if(playerValue < 4) //for get odds
-		playerValue = 4;
-
 	drawOdds($('#oddsInfo'), playerValue, dealerValue, handIsSoft, handIsSplit);
 	drawTable($('#tableRow'), playerValue, handIsSoft, handIsSplit);
 
@@ -156,9 +192,7 @@ function handleInput(selectedOption) {
 		let infoStr = '<i class="fas fa-check"></i> Correct! <u>' + correctOption + '</u> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type;
 		$('#history').html('<br><span class="history correct-history">' + infoStr + '</span><br>' + $('#history').html() );
 		$('#resultAlert').html(infoStr);
-		$('#resultAlert').removeClass('alert-info');
-		$('#resultAlert').removeClass('alert-danger');
-		$('#resultAlert').addClass('alert-success');
+		$('#resultAlert').removeClass('alert-info').removeClass('alert-danger').addClass('alert-success');
 		numCorrect++;
 		numStreak++;
 		if(numStreak>maxStreak)
@@ -168,9 +202,7 @@ function handleInput(selectedOption) {
 		let infoStr = '<i class="fas fa-times"></i> Wrong! <u>' + correctOption + '</u> was correct on hand with ' + playerHandName + ' against dealer ' + currentCards[2].type + '. Not <u>' + selectedOption + '</u>';
 		$('#history').html('<br><span class="history wrong-history">' + infoStr + '</span><br>' + $('#history').html() );
 		$('#resultAlert').html(infoStr);
-		$('#resultAlert').removeClass('alert-info');
-		$('#resultAlert').removeClass('alert-success');
-		$('#resultAlert').addClass('alert-danger');
+		$('#resultAlert').removeClass('alert-info').removeClass('alert-success').addClass('alert-danger');
 		numWrong++;
 		numStreak = 0;
 	}
@@ -182,9 +214,8 @@ function handleInput(selectedOption) {
 		$('#newHandButton').focus();
 	}
 
-	drawChips(numChips);
+	drawChips();
 	updateStats(selectedOption, correctOption, playerValue, dealerValue, handIsSoft, handIsSplit);
-
-	$('#statP').html('Streak: ' + numStreak + ' &mdash;&mdash; ' + 'Max streak: ' + maxStreak
-		+ ' &mdash;&mdash; ' + numCorrect + ' / ' + (numCorrect+numWrong) );
+	setCookies();
+	drawStreak();
 }

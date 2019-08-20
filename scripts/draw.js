@@ -46,13 +46,13 @@ function drawOdds(elm, playerValue, dealerValue, isSoft, isSplit) {
 		Math.abs(standOdds*100) + '%;"></div></div>');
 }
 
-function drawChips(num) {
+function drawChips() {
 	let classList = 'small-chip';
 	if(! $('#animateCheckbox').is(':checked') )
 		classList += ' animate';
 
 	let chipsHTML = '';
-	let idx = num;
+	let idx = numChips;
 	for(; idx>=25; idx-=25)
 		chipsHTML += '<img src="img/chips/chip-blue.svg" class="' + classList + ' blue"> ';
 	for(; idx>=5; idx-=5)
@@ -60,7 +60,7 @@ function drawChips(num) {
 	for(; idx>=1; idx-=1)
 		chipsHTML += '<img src="img/chips/chip-green.svg" class="' + classList + ' green"> ';
 
-	$('#chipsDiv').html(chipsHTML + '<span id="numChips">' + num + '</span>');
+	$('#chipsDiv').html(chipsHTML + '<span id="numChips">' + numChips + '</span>');
 
 	if($('#animateCheckbox').is(':checked') )
 		setTimeout( ()=> $('.small-chip').toggleClass('animate'), 100);
@@ -97,4 +97,9 @@ function drawTable(elm, playerValue, isSoft, isSplit) { // draws relevant slice 
 
 	$($('#strategyTable tr').get(row1) ).clone().appendTo(elm);
 	$($('#strategyTable tr').get(row2) ).clone().appendTo(elm);
+}
+
+function drawStreak() {
+	$('#statP').html('Streak: ' + numStreak + ' &mdash;&mdash; ' + 'Max streak: ' + maxStreak
+		+ ' &mdash;&mdash; ' + numCorrect + ' / ' + (numCorrect+numWrong) );
 }

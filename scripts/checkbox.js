@@ -16,4 +16,18 @@ function setupCheckboxes() {
 	$('input[type=checkbox]').css('opacity', '0');
 	$('input[type=checkbox]').css('margin-top', '5px');
 	$('input[type=checkbox]').css('position', 'absolute');
+
+	// update display if they change the checkbox value programmatically
+	// even if they use code like:
+	// $('#myCheckbox').prop('checked', true);
+	// instead of
+	// $('#myCheckbox').change();
+	$.propHooks.checked = {
+		set: function (el, value) {
+			if (el.checked !== value) {
+				el.checked = value;
+				$(el).trigger('change');
+			}
+		}
+	};
 }
