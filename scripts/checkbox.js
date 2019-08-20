@@ -31,3 +31,13 @@ function setupCheckboxes() {
 		}
 	};
 }
+
+//  manually update checkboxes if checked property is changed some other way
+function updateCheckboxes() {
+	$('input[type=checkbox').each(function() {
+		if($(this).is(':checked') )
+			$(this).next().removeClass().addClass('fas fa-check-square');
+		else
+			$(this).next().removeClass().addClass('far fa-square');
+	});
+}

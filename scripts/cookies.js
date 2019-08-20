@@ -1,11 +1,6 @@
 let savingCookies = false;
 
-// save options too, and update their display
-
-// TODO: combine current streak and max streak if both non 0 (so add them)
-
 function loadCookies() {
-	// todo: combine prev cookies with current stuff like stats
 	console.log('loading cookies');
 
 	//  overrides current with previous
@@ -16,8 +11,7 @@ function loadCookies() {
 	if(!isNaN(prevNumChips) )
 		numChips += prevNumChips;
 
-	// update display
-	drawChips();
+	drawChips(); // update display
 
 
 	let prevNumCorrect = parseInt(Cookies.get('numCorrect') );
@@ -28,11 +22,13 @@ function loadCookies() {
 		numWrong += prevNumWrong;
 	let prevNumStreak = parseInt(Cookies.get('numStreak') );
 	if(!isNaN(prevNumStreak) )
-		numStreak = Math.max(numStreak, prevNumStreak);
+		numStreak = numStreak != 0 && prevNumStreak != 0 ? numStreak+prevNumStreak : 0;
+		// numStreak = Math.max(numStreak, prevNumStreak);
 	let prevMaxStreak = parseInt(Cookies.get('maxStreak') );
 	if(!isNaN(prevMaxStreak) )
-		maxStreak = Math.max(maxStreak, prevMaxStreak);
-	drawStreak();
+		maxStreak = Math.max(Math.max(maxStreak, prevMaxStreak), numStreak);
+		// maxStreak = Math.max(maxStreak, prevMaxStreak);
+	drawStreak(); // update display
 
 	// overrides current stats with previous:
 	// stats = Cookies.getJSON('stats') || stats;
@@ -47,12 +43,19 @@ function loadCookies() {
 		}
 	}
 
-	// update display
-	updateStatDisplay();
+	updateStatDisplay(); // update display
+
+
+	let settings = Cookies.getJSON('settings');
+	if(settings)
+		for(let i=0; i< $('#optionsModal').find('input[type=checkbox]').length; i++)
+			$('#optionsModal').find('input[type=checkbox]')[i].checked = settings[i];
+	console.log('loading settings:', settings);
+	updateFromCheckboxes(); // cause settings to update
+	updateCheckboxes(); // cause display of checkboxes to update
 }
 
 function setCookies() {
-	console.log(savingCookies);
 	if(!savingCookies) return;
 
 	console.log('setting cookies');
@@ -64,6 +67,15 @@ function setCookies() {
 	Cookies.set('numWrong', numWrong);
 	Cookies.set('numStreak', numStreak);
 	Cookies.set('maxStreak', maxStreak);
+
+	// Settings
+	let settings = [];
+	for(let i=0; i< $('#optionsModal').find('input[type=checkbox]').length; i++)
+		settings[i] = $('#optionsModal').find('input[type=checkbox]')[i].checked;
+	settings = JSON.stringify(settings);
+
+	console.log('saving settings:' , settings);
+	Cookies.set('settings', settings);
 
 	$('#clearCookieButton').css('display', '');
 }
@@ -78,6 +90,8 @@ function clearCookies() {
 	Cookies.remove('numWrong');
 	Cookies.remove('numStreak');
 	Cookies.remove('maxStreak');
+
+	Cookies.remove('settings');
 
 	$('#clearCookieButton').css('display', 'none');
 }

@@ -10,6 +10,7 @@ TODO
 Easy:
 update readme with all the feaures
 option in hand calc for displaying best option only or displaying odds bars
+add clear stats btn in stat modal that also clears the streak info and then sets cookies
 
 Medium:
 fix close btn in modal manually with css

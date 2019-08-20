@@ -21,20 +21,16 @@ $(function() {
 
 	$('#fullscreenButton').click(toggleFullscreen);
 
-	$('#oddsInfo').css('display', $('#drawOddsCheckbox').is(':checked') ? '' : 'none');
 	$('#drawOddsCheckbox').change( ()=> {
 		$('#oddsInfo').css('display', $('#drawOddsCheckbox').is(':checked') ? '' : 'none');
 	});
-
-	$('#tableRow').css('display', $('#drawTableRowCheckbox').is(':checked') ? '' : 'none');
 	$('#drawTableRowCheckbox').change( ()=> {
 		$('#tableRow').css('display', $('#drawTableRowCheckbox').is(':checked') ? '' : 'none');
 	});
-
-	$('#chipsDiv').css('display', $('#drawChipsCheckbox').is(':checked') ? '' : 'none');
 	$('#drawChipsCheckbox').change( ()=> {
 		$('#chipsDiv').css('display', $('#drawChipsCheckbox').is(':checked') ? '' : 'none');
 	});
+	updateFromCheckboxes();
 
 	//  cookies
 	$('#noCookieButton').click( ()=> {
@@ -110,6 +106,12 @@ window.onkeyup = function(e) {
 		if($(':focus').is('.btn') )
 			$(':focus').next('.btn').focus();
 	}
+}
+
+function updateFromCheckboxes() {
+	$('#oddsInfo').css('display', $('#drawOddsCheckbox').is(':checked') ? '' : 'none');
+	$('#tableRow').css('display', $('#drawTableRowCheckbox').is(':checked') ? '' : 'none');
+	$('#chipsDiv').css('display', $('#drawChipsCheckbox').is(':checked') ? '' : 'none');
 }
 
 // The Big Functions
