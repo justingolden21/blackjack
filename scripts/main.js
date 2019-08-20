@@ -65,7 +65,7 @@ $(function() {
 	$('.clickable-card').click(handleCardClick);
 	$('.drag-area').click(handleDragAreaClick);
 
-	$('.modal').on('shown.bs.modal', ()=> {
+	$('.modal').on('shown.bs.modal', (evt)=> {
 		// $(this).children('.modal-dialog').children('.modal-content').children('.modal-header').children('.close').trigger('focus');
 		// $(this).trigger('focus');
 
@@ -74,9 +74,11 @@ $(function() {
 		// console.log($(this).find('.modal-dialog').first() );
 		// console.log($(this).children('.modal-dialog') );
 
+		$(evt.target).find('.close').focus();
+
 		// $(this).children('.modal-dialog').first().children('.modal-content').first().children('.modal-header').first().children('.close').first().focus();
 		// $(this).find('.modal-dialog').first().find('.modal-content').first().find('.modal-header').first().find('.close').first().focus();
-		$(this).find('.modal-dialog .modal-content .modal-header .close').first().focus();
+		// $(this).find('.modal-dialog .modal-content .modal-header .close').first().focus();
 
 		console.log($(this) );
 
