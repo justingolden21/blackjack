@@ -408,6 +408,14 @@ tr:hover td {
 	color: #fff;
 }*/
 
+/* sticky footer */
+#sticky-footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+}
+
 /* animations */
 .spin {
 	animation: spin 2s;
