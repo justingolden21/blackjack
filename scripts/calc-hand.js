@@ -3,6 +3,7 @@ function calcHand() {
 	let dealerHandCards = document.getElementById('dealerHandDrag').children;
 	if(dealerHandCards[1] == undefined) {
 		$('#calculateInfoP').html('Please enter dealer hand.');
+		$('#calcOddsDiv').html('');
 		return;
 	}
 	let dealerValue = parseInt(dealerHandCards[1].id.replace('card', '') );
@@ -11,6 +12,7 @@ function calcHand() {
 
 	if(playerHandCards[1] == undefined) {
 		$('#calculateInfoP').html('Please enter player hand.');
+		$('#calcOddsDiv').html('');
 		return;
 	}
 
@@ -43,11 +45,13 @@ function calcHand() {
 
 	if(playerValue > 21) {
 		$('#calculateInfoP').html('Hand over 21. Bust.');
+		$('#calcOddsDiv').html('');
 		return;
 	}
 
 	if(isNaN(playerValue) || (isNaN(dealerValue) && dealerValue != 'ace') ) {
 		$('#calculateInfoP').html('Missing player or dealer hand value.');
+		$('#calcOddsDiv').html('');
 		return;	
 	}
 
@@ -110,9 +114,9 @@ function handleDragAreaClick() {
 	if($('.clickable-card.active').length == 0)
 		return;
 	if($(this).children().length > 6)
-		return
+		return;
 	if(this.id=='dealerHandDrag' && $(this).children().length > 1)
-		return
+		return;
 
 	$('.clickable-card.active').clone().click(removeCard).appendTo($(this) );
 	$('.clickable-card').removeClass('active');

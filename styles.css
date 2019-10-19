@@ -385,7 +385,7 @@ tr:hover td {
 	cursor: pointer;
 }
 .clickable-card:hover, .clickable-card.active {
-	color: hsl(20, 75%, 30%);
+	color: hsl(20, 75%, 30%) !important;
 }
 .drag-area {
 	display: inline-block !important;
