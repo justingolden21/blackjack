@@ -219,6 +219,7 @@ button:not(.close) {
 button.close, button.close:hover, button.close:focus {
 	opacity: 1 !important;
 	font-size: 200%;
+	text-shadow: none !important;
 }
 button.close:hover, button.close:focus {
 	background-color: hsl(160, 75%, 30%) !important;
