@@ -1,15 +1,21 @@
 // must have jquery and font awesome
 // call this function on page load
 function setupCheckboxes() {
-	$('input[type=checkbox').each(function() {
+	$('input[type=checkbox]').each(function() {
 		$(this).after('<i></i>');
 		if($(this).is(':checked') )
 			$(this).next().removeClass().addClass('fas fa-check-square');
 		else
 			$(this).next().removeClass().addClass('far fa-square');
 	});
-	$('input[type=checkbox').change(function() {
+	$('input[type=checkbox]').change(function() {
 		$(this).next().toggleClass('fas').toggleClass('far').toggleClass('fa-check-square').toggleClass('fa-square');
+	});
+	$('input[type=checkbox]').focus(function() {
+		$(this).next().css('background-color','hsl(160, 50%, 80%)');
+	});
+	$('input[type=checkbox]').focusout(function() {
+		$(this).next().css('background-color','');
 	});
 	$('input[type=checkbox]').css('cursor', 'pointer');
 	$('label input[type=checkbox]').css('cursor', 'pointer');

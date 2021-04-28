@@ -17,7 +17,7 @@
 
 <!-- External Links -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.js"></script> -->
 <!-- <script src="libraries/jquery.js"></script> -->
 <!-- <script src="libraries/jquery-csv.js"></script> -->
 
@@ -51,14 +51,14 @@
 </head>
 <body>
 
-<div id="headerDiv">
-	<img class="chip move" src="img/chip.svg" draggable="false"> <h2>Blackjack Practice</h2>
-	<div id="chipsDiv"></div>
-	<button id="fullscreenButton" title="Toggle Fullscreen" class="btn btn-sm"><i class="fas fa-expand"></i></button>
-</div>
 
 <div id="outerTableDiv">
 <div id="tableDiv" class="row">
+	<div id="headerDiv" class="col-12">
+		<img class="chip move" src="img/chip.svg" draggable="false"> <h2>Blackjack Practice</h2>
+		<div id="chipsDiv"></div>
+		<button id="fullscreenButton" title="Toggle Fullscreen" class="btn btn-sm"><i class="fas fa-expand"></i></button>
+	</div>
 	<div class="col-6">
 		<br>
 		<b class="card-label">You</b>
@@ -112,6 +112,7 @@
 <div id="sticky-footer">
 	<div id="cookieAlert" class="alert" role="alert">
 		<i class="fas fa-cookie-bite"></i> Use cookies to save your stats and settings?
+		<br>
 		<button id="yesCookieButton" class="btn btn-sm"><i class="fas fa-check-circle"></i> Sure</button>
 		<button id="noCookieButton" class="btn btn-sm"><i class="fas fa-times-circle"></i> Nah</button>
 		<br>

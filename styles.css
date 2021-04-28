@@ -6,6 +6,7 @@
 body, html {
 	background-color: hsl(20, 75%, 30%) !important;
 	overflow-x: hidden; /*remove scrollbar for x-axis*/
+	letter-spacing: 1px;
 }
 body, html, button:not(.close) {
 	/* https://leaverou.github.io/css3patterns/#argyle */
@@ -57,7 +58,7 @@ h2 {
 	font-size: 190%;
 	font-weight: bold;
 	display: inline;
-	letter-spacing: 2px;
+	letter-spacing: 3px;
 	margin-left: 20px;
 
 /*	background-color: hsl(0, 0%, 20%);
@@ -70,11 +71,11 @@ h3 {
 	padding: 24px;
 	display: inline;
 }
-a {
-	color: hsl(240, 75%, 30%);
+a, a:hover {
+	color: hsl(160, 75%, 30%);
 }
-a:hover {
-	color: hsl(240, 75%, 50%);
+li {
+	text-align: left;
 }
 .card-label, .modal-body h3 {
 	/*font-size: 120%;*/
@@ -90,10 +91,13 @@ a:hover {
 	background-color: hsl(160, 75%, 30%);
 }
 .chip:hover {
-	transform: scale(1.2);
+	/*transform: scale(1.2);*/
 }
 #headerDiv {
-	padding: 20px;
+	background-color: #0003;
+	padding: 15px;
+	padding-left: 30px;
+	text-align: left;
 }
 
 /* chips display */
@@ -122,7 +126,7 @@ a:hover {
 }
 
 /* table */
-#tableDiv, #headerDiv {
+#tableDiv {
 	background-color: hsl(160, 75%, 30%);
 
 	/* https://leaverou.github.io/css3patterns/#cross-dots */
@@ -130,8 +134,8 @@ a:hover {
 	radial-gradient(hsl(0, 0%, 20%) 3px, transparent 4px),
 	radial-gradient(hsl(0, 0%, 20%) 3px, transparent 4px),
 	linear-gradient(hsl(160, 75%, 30%) 4px, transparent 0),
-	linear-gradient(45deg, transparent 74px, transparent 75px, hsl(160, 50%, 90%) 75px, hsl(160, 50%, 90%) 76px, transparent 77px, transparent 109px),
-	linear-gradient(-45deg, transparent 75px, transparent 76px, hsl(160, 50%, 90%) 76px, hsl(160, 50%, 90%) 77px, transparent 78px, transparent 109px),
+	linear-gradient(45deg, transparent 74px, transparent 75px, hsl(160, 50%, 100%) 75px, hsl(160, 50%, 100%) 76px, transparent 77px, transparent 109px),
+	linear-gradient(-45deg, transparent 75px, transparent 76px, hsl(160, 50%, 100%) 76px, hsl(160, 50%, 100%) 77px, transparent 78px, transparent 109px),
 	hsl(160, 75%, 30%);
 	background-size: 109px 109px, 109px 109px,100% 6px, 109px 109px, 109px 109px;
 	background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
@@ -143,8 +147,8 @@ a:hover {
 /*	background-image: radial-gradient(hsl(0, 0%, 20%) 7.5%, transparent 7.5%),
 	radial-gradient(hsl(0, 0%, 20%) 7.5%, transparent 7.5%);*/
 
-/*	background-image: radial-gradient(hsl(160, 50%, 90%) 7.5%, transparent 7.5%),
-	radial-gradient(hsl(160, 50%, 90%) 7.5%, transparent 7.5%);
+/*	background-image: radial-gradient(hsl(160, 50%, 100%) 7.5%, transparent 7.5%),
+	radial-gradient(hsl(160, 50%, 100%) 7.5%, transparent 7.5%);
 	background-size: 60px 60px;
 	background-position: 0 0, 30px 30px;*/
 }
@@ -162,8 +166,8 @@ a:hover {
 	margin: -20px;
 	/*border-radius: 20px;*/
 	border-radius: 10px;
-	background-color: hsl(160, 50%, 90%);
-	box-shadow: 4px 0px 0px hsl(0, 0%, 20%);
+	background-color: hsl(160, 50%, 100%);
+	/*box-shadow: 4px 0px 0px hsl(0, 0%, 20%);*/
 }
 .pokercard:first-child {
 	padding-left: 10px;
@@ -178,24 +182,24 @@ a:hover {
 /* table decorations */
 #tableDiv {
 	/* red stripe */
-	border-top: 25px solid hsl(10, 75%, 30%);
+	/*border-top: 25px solid hsl(10, 75%, 30%);*/
 	/*border-top: 25px solid hsl(0, 50%, 30%);*/
 
-	border-bottom-right-radius: 40%;
-	border-bottom-left-radius: 40%;
+	border-bottom-right-radius: 25%;
+	border-bottom-left-radius: 25%;
 
 /*	border-color: hsl(0, 0%, 20%);
 	margin-left: 20px;
 	margin-right: 20px;*/
 }
 #optionButtons {
-	border-bottom-right-radius: 100%;
-	border-bottom-left-radius: 100%;
-	padding-bottom:20px !important; 
+	border-bottom-right-radius: 25%;
+	border-bottom-left-radius: 25%;
+	padding-bottom: 20px !important; 
 }
 #optionButtons, #tableDiv {
 	/* gold ring */
-	border-bottom: 10px solid hsl(40, 100%, 40%);
+	/*border-bottom: 5px solid hsl(40, 100%, 40%);*/
 }
 #outerTableDiv {
 	background-color: hsl(0, 0%, 20%);
@@ -214,7 +218,7 @@ button {
 	/*font-weight: 600 !important;*/
 }
 button:not(.close) {
-	box-shadow: 5px 5px hsl(0, 0%, 10%);
+	/*box-shadow: 5px 5px hsl(0, 0%, 10%);*/
 }
 button.close, button.close:hover, button.close:focus {
 	opacity: 1 !important;
@@ -238,13 +242,15 @@ button:disabled {
 	opacity: 1 !important;
 }
 #optionButtons button {
-	padding-left: 20px;
-	padding-right: 20px;
+	padding: 10px;
+	width: 120px;
+/*	padding-left: 30px;
+	padding-right: 30px;*/
 }
 #fullscreenButton {
-	position : absolute;
-	top : 0;
-	right : 0;
+	position: absolute;
+	top: 0;
+	right: 30px;
 }
 label:hover {
 	color: hsl(160, 75%, 30%) !important;
@@ -271,9 +277,13 @@ summary:focus, summary:hover {
 	background-color: hsl(0, 50%, 30%);
 }
 
+#cookieAlert {
+	margin: 0;
+}
+
 /* modals */
 .modal-content {
-	background-color: hsl(160, 50%, 90%);
+	background-color: hsl(160, 50%, 100%);
 	border-radius: 0px;
 	font-size: 100%;
 }
@@ -341,7 +351,7 @@ th {
 }
 tr:hover td {
 	cursor: default;
-	background-color: #fff;
+	opacity: 0.8;
 }
 
 /* odds bars */
@@ -385,7 +395,7 @@ tr:hover td {
 	cursor: pointer;
 }
 .clickable-card:hover, .clickable-card.active {
-	color: hsl(20, 75%, 30%) !important;
+	color: hsl(160, 75%, 30%) !important;
 }
 .drag-area {
 	display: inline-block !important;
@@ -393,7 +403,7 @@ tr:hover td {
 	margin: 10px;
 	height: 200px;
 	width: 100%;
-	border: 2px solid hsl(20, 75%, 30%);
+	border: 2px solid hsl(160, 75%, 30%);
 }
 .drag-area:hover {
 	background-color: #fff;
